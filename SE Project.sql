@@ -86,6 +86,23 @@ CREATE TABLE "User_role" (
   "user_id" integer NOT NULL
 );
 
+CREATE TABLE "News" (
+  'id' integer PRIMARY KEY,
+  'title' varchar NOT NULL,
+  'description' varchar NULL,
+  'date' timestamp NOT NULL
+);
+
+CREATE TABLE "Action_logs" (
+  'id' integer PRIMARY KEY,
+  'action' varchar NOT NULL,
+  'date' timestamp NOT NULL,
+  'user_id' integer NOT NULL
+  'type' varchar NOT NULL,
+);
+
+
+
 ALTER TABLE "User_role" ADD FOREIGN KEY ("role_id") REFERENCES "Role" ("role_id");
 
 ALTER TABLE "User_role" ADD FOREIGN KEY ("user_id") REFERENCES "User" ("user_id");
