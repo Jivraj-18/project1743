@@ -1,0 +1,76 @@
+/api/login (post)
+
+{
+  "email": "user@example.com"
+}
+
+
+/api/logout (get)
+
+/api/report (post)
+
+{
+  "student_id": 1,
+  "rating": 4,
+  "review": "Found an issue with content",
+  "content_id": 1
+}
+
+/api/mycourses/1/ (get)
+
+/api/course/1/content (get)
+
+/api/assignment/answers (post)
+
+{
+  "assignment_id": 1,
+  "student_id": 1,
+  "answers": {
+    "1": "A",
+    "2": "C"
+  }
+}
+
+/api/assignment/1 (get)
+
+/api/question (post)
+
+{
+  "type": "MCQ",
+  "assignment_id": 5,
+  "question": "What is AI?",
+  "options": ["A", "B", "C", "D"],
+  "correct_options": "B",
+  "marks": 5,
+  "hints": "Think about automation",
+  "text_solution": "Explanation here"
+}
+
+/api/question/1 (put)
+
+{
+  "question": "What is Machine Learning?",
+  "marks": 6
+}
+
+
+/api/results/1 (get)
+
+/api/students/1 (get)
+
+/api/content (put)
+
+{
+  "course_id": 101,
+  "content_type": "PDF",
+  "url": "http://link.com/resource.pdf",
+  "transcript_url": "http://link.com/transcript.pdf"
+}
+
+
+/api/content/1 (put)
+
+{
+  "url": "http://link.com/updated.pdf"
+}
+
