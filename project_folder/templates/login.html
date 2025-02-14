@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <!-- (Optional) Bootstrap Icons for the eye icon -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  />
+
+  <style>
+    /* Page background */
+    body {
+      background-color: #eceff1; /* light gray */
+    }
+
+    /* Center the login card vertically */
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    /* Top line and "Login" text */
+    .top-line {
+      width: 100%;
+      border-bottom: 1px solid #000;
+      margin-bottom: 2rem;
+    }
+
+    /* Card styling to match the wireframe */
+    .login-card {
+      background-color: #ccc;
+      border-radius: 8px;
+      padding: 2rem;
+      width: 300px; /* fixed width example; adjust as needed */
+      text-align: center;
+    }
+    .login-card h3 {
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .divider {
+      margin: 1.5rem 0;
+      border-bottom: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+
+  <!-- Login Card -->
+  <div class="login-card">
+    <h3>LOGIN</h3>
+
+    <!-- Email field -->
+    <div class="mb-3">
+      <input
+        type="email"
+        class="form-control"
+        placeholder="Email"
+        aria-label="Email"
+      />
+    </div>
+
+    <!-- Password field (with eye icon to toggle visibility) -->
+    <div class="input-group mb-3">
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Password"
+        aria-label="Password"
+        id="passwordInput"
+      />
+      <button
+        class="btn btn-outline-secondary"
+        type="button"
+        id="togglePasswordBtn"
+      >
+        <i class="bi bi-eye"></i>
+      </button>
+    </div>
+
+    <!-- Sign In button -->
+    <button class="btn btn-dark w-100 mb-3">Sign In</button>
+
+    <!-- Divider line -->
+    <div class="divider"></div>
+
+    <!-- Google Sign In button -->
+    <button class="btn btn-dark w-100">
+      <i class="bi bi-google me-2"></i> Sign in with Google
+    </button>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+></script>
+
+<script>
+// Toggle password visibility
+const passwordInput = document.getElementById('passwordInput');
+const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+const toggleIcon = togglePasswordBtn.querySelector('i');
+
+togglePasswordBtn.addEventListener('click', () => {
+  const isPassword = passwordInput.type === 'password';
+  passwordInput.type = isPassword ? 'text' : 'password';
+  toggleIcon.classList.toggle('bi-eye', !isPassword);
+  toggleIcon.classList.toggle('bi-eye-slash', isPassword);
+});
+</script>
+
+</body>
+</html>
