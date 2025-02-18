@@ -80,6 +80,7 @@ class Content(Base):
     content_type = Column(String, nullable=False)
     url = Column(String, unique=True)
     transcript_url = Column(String, unique=True)
+    ai_summary = Column(String)
 
     course = relationship('Course')
 
@@ -113,6 +114,7 @@ class AssignmentStudent(Base):
     assignment_id = Column(ForeignKey('Assignment.assignment_id'))
     student_id = Column(ForeignKey('Student.student_id'))
     marks_answers = Column(String, nullable=False)
+    submission_date = Column(DateTime, nullable=False)
 
     assignment = relationship('Assignment')
     student = relationship('Student')
@@ -121,12 +123,10 @@ class Feedback(Base):
     __tablename__ = 'Feedback'
     feedback_id = Column(Integer, primary_key=True, autoincrement=True)
     type = Column(String, nullable=False)
-    rating = Column(Integer) 
-    review = Column(String)  
-    content_id = Column(ForeignKey('Content.content_id'), nullable=True)
-    student_id = Column(ForeignKey('Student.student_id'), nullable=False) 
-
-    content = relationship('Content') 
+    student_id = Column(ForeignKey('Student.student_id'), nullable=False)
+    subject = Column(String, nullable=False)
+    description = Column(String, nullable=False)
+ 
     student = relationship('Student')
 
 class ActionLog(Base):
@@ -139,9 +139,34 @@ class ActionLog(Base):
 
     user = relationship('User') 
 
-class News(Base):
+class Event(Base):
     __tablename__ = 'News'
     news_id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(ForeignKey('User.user_id'), nullable=False) 
     title = Column(String) 
     date = Column(DateTime, nullable=False) 
-    description = Column(String)  
+    description = Column(String)
+    deadline = Column(DateTime, nullable=False)
+
+    user = relationship('User') 
+
+class UserTask(Base):
+    __tablename__ = 'User_task'
+    task_id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(ForeignKey('User.user_id'), nullable=False) 
+    title = Column(String) 
+    description = Column(String)
+    task_date = Column(DateTime, nullable=False)
+
+    user = relationship('User') 
+
+class StarredQuestion(Base):
+    __tablename__ = 'Starred_question'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    student_id = Column(ForeignKey('Student.student_id'), nullable=False)
+    question_id = Column(ForeignKey('Question.question_id'), nullable=False)
+    starred = Column(Boolean, default=True)
+
+    student = relationship('Student')
+    question = relationship('Question')
+
