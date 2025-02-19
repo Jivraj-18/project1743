@@ -264,6 +264,15 @@ class EditContent(Resource):
         db.session.commit()
         return {'message': 'Content updated successfully'}
 
+
+class random(Resource):
+    def get(self):
+        return {  "ramdom" : "Hello There!!" }
+
+
+
+api.add_resource(random, '/random')
+
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(Report, '/report')
