@@ -1,0 +1,1332 @@
+{
+  "1": {
+    "1": {
+      "graded_assignments": {
+        "dueDate": "28th January 2024, 11:59 pm",
+        "lastSubmitted": "21st January 2024",
+        "stat": {
+          "avgAttempted": 90,
+          "avgCorrect": 85,
+          "avgIncorrect": 15
+        },
+        "questions": [
+          {
+            "questionNumber": 1,
+            "questionText": "What is the capital of France?",
+            "options": [
+              { "id": "optionA", "text": "Berlin" },
+              { "id": "optionB", "text": "Madrid" },
+              { "id": "optionC", "text": "Paris" }
+            ],
+            "correctAnswer": "optionC",
+            "stats": {
+              "attempted": 80,
+              "correct": 70,
+              "incorrect": 30
+            }
+          },
+          {
+            "questionNumber": 2,
+            "questionText": "Which keyword is used to define a function in Python?",
+            "options": [
+              { "id": "optionA", "text": "function" },
+              { "id": "optionB", "text": "def" },
+              { "id": "optionC", "text": "fun" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 75,
+              "correct": 65,
+              "incorrect": 35
+            }
+          },
+          {
+            "questionNumber": 3,
+            "questionText": "Which keyword is used to define a function in Python?",
+            "options": [
+              { "id": "optionA", "text": "function" },
+              { "id": "optionB", "text": "def" },
+              { "id": "optionC", "text": "fun" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 75,
+              "correct": 65,
+              "incorrect": 35
+            }
+          },
+          {
+            "questionNumber": 4,
+            "questionText": "Which keyword is used to define a function in Python?",
+            "options": [
+              { "id": "optionA", "text": "function" },
+              { "id": "optionB", "text": "def" },
+              { "id": "optionC", "text": "fun" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 75,
+              "correct": 65,
+              "incorrect": 35
+            }
+          },
+          {
+            "questionNumber": 5,
+            "questionText": "Which keyword is used to define a function in Python?",
+            "options": [
+              { "id": "optionA", "text": "function" },
+              { "id": "optionB", "text": "def" },
+              { "id": "optionC", "text": "fun" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 75,
+              "correct": 65,
+              "incorrect": 35
+            }
+          },
+          {
+            "questionNumber": 6,
+            "questionText": "Which keyword is used to define a function in Python?",
+            "options": [
+              { "id": "optionA", "text": "function" },
+              { "id": "optionB", "text": "def" },
+              { "id": "optionC", "text": "fun" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 75,
+              "correct": 65,
+              "incorrect": 35
+            }
+          },
+          {
+            "questionNumber": 7,
+            "questionText": "Which keyword is used to define a function in Python?",
+            "options": [
+              { "id": "optionA", "text": "function" },
+              { "id": "optionB", "text": "def" },
+              { "id": "optionC", "text": "fun" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 75,
+              "correct": 65,
+              "incorrect": 35
+            }
+          },
+          {
+            "questionNumber": 8,
+            "questionText": "Which keyword is used to define a function in Python?",
+            "options": [
+              { "id": "optionA", "text": "function" },
+              { "id": "optionB", "text": "def" },
+              { "id": "optionC", "text": "fun" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 75,
+              "correct": 65,
+              "incorrect": 35
+            }
+          },
+          {
+            "questionNumber": 9,
+            "questionText": "Which keyword is used to define a function in Python?",
+            "options": [
+              { "id": "optionA", "text": "function" },
+              { "id": "optionB", "text": "def" },
+              { "id": "optionC", "text": "fun" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 75,
+              "correct": 65,
+              "incorrect": 35
+            }
+          },
+          {
+            "questionNumber": 10,
+            "questionText": "Which keyword is used to define a function in Python?",
+            "options": [
+              { "id": "optionA", "text": "function" },
+              { "id": "optionB", "text": "def" },
+              { "id": "optionC", "text": "fun" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 75,
+              "correct": 65,
+              "incorrect": 35
+            }
+          }
+        ]
+      },
+      "practice_assignments": {
+        "dueDate": "No Deadline",
+        "lastSubmitted": "Not Applicable",
+        "stat": {
+          "avgAttempted": 70,
+          "avgCorrect": 65,
+          "avgIncorrect": 35
+        },
+        "questions": [
+          {
+            "questionNumber": 1,
+            "questionText": "Solve for x: 2x + 3 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 1" },
+              { "id": "optionB", "text": "x = 2" },
+              { "id": "optionC", "text": "x = 3" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 60,
+              "correct": 50,
+              "incorrect": 50
+            }
+          },
+          {
+            "questionNumber": 2,
+            "questionText": "What does the expression 3 * 2 evaluate to?",
+            "options": [
+              { "id": "optionA", "text": "5" },
+              { "id": "optionB", "text": "6" },
+              { "id": "optionC", "text": "7" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 55,
+              "correct": 45,
+              "incorrect": 50
+            }
+          },
+          {
+            "questionNumber": 3,
+            "questionText": "Solve for x: 2x + 3 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 1" },
+              { "id": "optionB", "text": "x = 2" },
+              { "id": "optionC", "text": "x = 3" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 60,
+              "correct": 50,
+              "incorrect": 50
+            }
+          },
+          {
+            "questionNumber": 4,
+            "questionText": "Solve for x: 2x + 3 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 1" },
+              { "id": "optionB", "text": "x = 2" },
+              { "id": "optionC", "text": "x = 3" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 60,
+              "correct": 50,
+              "incorrect": 50
+            }
+          },
+          {
+            "questionNumber": 5,
+            "questionText": "Solve for x: 2x + 3 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 1" },
+              { "id": "optionB", "text": "x = 2" },
+              { "id": "optionC", "text": "x = 3" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 60,
+              "correct": 50,
+              "incorrect": 50
+            }
+          },
+          {
+            "questionNumber": 6,
+            "questionText": "Solve for x: 2x + 3 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 1" },
+              { "id": "optionB", "text": "x = 2" },
+              { "id": "optionC", "text": "x = 3" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 60,
+              "correct": 50,
+              "incorrect": 50
+            }
+          },
+          {
+            "questionNumber": 7,
+            "questionText": "What does the expression 3 * 2 evaluate to?",
+            "options": [
+              { "id": "optionA", "text": "5" },
+              { "id": "optionB", "text": "6" },
+              { "id": "optionC", "text": "7" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 55,
+              "correct": 45,
+              "incorrect": 50
+            }
+          },
+          {
+            "questionNumber": 8,
+            "questionText": "What does the expression 3 * 2 evaluate to?",
+            "options": [
+              { "id": "optionA", "text": "5" },
+              { "id": "optionB", "text": "6" },
+              { "id": "optionC", "text": "7" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 55,
+              "correct": 45,
+              "incorrect": 50
+            }
+          },
+          {
+            "questionNumber": 9,
+            "questionText": "What does the expression 3 * 2 evaluate to?",
+            "options": [
+              { "id": "optionA", "text": "5" },
+              { "id": "optionB", "text": "6" },
+              { "id": "optionC", "text": "7" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 55,
+              "correct": 45,
+              "incorrect": 50
+            }
+          },
+          {
+            "questionNumber": 10,
+            "questionText": "What does the expression 3 * 2 evaluate to?",
+            "options": [
+              { "id": "optionA", "text": "5" },
+              { "id": "optionB", "text": "6" },
+              { "id": "optionC", "text": "7" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 55,
+              "correct": 45,
+              "incorrect": 50
+            }
+          }
+        ]
+      }
+    },
+    "2": {
+      "graded_assignments": {
+        "dueDate": "05th February 2024, 11:59 pm",
+        "lastSubmitted": "29th January 2024",
+        "stat": {
+          "avgAttempted": 88,
+          "avgCorrect": 80,
+          "avgIncorrect": 12
+        },
+        "questions": [
+          {
+            "questionNumber": 1,
+            "questionText": "What is a list comprehension?",
+            "options": [
+              { "id": "optionA", "text": "A way to create lists" },
+              { "id": "optionB", "text": "A type of function" },
+              { "id": "optionC", "text": "A module" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 82,
+              "correct": 72,
+              "incorrect": 28
+            }
+          },
+          {
+            "questionNumber": 2,
+            "questionText": "What is a list comprehension?",
+            "options": [
+              { "id": "optionA", "text": "A way to create lists" },
+              { "id": "optionB", "text": "A type of function" },
+              { "id": "optionC", "text": "A module" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 82,
+              "correct": 72,
+              "incorrect": 28
+            }
+          },
+          {
+            "questionNumber": 3,
+            "questionText": "What is a list comprehension?",
+            "options": [
+              { "id": "optionA", "text": "A way to create lists" },
+              { "id": "optionB", "text": "A type of function" },
+              { "id": "optionC", "text": "A module" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 82,
+              "correct": 72,
+              "incorrect": 28
+            }
+          },
+          {
+            "questionNumber": 4,
+            "questionText": "What is a list comprehension?",
+            "options": [
+              { "id": "optionA", "text": "A way to create lists" },
+              { "id": "optionB", "text": "A type of function" },
+              { "id": "optionC", "text": "A module" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 82,
+              "correct": 72,
+              "incorrect": 28
+            }
+          },
+          {
+            "questionNumber": 5,
+            "questionText": "What is a list comprehension?",
+            "options": [
+              { "id": "optionA", "text": "A way to create lists" },
+              { "id": "optionB", "text": "A type of function" },
+              { "id": "optionC", "text": "A module" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 82,
+              "correct": 72,
+              "incorrect": 28
+            }
+          },
+          {
+            "questionNumber": 6,
+            "questionText": "What is a list comprehension?",
+            "options": [
+              { "id": "optionA", "text": "A way to create lists" },
+              { "id": "optionB", "text": "A type of function" },
+              { "id": "optionC", "text": "A module" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 82,
+              "correct": 72,
+              "incorrect": 28
+            }
+          },
+          {
+            "questionNumber": 7,
+            "questionText": "What is a list comprehension?",
+            "options": [
+              { "id": "optionA", "text": "A way to create lists" },
+              { "id": "optionB", "text": "A type of function" },
+              { "id": "optionC", "text": "A module" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 82,
+              "correct": 72,
+              "incorrect": 28
+            }
+          },
+          {
+            "questionNumber": 8,
+            "questionText": "What is a list comprehension?",
+            "options": [
+              { "id": "optionA", "text": "A way to create lists" },
+              { "id": "optionB", "text": "A type of function" },
+              { "id": "optionC", "text": "A module" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 82,
+              "correct": 72,
+              "incorrect": 28
+            }
+          },
+          {
+            "questionNumber": 9,
+            "questionText": "What is a list comprehension?",
+            "options": [
+              { "id": "optionA", "text": "A way to create lists" },
+              { "id": "optionB", "text": "A type of function" },
+              { "id": "optionC", "text": "A module" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 82,
+              "correct": 72,
+              "incorrect": 28
+            }
+          },
+          {
+            "questionNumber": 10,
+            "questionText": "What is a list comprehension?",
+            "options": [
+              { "id": "optionA", "text": "A way to create lists" },
+              { "id": "optionB", "text": "A type of function" },
+              { "id": "optionC", "text": "A module" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 82,
+              "correct": 72,
+              "incorrect": 28
+            }
+          }
+        ]
+      },
+      "practice_assignments": {
+        "dueDate": "No Deadline",
+        "lastSubmitted": "Not Applicable",
+        "stat": {
+          "avgAttempted": 75,
+          "avgCorrect": 70,
+          "avgIncorrect": 30
+        },
+        "questions": [
+          {
+            "questionNumber": 1,
+            "questionText": "Write a one-liner to reverse a list.",
+            "options": [
+              { "id": "optionA", "text": "list[::-1]" },
+              { "id": "optionB", "text": "reverse(list)" },
+              { "id": "optionC", "text": "list.reverse()" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 65,
+              "correct": 55,
+              "incorrect": 45
+            }
+          },
+          {
+            "questionNumber": 2,
+            "questionText": "Write a one-liner to reverse a list.",
+            "options": [
+              { "id": "optionA", "text": "list[::-1]" },
+              { "id": "optionB", "text": "reverse(list)" },
+              { "id": "optionC", "text": "list.reverse()" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 65,
+              "correct": 55,
+              "incorrect": 45
+            }
+          },
+          {
+            "questionNumber": 3,
+            "questionText": "Write a one-liner to reverse a list.",
+            "options": [
+              { "id": "optionA", "text": "list[::-1]" },
+              { "id": "optionB", "text": "reverse(list)" },
+              { "id": "optionC", "text": "list.reverse()" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 65,
+              "correct": 55,
+              "incorrect": 45
+            }
+          },
+          {
+            "questionNumber": 4,
+            "questionText": "Write a one-liner to reverse a list.",
+            "options": [
+              { "id": "optionA", "text": "list[::-1]" },
+              { "id": "optionB", "text": "reverse(list)" },
+              { "id": "optionC", "text": "list.reverse()" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 65,
+              "correct": 55,
+              "incorrect": 45
+            }
+          },
+          {
+            "questionNumber": 5,
+            "questionText": "Write a one-liner to reverse a list.",
+            "options": [
+              { "id": "optionA", "text": "list[::-1]" },
+              { "id": "optionB", "text": "reverse(list)" },
+              { "id": "optionC", "text": "list.reverse()" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 65,
+              "correct": 55,
+              "incorrect": 45
+            }
+          },
+          {
+            "questionNumber": 6,
+            "questionText": "Write a one-liner to reverse a list.",
+            "options": [
+              { "id": "optionA", "text": "list[::-1]" },
+              { "id": "optionB", "text": "reverse(list)" },
+              { "id": "optionC", "text": "list.reverse()" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 65,
+              "correct": 55,
+              "incorrect": 45
+            }
+          },
+          {
+            "questionNumber": 7,
+            "questionText": "Write a one-liner to reverse a list.",
+            "options": [
+              { "id": "optionA", "text": "list[::-1]" },
+              { "id": "optionB", "text": "reverse(list)" },
+              { "id": "optionC", "text": "list.reverse()" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 65,
+              "correct": 55,
+              "incorrect": 45
+            }
+          },
+          {
+            "questionNumber": 8,
+            "questionText": "Write a one-liner to reverse a list.",
+            "options": [
+              { "id": "optionA", "text": "list[::-1]" },
+              { "id": "optionB", "text": "reverse(list)" },
+              { "id": "optionC", "text": "list.reverse()" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 65,
+              "correct": 55,
+              "incorrect": 45
+            }
+          },
+          {
+            "questionNumber": 9,
+            "questionText": "Write a one-liner to reverse a list.",
+            "options": [
+              { "id": "optionA", "text": "list[::-1]" },
+              { "id": "optionB", "text": "reverse(list)" },
+              { "id": "optionC", "text": "list.reverse()" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 65,
+              "correct": 55,
+              "incorrect": 45
+            }
+          },
+          {
+            "questionNumber": 10,
+            "questionText": "Write a one-liner to reverse a list.",
+            "options": [
+              { "id": "optionA", "text": "list[::-1]" },
+              { "id": "optionB", "text": "reverse(list)" },
+              { "id": "optionC", "text": "list.reverse()" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 65,
+              "correct": 55,
+              "incorrect": 45
+            }
+          }
+        ]
+      }
+    }
+  },
+  "2": {
+    "1": {
+      "graded_assignments": {
+        "stat": {
+          "avgAttempted": 90,
+          "avgCorrect": 80,
+          "avgIncorrect": 10
+        },
+        "dueDate": "28th January 2024, 11:59 pm",
+        "lastSubmitted": "21st January 2024",
+        "questions": [
+          {
+            "questionNumber": 1,
+            "questionText": "What is the derivative of x²?",
+            "options": [
+              { "id": "optionA", "text": "2x" },
+              { "id": "optionB", "text": "x" },
+              { "id": "optionC", "text": "x²" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 85,
+              "correct": 75,
+              "incorrect": 25
+            }
+          },
+          {
+            "questionNumber": 2,
+            "questionText": "What is the derivative of x²?",
+            "options": [
+              { "id": "optionA", "text": "2x" },
+              { "id": "optionB", "text": "x" },
+              { "id": "optionC", "text": "x²" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 85,
+              "correct": 75,
+              "incorrect": 25
+            }
+          },
+          {
+            "questionNumber": 3,
+            "questionText": "What is the derivative of x²?",
+            "options": [
+              { "id": "optionA", "text": "2x" },
+              { "id": "optionB", "text": "x" },
+              { "id": "optionC", "text": "x²" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 85,
+              "correct": 75,
+              "incorrect": 25
+            }
+          },
+          {
+            "questionNumber": 4,
+            "questionText": "What is the derivative of x²?",
+            "options": [
+              { "id": "optionA", "text": "2x" },
+              { "id": "optionB", "text": "x" },
+              { "id": "optionC", "text": "x²" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 85,
+              "correct": 75,
+              "incorrect": 25
+            }
+          },
+          {
+            "questionNumber": 5,
+            "questionText": "What is the derivative of x²?",
+            "options": [
+              { "id": "optionA", "text": "2x" },
+              { "id": "optionB", "text": "x" },
+              { "id": "optionC", "text": "x²" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 85,
+              "correct": 75,
+              "incorrect": 25
+            }
+          },
+          {
+            "questionNumber": 6,
+            "questionText": "What is the derivative of x²?",
+            "options": [
+              { "id": "optionA", "text": "2x" },
+              { "id": "optionB", "text": "x" },
+              { "id": "optionC", "text": "x²" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 85,
+              "correct": 75,
+              "incorrect": 25
+            }
+          },
+          {
+            "questionNumber": 7,
+            "questionText": "What is the derivative of x²?",
+            "options": [
+              { "id": "optionA", "text": "2x" },
+              { "id": "optionB", "text": "x" },
+              { "id": "optionC", "text": "x²" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 85,
+              "correct": 75,
+              "incorrect": 25
+            }
+          },
+          {
+            "questionNumber": 8,
+            "questionText": "What is the derivative of x²?",
+            "options": [
+              { "id": "optionA", "text": "2x" },
+              { "id": "optionB", "text": "x" },
+              { "id": "optionC", "text": "x²" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 85,
+              "correct": 75,
+              "incorrect": 25
+            }
+          },
+          {
+            "questionNumber": 9,
+            "questionText": "What is the derivative of x²?",
+            "options": [
+              { "id": "optionA", "text": "2x" },
+              { "id": "optionB", "text": "x" },
+              { "id": "optionC", "text": "x²" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 85,
+              "correct": 75,
+              "incorrect": 25
+            }
+          },
+          {
+            "questionNumber": 10,
+            "questionText": "What is the derivative of x²?",
+            "options": [
+              { "id": "optionA", "text": "2x" },
+              { "id": "optionB", "text": "x" },
+              { "id": "optionC", "text": "x²" }
+            ],
+            "correctAnswer": "optionA",
+
+            "stats": {
+              "attempted": 85,
+              "correct": 75,
+              "incorrect": 25
+            }
+          }
+        ]
+      },
+      "practice_assignments": {
+        "dueDate": "No Deadline",
+        "lastSubmitted": "Not Applicable",
+        "stat": {
+          "avgAttempted": 75,
+          "avgCorrect": 70,
+          "avgIncorrect": 30
+        },
+        "questions": [
+          {
+            "questionNumber": 1,
+            "questionText": "Solve for x: 3x - 2 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 3" },
+              { "id": "optionB", "text": "x = 4" },
+              { "id": "optionC", "text": "x = 5" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 70,
+              "correct": 60,
+              "incorrect": 40
+            }
+          },
+          {
+            "questionNumber": 2,
+            "questionText": "Solve for x: 3x - 2 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 3" },
+              { "id": "optionB", "text": "x = 4" },
+              { "id": "optionC", "text": "x = 5" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 70,
+              "correct": 60,
+              "incorrect": 40
+            }
+          },
+          {
+            "questionNumber": 3,
+            "questionText": "Solve for x: 3x - 2 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 3" },
+              { "id": "optionB", "text": "x = 4" },
+              { "id": "optionC", "text": "x = 5" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 70,
+              "correct": 60,
+              "incorrect": 40
+            }
+          },
+          {
+            "questionNumber": 4,
+            "questionText": "Solve for x: 3x - 2 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 3" },
+              { "id": "optionB", "text": "x = 4" },
+              { "id": "optionC", "text": "x = 5" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 70,
+              "correct": 60,
+              "incorrect": 40
+            }
+          },
+          {
+            "questionNumber": 5,
+            "questionText": "Solve for x: 3x - 2 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 3" },
+              { "id": "optionB", "text": "x = 4" },
+              { "id": "optionC", "text": "x = 5" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 70,
+              "correct": 60,
+              "incorrect": 40
+            }
+          },
+          {
+            "questionNumber": 6,
+            "questionText": "Solve for x: 3x - 2 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 3" },
+              { "id": "optionB", "text": "x = 4" },
+              { "id": "optionC", "text": "x = 5" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 70,
+              "correct": 60,
+              "incorrect": 40
+            }
+          },
+          {
+            "questionNumber": 7,
+            "questionText": "Solve for x: 3x - 2 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 3" },
+              { "id": "optionB", "text": "x = 4" },
+              { "id": "optionC", "text": "x = 5" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 70,
+              "correct": 60,
+              "incorrect": 40
+            }
+          },
+          {
+            "questionNumber": 8,
+            "questionText": "Solve for x: 3x - 2 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 3" },
+              { "id": "optionB", "text": "x = 4" },
+              { "id": "optionC", "text": "x = 5" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 70,
+              "correct": 60,
+              "incorrect": 40
+            }
+          },
+          {
+            "questionNumber": 9,
+            "questionText": "Solve for x: 3x - 2 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 3" },
+              { "id": "optionB", "text": "x = 4" },
+              { "id": "optionC", "text": "x = 5" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 70,
+              "correct": 60,
+              "incorrect": 40
+            }
+          },
+          {
+            "questionNumber": 10,
+            "questionText": "Solve for x: 3x - 2 = 7",
+            "options": [
+              { "id": "optionA", "text": "x = 3" },
+              { "id": "optionB", "text": "x = 4" },
+              { "id": "optionC", "text": "x = 5" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 70,
+              "correct": 60,
+              "incorrect": 40
+            }
+          }
+        ]
+      }
+    },
+    "2": {
+      "graded_assignments": {
+        "dueDate": "05th February 2024, 11:59 pm",
+        "lastSubmitted": "29th January 2024",
+        "stat": {
+          "avgAttempted": 85,
+          "avgCorrect": 75,
+          "avgIncorrect": 10
+        },
+        "questions": [
+          {
+            "questionNumber": 1,
+            "questionText": "What is the integral of 2x?",
+            "options": [
+              { "id": "optionA", "text": "x² + C" },
+              { "id": "optionB", "text": "2x + C" },
+              { "id": "optionC", "text": "x + C" }
+            ],
+            "correctAnswer": "optionA",
+            "stats": {
+              "attempted": 80,
+              "correct": 70,
+              "incorrect": 30
+            }
+          },
+          {
+            "questionNumber": 2,
+            "questionText": "What is the integral of 2x?",
+            "options": [
+              { "id": "optionA", "text": "x² + C" },
+              { "id": "optionB", "text": "2x + C" },
+              { "id": "optionC", "text": "x + C" }
+            ],
+            "correctAnswer": "optionA",
+            "stats": {
+              "attempted": 80,
+              "correct": 70,
+              "incorrect": 30
+            }
+          },
+          {
+            "questionNumber": 3,
+            "questionText": "What is the integral of 2x?",
+            "options": [
+              { "id": "optionA", "text": "x² + C" },
+              { "id": "optionB", "text": "2x + C" },
+              { "id": "optionC", "text": "x + C" }
+            ],
+            "correctAnswer": "optionA",
+            "stats": {
+              "attempted": 80,
+              "correct": 70,
+              "incorrect": 30
+            }
+          },
+          {
+            "questionNumber": 4,
+            "questionText": "What is the integral of 2x?",
+            "options": [
+              { "id": "optionA", "text": "x² + C" },
+              { "id": "optionB", "text": "2x + C" },
+              { "id": "optionC", "text": "x + C" }
+            ],
+            "correctAnswer": "optionA",
+            "stats": {
+              "attempted": 80,
+              "correct": 70,
+              "incorrect": 30
+            }
+          },
+          {
+            "questionNumber": 5,
+            "questionText": "What is the integral of 2x?",
+            "options": [
+              { "id": "optionA", "text": "x² + C" },
+              { "id": "optionB", "text": "2x + C" },
+              { "id": "optionC", "text": "x + C" }
+            ],
+            "correctAnswer": "optionA",
+            "stats": {
+              "attempted": 80,
+              "correct": 70,
+              "incorrect": 30
+            }
+          },
+          {
+            "questionNumber": 6,
+            "questionText": "What is the integral of 2x?",
+            "options": [
+              { "id": "optionA", "text": "x² + C" },
+              { "id": "optionB", "text": "2x + C" },
+              { "id": "optionC", "text": "x + C" }
+            ],
+            "correctAnswer": "optionA",
+            "stats": {
+              "attempted": 80,
+              "correct": 70,
+              "incorrect": 30
+            }
+          },
+          {
+            "questionNumber": 7,
+            "questionText": "What is the integral of 2x?",
+            "options": [
+              { "id": "optionA", "text": "x² + C" },
+              { "id": "optionB", "text": "2x + C" },
+              { "id": "optionC", "text": "x + C" }
+            ],
+            "correctAnswer": "optionA",
+            "stats": {
+              "attempted": 80,
+              "correct": 70,
+              "incorrect": 30
+            }
+          },
+          {
+            "questionNumber": 8,
+            "questionText": "What is the integral of 2x?",
+            "options": [
+              { "id": "optionA", "text": "x² + C" },
+              { "id": "optionB", "text": "2x + C" },
+              { "id": "optionC", "text": "x + C" }
+            ],
+            "correctAnswer": "optionA",
+            "stats": {
+              "attempted": 80,
+              "correct": 70,
+              "incorrect": 30
+            }
+          },
+          {
+            "questionNumber": 9,
+            "questionText": "What is the integral of 2x?",
+            "options": [
+              { "id": "optionA", "text": "x² + C" },
+              { "id": "optionB", "text": "2x + C" },
+              { "id": "optionC", "text": "x + C" }
+            ],
+            "correctAnswer": "optionA",
+            "stats": {
+              "attempted": 80,
+              "correct": 70,
+              "incorrect": 30
+            }
+          },
+          {
+            "questionNumber": 10,
+            "questionText": "What is the integral of 2x?",
+            "options": [
+              { "id": "optionA", "text": "x² + C" },
+              { "id": "optionB", "text": "2x + C" },
+              { "id": "optionC", "text": "x + C" }
+            ],
+            "correctAnswer": "optionA",
+            "stats": {
+              "attempted": 80,
+              "correct": 70,
+              "incorrect": 30
+            }
+          }
+        ]
+      },
+      "practice_assignments": {
+        "dueDate": "No Deadline",
+        "lastSubmitted": "Not Applicable",
+        "stat": {
+          "avgAttempted": 78,
+          "avgCorrect": 70,
+          "avgIncorrect": 20
+        },
+        "questions": [
+          {
+            "questionNumber": 1,
+            "questionText": "Simplify: (3+5) - 2",
+            "options": [
+              { "id": "optionA", "text": "6" },
+              { "id": "optionB", "text": "8" },
+              { "id": "optionC", "text": "10" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 68,
+              "correct": 58,
+              "incorrect": 42
+            }
+          },
+          {
+            "questionNumber": 2,
+            "questionText": "Simplify: (3+5) - 2",
+            "options": [
+              { "id": "optionA", "text": "6" },
+              { "id": "optionB", "text": "8" },
+              { "id": "optionC", "text": "10" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 68,
+              "correct": 58,
+              "incorrect": 42
+            }
+          },
+          {
+            "questionNumber": 3,
+            "questionText": "Simplify: (3+5) - 2",
+            "options": [
+              { "id": "optionA", "text": "6" },
+              { "id": "optionB", "text": "8" },
+              { "id": "optionC", "text": "10" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 68,
+              "correct": 58,
+              "incorrect": 42
+            }
+          },
+          {
+            "questionNumber": 4,
+            "questionText": "Simplify: (3+5) - 2",
+            "options": [
+              { "id": "optionA", "text": "6" },
+              { "id": "optionB", "text": "8" },
+              { "id": "optionC", "text": "10" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 68,
+              "correct": 58,
+              "incorrect": 42
+            }
+          },
+          {
+            "questionNumber": 5,
+            "questionText": "Simplify: (3+5) - 2",
+            "options": [
+              { "id": "optionA", "text": "6" },
+              { "id": "optionB", "text": "8" },
+              { "id": "optionC", "text": "10" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 68,
+              "correct": 58,
+              "incorrect": 42
+            }
+          },
+          {
+            "questionNumber": 6,
+            "questionText": "Simplify: (3+5) - 2",
+            "options": [
+              { "id": "optionA", "text": "6" },
+              { "id": "optionB", "text": "8" },
+              { "id": "optionC", "text": "10" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 68,
+              "correct": 58,
+              "incorrect": 42
+            }
+          },
+          {
+            "questionNumber": 7,
+            "questionText": "Simplify: (3+5) - 2",
+            "options": [
+              { "id": "optionA", "text": "6" },
+              { "id": "optionB", "text": "8" },
+              { "id": "optionC", "text": "10" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 68,
+              "correct": 58,
+              "incorrect": 42
+            }
+          },
+          {
+            "questionNumber": 8,
+            "questionText": "Simplify: (3+5) - 2",
+            "options": [
+              { "id": "optionA", "text": "6" },
+              { "id": "optionB", "text": "8" },
+              { "id": "optionC", "text": "10" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 68,
+              "correct": 58,
+              "incorrect": 42
+            }
+          },
+          {
+            "questionNumber": 9,
+            "questionText": "Simplify: (3+5) - 2",
+            "options": [
+              { "id": "optionA", "text": "6" },
+              { "id": "optionB", "text": "8" },
+              { "id": "optionC", "text": "10" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 68,
+              "correct": 58,
+              "incorrect": 42
+            }
+          },
+          {
+            "questionNumber": 10,
+            "questionText": "Simplify: (3+5) - 2",
+            "options": [
+              { "id": "optionA", "text": "6" },
+              { "id": "optionB", "text": "8" },
+              { "id": "optionC", "text": "10" }
+            ],
+            "correctAnswer": "optionB",
+            "stats": {
+              "attempted": 68,
+              "correct": 58,
+              "incorrect": 42
+            }
+          }
+        ]
+      }
+    }
+  }
+}
