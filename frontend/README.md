@@ -33,5 +33,3 @@ Use the following credentials to log in:
 | **TA**       | `ta@example.com`       | `ta123`       |  
 
 ---
-
-This version improves readability, enhances formatting, and makes it more structured for easy navigation. 🚀 Let me know if you'd like any additional refinements!
