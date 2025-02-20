@@ -1,0 +1,224 @@
+{
+    "id": "1",
+    "title": "Python",
+    "weeks": [
+        {
+            "id": "1",
+            "title": "Week 1",
+            "lectures": [
+                {
+                    "lec_id": "lecture-1",
+                    "title": "L1.1 - Introduction",
+                    "type": "lecture"
+                },
+                {
+                    "lec_id": "lecture-2",
+                    "title": "L1.2 - Basics",
+                    "type": "lecture"
+                }
+            ],
+            "g_assignments": [
+                {
+                    "ga_id": "1",
+                    "title": "Graded Assignment 1",
+                    "type": "graded-assignment"
+                }
+            ],
+            "grp_assignments": [
+                {
+                    "grpa_id": "1",
+                    "title": "Graded Programming Assignment 1",
+                    "question_text": "Write a Python function to calculate the factorial of a number.",
+                    "public_test_cases": [
+                        {
+                            "input": "5",
+                            "expected_output": "120"
+                        },
+                        {
+                            "input": "0",
+                            "expected_output": "1"
+                        }
+                    ],
+                    "private_test_cases": [
+                        {
+                            "input": "7",
+                            "expected_output": "5040"
+                        },
+                        {
+                            "input": "3",
+                            "expected_output": "6"
+                        }
+                    ],
+                    "solution": "def factorial(n):\n  if n == 0:\n    return 1\n  else:\n    return n * factorial(n - 1)",
+                    "due_date": "2025-02-27",
+                    "last_submitted_date": "2025-02-20"
+                }
+            ],
+            "p_assignments": [
+                {
+                    "pa_id": "1",
+                    "title": "Practice Assignment 1",
+                    "type": "practice-assignment"
+                }
+            ],
+            "pp_assignments": [
+                {
+                    "ppa_id": "1",
+                    "title": "Practice Programming Assignment 1",
+                    "question_text": "Write a Python function to check if a string is a palindrome.",
+                    "public_test_cases": [
+                        {
+                            "input": "\"racecar\"",
+                            "expected_output": "True"
+                        },
+                        {
+                            "input": "\"hello\"",
+                            "expected_output": "False"
+                        }
+                    ],
+                    "private_test_cases": [
+                        {
+                            "input": "\"madam\"",
+                            "expected_output": "True"
+                        },
+                        {
+                            "input": "\"python\"",
+                            "expected_output": "False"
+                        }
+                    ],
+                    "solution": "def is_palindrome(s):\n  return s == s[::-1]",
+                    "due_date": "2025-02-27",
+                    "last_submitted_date": "2025-02-20"
+                },
+                {
+                    "ppa_id": "2",
+                    "title": "Practice Programming Assignment 2",
+                    "question_text": "Write a Python function to reverse a string.",
+                    "public_test_cases": [
+                        {
+                            "input": "\"hello\"",
+                            "expected_output": "\"olleh\""
+                        },
+                        {
+                            "input": "\"world\"",
+                            "expected_output": "\"dlrow\""
+                        }
+                    ],
+                    "private_test_cases": [
+                        {
+                            "input": "\"Python\"",
+                            "expected_output": "\"nohtyP\""
+                        },
+                        {
+                            "input": "\"VueJS\"",
+                            "expected_output": "\"SJueV\""
+                        }
+                    ],
+                    "solution": "def reverse_string(s):\n  return s[::-1]",
+                    "due_date": "2025-02-27",
+                    "last_submitted_date": "2025-02-20"
+                }
+            ],
+            "concept_summary": {
+                "cs_id": "cs1",
+                "title": "Concept Summary 1",
+                "type": "concept-summary"
+            }
+        },
+        {
+            "id": "2",
+            "title": "Week 2",
+            "lectures": [
+                {
+                    "lec_id": "lecture-3",
+                    "title": "L2.1 - Advanced Concepts",
+                    "type": "lecture"
+                },
+                {
+                    "lec_id": "lecture-4",
+                    "title": "L2.2 - Hands-on",
+                    "type": "lecture"
+                }
+            ],
+            "g_assignments": [
+                {
+                    "ga_id": "2",
+                    "title": "Graded Assignment 2",
+                    "type": "graded-assignment"
+                }
+            ],
+            "grp_assignments": [
+                {
+                    "grpa_id": "3",
+                    "title": "Graded Programming Assignment 3",
+                    "question_text": "Write a Python function to calculate the nth Fibonacci number.",
+                    "public_test_cases": [
+                        {
+                            "input": "5",
+                            "expected_output": "5"
+                        },
+                        {
+                            "input": "10",
+                            "expected_output": "55"
+                        }
+                    ],
+                    "private_test_cases": [
+                        {
+                            "input": "7",
+                            "expected_output": "13"
+                        },
+                        {
+                            "input": "12",
+                            "expected_output": "144"
+                        }
+                    ],
+                    "solution": "def fibonacci(n):\n  a, b = 0, 1\n  for _ in range(n):\n    a, b = b, a + b\n  return a",
+                    "due_date": "2025-03-06",
+                    "last_submitted_date": "2025-02-20"
+                }
+            ],
+            "p_assignments": [
+                {
+                    "pa_id": "2",
+                    "title": "Practice Assignment 2",
+                    "type": "practice-assignment"
+                }
+            ],
+            "pp_assignments": [
+                {
+                    "ppa_id": "4",
+                    "title": "Practice Programming Assignment 4",
+                    "question_text": "Write a Python function to determine if a number is prime.",
+                    "public_test_cases": [
+                        {
+                            "input": "2",
+                            "expected_output": "True"
+                        },
+                        {
+                            "input": "10",
+                            "expected_output": "False"
+                        }
+                    ],
+                    "private_test_cases": [
+                        {
+                            "input": "17",
+                            "expected_output": "True"
+                        },
+                        {
+                            "input": "18",
+                            "expected_output": "False"
+                        }
+                    ],
+                    "solution": "def is_prime(n):\n  if n <= 1:\n    return False\n  for i in range(2, int(n**0.5)+1):\n    if n % i == 0:\n      return False\n  return True",
+                    "due_date": "2025-03-06",
+                    "last_submitted_date": "2025-02-20"
+                }
+            ],
+            "concept_summary": {
+                "cs_id": "cs2",
+                "title": "Concept Summary 2",
+                "type": "concept-summary"
+            }
+        }
+    ]
+}
