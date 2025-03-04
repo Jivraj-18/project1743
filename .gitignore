@@ -1,0 +1,3 @@
+project_folder\.venv
+project_folder\__pycache__
+project_folder\application\__pycache__
