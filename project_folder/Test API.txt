@@ -110,7 +110,7 @@
     },
     {
         "question_type": "Programming",
-        "assignment_id": 1,
+        "assignment_id": 2,
         "question": "function factorial(n) { return n <= 1 ? 1 : n * factorial(n - 1); }",
         "options": null,
         "correct_options": [
@@ -140,4 +140,8 @@
 15. to get questions and if submitted then responses also
 
 /api/assignments/<int:assignment_id>/<int:student_id> (get)
+
+16. to post and evaluate answers 
+
+/api/
 

@@ -478,7 +478,73 @@ class Assignments(Resource):
 
         return jsonify(response)  # No ", 200"
 
+class NewAssignment(Resource):
+    # 🔹 POST: Create a new assignment
+    def post(self):
+        data = request.get_json()
 
+        # Extract required fields
+        category = data.get("category")
+        course_id = data.get("course_id")
+        deadline = data.get("deadline")
+        which_week = data.get("which_week")
+        total_marks = data.get("total_marks")
+
+        # Validate input
+        if not category or not course_id or total_marks is None:
+            return jsonify({"error": "Missing required fields"}), 400
+
+        # Convert deadline if provided
+        try:
+            deadline = datetime.strptime(deadline, "%Y-%m-%dT%H:%M:%S") if deadline else None
+        except ValueError:
+            return jsonify({"error": "Invalid datetime format"}), 400
+
+        # Create a new Assignment instance
+        new_assignment = Assignment(
+            category=category,
+            course_id=course_id,
+            deadline=deadline,
+            which_week=which_week,
+            total_marks=total_marks
+        )
+
+        # Save to database
+        db.session.add(new_assignment)
+        db.session.commit()
+
+        return jsonify({"message": "Assignment created successfully", "assignment_id": new_assignment.assignment_id}), 201
+
+    
+    # 🔹 PUT: Update an existing assignment
+    def put(self, assignment_id):
+        data = request.get_json()
+
+        # Find the assignment by ID
+        assignment = db.session.query(Assignment).filter_by(assignment_id=assignment_id).first()
+
+        if not assignment:
+            return jsonify({"error": "Assignment not found"}), 404
+
+        # Update fields if provided
+        if "category" in data:
+            assignment.category = data["category"]
+        if "course_id" in data:
+            assignment.course_id = data["course_id"]
+        if "deadline" in data:
+            try:
+                assignment.deadline = datetime.strptime(data["deadline"], "%Y-%m-%dT%H:%M:%S") if data["deadline"] else None
+            except ValueError:
+                return jsonify({"error": "Invalid datetime format"}), 400
+        if "which_week" in data:
+            assignment.which_week = data["which_week"]
+        if "total_marks" in data:
+            assignment.total_marks = data["total_marks"]
+
+        # Save updates
+        db.session.commit()
+
+        return jsonify({"message": "Assignment updated successfully"}), 200
 
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
@@ -493,3 +559,4 @@ api.add_resource(Questions, '/questions', '/questions/<int:question_id>')
 api.add_resource(StarredQuestions, '/starred_questions/<int:student_id>')
 api.add_resource(AssignmentSubmissions, '/submissions')
 api.add_resource(Assignments, '/assignments/<int:assignment_id>/<int:student_id>', '/assignments')
+api.add_resource(NewAssignment, '/new_assignment', '/new_assignment/<int:assignment_id>')
