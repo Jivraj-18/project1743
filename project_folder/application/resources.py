@@ -9,6 +9,10 @@ import base64
 import json
 from .evaluate import evaluate_assignment, evaluate_programming
 
+
+from .sb import makeS
+from .ai import ink
+
 api=Api(prefix='/api')
 
 # for login
@@ -547,32 +551,6 @@ class NewAssignment(Resource):
         return jsonify({"message": "Assignment updated successfully"}), 200
 
 
-class random(Resource):
-    def get(self):
-        return {  "ramdom" : "Hello There!!" }
-
-
-
-api.add_resource(random, '/random')
-
-api.add_resource(Login, '/login')
-api.add_resource(Logout, '/logout')
-api.add_resource(StudInfo, '/studinfo/<int:student_id>')
-api.add_resource(Report, '/report', '/report/<int:user_id>')
-api.add_resource(ViewReports, '/view_reports')
-api.add_resource(Events, '/events')
-api.add_resource(Tasks, '/tasks/<int:user_id>', '/tasks', '/tasks/delete/<int:task_id>')
-api.add_resource(MyCourses, '/mycourses/<int:student_id>')
-api.add_resource(CourseContent, '/content/<int:course_id>', '/content', '/content/edit/<int:content_id>')
-api.add_resource(Questions, '/questions', '/questions/<int:question_id>')
-api.add_resource(StarredQuestions, '/starred_questions/<int:student_id>')
-api.add_resource(AssignmentSubmissions, '/submissions')
-api.add_resource(Assignments, '/assignments/<int:assignment_id>/<int:student_id>', '/assignments')
-api.add_resource(NewAssignment, '/new_assignment', '/new_assignment/<int:assignment_id>')
-
-
-from .sb import makeS
-from .ai import ink
 
 # to
 class AI(Resource):
@@ -607,10 +585,30 @@ class AI(Resource):
         else :
             d = "Invaild"
 
-        b = jsonify(d)
+        b = jsonify({"res" : json.dumps(d)})
         return b
 
 
 api.add_resource(AI, '/ai')
+
+
+api.add_resource(Login, '/login')
+api.add_resource(Logout, '/logout')
+api.add_resource(StudInfo, '/studinfo/<int:student_id>')
+api.add_resource(Report, '/report', '/report/<int:user_id>')
+api.add_resource(ViewReports, '/view_reports')
+api.add_resource(Events, '/events')
+api.add_resource(Tasks, '/tasks/<int:user_id>', '/tasks', '/tasks/delete/<int:task_id>')
+api.add_resource(MyCourses, '/mycourses/<int:student_id>')
+api.add_resource(CourseContent, '/content/<int:course_id>', '/content', '/content/edit/<int:content_id>')
+api.add_resource(Questions, '/questions', '/questions/<int:question_id>')
+api.add_resource(StarredQuestions, '/starred_questions/<int:student_id>')
+api.add_resource(AssignmentSubmissions, '/submissions')
+api.add_resource(Assignments, '/assignments/<int:assignment_id>/<int:student_id>', '/assignments')
+api.add_resource(NewAssignment, '/new_assignment', '/new_assignment/<int:assignment_id>')
+
+
+
+
 
 

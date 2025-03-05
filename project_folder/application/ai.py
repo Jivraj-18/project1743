@@ -259,8 +259,6 @@ class INK:
                 "json_schema": {
                 "name": "response",
                     "schema": {
-                        "$schema": "http://json-schema.org/draft-04/schema#",
-                        "title": "Model",
                         "type": "object",
                         "properties": {
                             "response" : {"type": "string"}

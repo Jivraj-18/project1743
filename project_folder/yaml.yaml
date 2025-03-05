@@ -287,7 +287,22 @@ paths:
           description: Assignment details retrieved
   /ai:
     post:
-      summary : Chat with AI
+      summary: Chat with AI
+      description: |
+        The /ai API enables different types of AI operations depending on the interaction type specified. It supports three types of interactions:
+        
+        - Type: "gen"
+          Purpose: Generates questions based on the content of a specific week.
+          Example: For the given week, the AI will generate relevant questions based on the content covered during that week. This is useful for review, quizzes, or preparing for exams.
+        
+        - Type: "sumup"
+          Purpose: Summarizes the content of a specific week or lecture.
+          Example: The AI will provide a concise summary of the material covered in the week or lecture, highlighting key points and concepts.
+        
+        - Type: "chat"
+          Purpose: Facilitates AI-user interaction through conversations.
+          Example: Used for casual conversation, answering user queries, providing explanations, clearing doubts, solving any user query, or motivational interactions. The AI can respond to user questions and engage in back-and-forth dialogue.
+        
       requestBody:
         required: true
         content:
@@ -297,14 +312,14 @@ paths:
               properties:
                 type:
                   type: string
-                  enum: ["gen", "sumup", "chat", "analyse", "explain"]
-                  description: "Type of operation to perform. Determines which AI operation to execute."
+                  enum: ["gen", "sumup", "chat"]
+                  description: "Defines the type of interaction the AI will perform. It could be 'gen' for generating questions, 'sumup' for summarizing content, or 'chat' for conversation."
                 prompt:
                   type: string
-                  description: "The prompt that the AI will respond to."
+                  description: "The main content or question that the AI will respond to. This input guides the AI's response."
                 background:
                   type: string
-                  description: "It contains the JSON stingify string for the information related to the current page, actions, etc"
+                  description: "A stringified JSON object containing contextual information about the user's current situation, such as the current page, section, or lecture details. This helps the AI provide more tailored and accurate responses based on user context."
               required:
                 - type
                 - prompt
@@ -319,7 +334,11 @@ paths:
                 properties:
                   res:
                     type: string
-                    description: "It contains the JSON stingify output for the result"
+                    description: |
+                      The response, which will vary based on the type of interaction:
+                      - For 'gen': The response will contain an array of question objects relevant to the provided content.
+                      - For 'sumup': The response will include a summary key, containing the summarized content of the week or lecture.
+                      - For 'chat': The response will include a response key, containing the AI's reply to the user's query or message.
         400:
           description: "Invalid request, such as missing or incorrect data."
           content:
@@ -329,7 +348,7 @@ paths:
                 properties:
                   error:
                     type: string
-                    description: "Explanation of what went wrong."
+                    description: "Explanation of what went wrong with the request."
         500:
           description: "Server error occurred during the AI operation."
           content:
