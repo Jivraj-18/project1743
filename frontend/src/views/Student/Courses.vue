@@ -11,7 +11,6 @@
           </div>
         </div>
         <div class="course-footer">
-          <!-- Router link to instructor/course/id -->
           <router-link
             :to="`${$route.path.includes('/ta') ? '/ta' : '/student'}/course/${course.id}`"
           >
@@ -34,40 +33,38 @@ export default {
   },
   data() {
     return {
-      courses: this.getDummyData(),
+      courses: [],
+      studentId: 1, // Replace with actual logged-in student's ID
     }
-  },
-  methods: {
-    // This method returns dummy summary data for the courses.
-    getDummyData() {
-      return [
-        {
-          id: 1,
-          header: 'Python',
-          summaries: [
-            { label: 'Week 1 Assignment Score', value: '85%' },
-            { label: 'Week 2 Assignment Score', value: '82%' },
-            { label: 'Week 3 Assignment Score', value: '95%' },
-            { label: 'Quiz 1 Score', value: '90%' },
-          ],
-        },
-        {
-          id: 2,
-          header: 'Maths-1',
-          summaries: [
-            { label: 'Week 1 Assignment Score', value: '75%' },
-            { label: 'Week 2 Assignment Score', value: '85%' },
-            { label: 'Week 3 Assignment Score', value: '91%' },
-            { label: 'Quiz 1 Score', value: '80%' },
-          ],
-        },
-      ]
-    },
   },
   computed: {
     navbarComponent() {
       return this.$route.path.includes('/ta') ? 'TA_NavBar' : 'NavBar'
     },
+  },
+  methods: {
+    async fetchCourses() {
+      try {
+        const response = await fetch(`http://localhost:5000/api/mycourses/${this.studentId}`)
+        const data = await response.json()
+        this.processCourseData(data)
+      } catch (error) {
+        console.error('Error fetching courses:', error)
+      }
+    },
+    processCourseData(data) {
+      this.courses = Object.keys(data).map((courseName, index) => ({
+        id: index + 1, // Temporary ID, update based on actual course ID
+        header: courseName,
+        summaries: data[courseName].map((assignment, idx) => ({
+          label: `Assignment ${assignment.assignment_id} Score`,
+          value: `${assignment.percentage}%`,
+        })),
+      }))
+    },
+  },
+  created() {
+    this.fetchCourses()
   },
 }
 </script>
@@ -78,8 +75,8 @@ export default {
   margin: 2rem auto;
   display: flex;
   gap: 1.5rem;
-  justify-content: center; /* Center cards horizontally */
-  flex-wrap: nowrap; /* Prevent cards from wrapping to the next line */
+  justify-content: center;
+  flex-wrap: wrap;
   padding-top: 70px;
 }
 
@@ -87,9 +84,9 @@ export default {
   background-color: #e9ecef;
   border-radius: 8px;
   overflow: hidden;
-  flex: 0 0 calc(50% - 0.75rem); /* Two cards side by side */
+  flex: 0 0 calc(50% - 0.75rem);
   padding-bottom: 1rem;
-  box-sizing: border-box; /* Include padding in the width */
+  box-sizing: border-box;
 }
 
 .course-header {
