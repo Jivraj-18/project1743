@@ -2,27 +2,26 @@ import base64
 import requests
 import json
 
+from .rag import query_selector
 
-<<<<<<< HEAD
-=======
 chatChecker = """
 
 The AI response should adapt to the type of user query according to the following categories:
 
 Asking for a Solution:
-The AI should never provide a direct solution to the user’s problem.
+The AI should never provide a direct solution to the user's problem.
 Instead, the AI should guide the user step-by-step, offering hints, encouragement, and strategies that help them explore the solution on their own.
 Encourage critical thinking by breaking down the problem and asking questions that prompt the user to think through the process themselves.
 Maintain a supportive and patient tone. If the user is stuck, provide additional clues or suggestions to keep them moving forward.
 Example: If a user asks for a solution to a coding problem, avoid writing the code directly but suggest the next logical steps in the problem-solving process.
 Asking for an Explanation:
-The AI should not give a direct, overly simplified answer but instead provide a thorough and clear explanation in a way that deepens the user’s understanding.
-Make sure the explanation is tailored to the user’s current level of understanding and ask guiding questions if needed to ensure clarity.
+The AI should not give a direct, overly simplified answer but instead provide a thorough and clear explanation in a way that deepens the user's understanding.
+Make sure the explanation is tailored to the user's current level of understanding and ask guiding questions if needed to ensure clarity.
 Break down complex ideas into digestible pieces and use analogies or examples to help illustrate points.
 Example: If the user asks how a concept works, the AI should explain it in depth and provide real-world applications or examples.
 Motivation:
 The AI should respond with encouraging, positive, and uplifting messages that help the user feel confident and motivated.
-Avoid sounding generic or condescending. Personalize the response when possible to the user’s current situation and context.
+Avoid sounding generic or condescending. Personalize the response when possible to the user's current situation and context.
 Example: If a user feels overwhelmed, remind them of past successes, how challenges are opportunities for growth, and that they are capable of overcoming difficulties.
 Asking to Analyze:
 The AI should help the user analyze the situation or problem carefully by posing thoughtful questions and encouraging them to think critically.
@@ -32,24 +31,16 @@ Example: If the user asks for an analysis of a situation, guide them by asking t
 General Chat:
 For casual or off-topic conversations, the AI can respond naturally, keeping the tone friendly, light, and engaging.
 This type of conversation should flow like a normal chat, maintaining a balance between being informative and conversational.
-Example: If the user asks a general question like “What’s your favorite color?”, feel free to engage without overcomplicating the answer.
+Example: If the user asks a general question like “What's your favorite color?”, feel free to engage without overcomplicating the answer.
 
 """
 
->>>>>>> krishna
 
 class INK:
     def __init__(self, s: str):
         self.s = s
-<<<<<<< HEAD
-        self.b = []
 
     def scrab(self, data):
-
-=======
-
-    def scrab(self, data):
->>>>>>> krishna
         s = data
         b = {}
 
@@ -73,9 +64,6 @@ class INK:
         s = data
         b = {}
 
-<<<<<<< HEAD
-        response = self.scrab("what")
-=======
         ptp = {
             "model": "gpt-4o-mini",
             "messages": [
@@ -112,7 +100,6 @@ class INK:
 
         b = json.loads(self.scrab(ptp)['choices'][0]['message']['content'])
         
->>>>>>> krishna
         return b
 
     def generate_questions(self, data):
@@ -127,17 +114,12 @@ class INK:
                 "content": "You are a question generation assistant. Your task is to produce exactly N questions based on the topic and detailed scope provided by the user. Each question must be concise and stay within the subject boundaries defined. Do not output any extra text—only a JSON object as specified in the schema."
                 },
                 {
-<<<<<<< HEAD
-                "role": "user",
-                "content": f"Topic: {s['topic']}\nScope: {s['scope']}\nNumber of Questions: {s['N']}"
-=======
                     "role": "user",
                     "content": f"Query: {s['prompt']}"
                 },
                 {
                     "role": "user",
                     "content": f"Content: {s['content']}"
->>>>>>> krishna
                 }
             ],
             "temperature": 0.7,
@@ -148,42 +130,6 @@ class INK:
                 "schema": {
                     "type": "object",
                     "properties": {
-<<<<<<< HEAD
-                    "questions": {
-                        "type": "array",
-                        "items": {
-                        "type": "object",
-                        "properties": {
-                            "question": {
-                            "type": "string",
-                            "description": "The text of the multiple-choice question."
-                            },
-                            "options": {
-                            "type": "array",
-                            "items": {
-                                "type": "string",
-                                "description": "A possible answer option for the question."
-                            },
-                            "minItems": 4,
-                            "maxItems": 4,
-                            "description": "A list of four answer options."
-                            },
-                            "answer": {
-                            "type": "string",
-                            "description": "The correct answer to the question."
-                            }
-                        },
-                        "required": ["question", "options", "answer"],
-                        "description": "An individual multiple-choice question with its options and correct answer."
-                        },
-                        "minItems": 3,
-                        "maxItems": 10,
-                        "description": "A list of multiple-choice questions."
-                    }
-                    },
-                    "required": ["questions"],
-                    "description": "A structured response containing a list of multiple-choice questions."
-=======
                         "questions": {
                             "type": "array",
                             "items": {
@@ -209,30 +155,11 @@ class INK:
                     },
                     "required": ["questions"]
                     
->>>>>>> krishna
                 }
                 }
             }
         }
 
-<<<<<<< HEAD
-        ques = json.loads(self.scrab(ptp)['choices'][0]['message']['content'])['questions']
-
-        c = 0
-        dd = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-        for i in ques:
-            c += 1
-            d = 0
-            print(f"Q{c}. {i['question']}")
-            for j in i['options']:
-                if j == i['answer']:
-                    print(f"\033[32m {dd[d]}. {i['answer']}\033[0m")
-                else:
-                    print(f" {dd[d]}. {j}")
-                d += 1
-            print("")
-
-=======
         dat = json.loads(self.scrab(ptp)['choices'][0]['message']['content'])
         ques = dat['questions']
 
@@ -302,28 +229,13 @@ class INK:
             print()
 
         b = ques
->>>>>>> krishna
         return b
 
     def chat(self, data):
         s = data
         b = {}
 
-<<<<<<< HEAD
-        self.b.append( "Append History" )
-
-        return b
-
-
-
-ink = INK("eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjIyZjMwMDA2MDVAZHMuc3R1ZHkuaWl0bS5hYy5pbiJ9.3Obdi1LKmdOki-kPPdF_QtPlcNA-5opr6Txsv5Vccho")
-
-ink.generate_questions({
-    "topic" : "Data Types 1",  #"https://www.youtube.com/watch?v=8n4MBjuDBu4"
-    "scope" : "Consider it yourself accoding to topic",
-    "N" : 5
-})
-=======
+        # We Need to Use RAG here to check the Documents Involved.
 
         ptp = {
             "model": "gpt-4o-mini",
@@ -369,4 +281,3 @@ ink.generate_questions({
         return b
 
 ink = INK("eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjIyZjMwMDA2MDVAZHMuc3R1ZHkuaWl0bS5hYy5pbiJ9.3Obdi1LKmdOki-kPPdF_QtPlcNA-5opr6Txsv5Vccho")
->>>>>>> krishna

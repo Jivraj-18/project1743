@@ -1,0 +1,343 @@
+openapi: 3.0.0
+info:
+  title: Software Engineering Project 
+  description: API for student authentication, tasks, reporting, content, and assignments
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000/api
+  
+paths:
+  /login:
+    post:
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test_student@gmail.com"
+      responses:
+        '200':
+          description: Login successful
+
+  /logout:
+    get:
+      summary: User logout
+      responses:
+        '200':
+          description: Logout successful
+
+  /studinfo/{student_id}:
+    get:
+      summary: Get student details
+      parameters:
+        - name: student_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Student details retrieved
+
+  /report:
+    post:
+      summary: Report an issue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                issue_type:
+                  type: string
+                user_id:
+                  type: integer
+                course_id:
+                  type: integer
+                subject:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: Issue reported
+
+  /report/{user_id}:
+    get:
+      summary: Get issues reported by user
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of reported issues
+
+  /tasks/{user_id}:
+    get:
+      summary: Get tasks by user
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of tasks
+
+  /tasks:
+    post:
+      summary: Add a task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                title:
+                  type: string
+                description:
+                  type: string
+                task_date:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: Task added
+
+  /tasks/delete/{task_id}:
+    delete:
+      summary: Delete a task
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Task deleted
+
+  /content/{course_id}:
+    get:
+      summary: Get course content
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Course content retrieved
+
+  /content:
+    post:
+      summary: Add new course content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course_id:
+                  type: integer
+                content_name:
+                  type: string
+                content_type:
+                  type: string
+                transcript_url:
+                  type: string
+                url:
+                  type: string
+      responses:
+        '201':
+          description: Content added
+
+  /content/edit/{content_id}:
+    put:
+      summary: Edit course content
+      parameters:
+        - name: content_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course_id:
+                  type: integer
+                content_name:
+                  type: string
+                content_type:
+                  type: string
+                transcript_url:
+                  type: string
+                url:
+                  type: string
+      responses:
+        '200':
+          description: Content updated
+
+  /questions:
+    post:
+      summary: Add new questions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  question_type:
+                    type: string
+                  assignment_id:
+                    type: integer
+                  question:
+                    type: string
+                  options:
+                    type: array
+                    items:
+                      type: string
+                  correct_options:
+                    type: string
+                  marks:
+                    type: integer
+                  hints:
+                    type: string
+                  text_solution:
+                    type: string
+      responses:
+        '201':
+          description: Questions added
+
+  /questions/{question_id}:
+    put:
+      summary: Edit existing question
+      parameters:
+        - name: question_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question_type:
+                  type: string
+                correct_options:
+                  type: string
+      responses:
+        '200':
+          description: Question updated
+
+  /starred_questions/{student_id}:
+    get:
+      summary: Get starred questions
+      parameters:
+        - name: student_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Starred questions retrieved
+
+  /assignments/{assignment_id}/{student_id}:
+    get:
+      summary: Get assignment questions and responses
+      parameters:
+        - name: assignment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: student_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Assignment details retrieved
+  /ai:
+    post:
+      summary : Chat with AI
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: ["gen", "sumup", "chat", "analyse", "explain"]
+                  description: "Type of operation to perform. Determines which AI operation to execute."
+                prompt:
+                  type: string
+                  description: "The prompt that the AI will respond to."
+                background:
+                  type: string
+                  description: "It contains the JSON stingify string for the information related to the current page, actions, etc"
+              required:
+                - type
+                - prompt
+                - background
+      responses:
+        200:
+          description: "AI operation result successfully generated."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  res:
+                    type: string
+                    description: "It contains the JSON stingify output for the result"
+        400:
+          description: "Invalid request, such as missing or incorrect data."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: "Explanation of what went wrong."
+        500:
+          description: "Server error occurred during the AI operation."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Internal server error"
+                    description: "Error message from the server."
