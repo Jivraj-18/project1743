@@ -34,9 +34,10 @@ export default {
   data() {
     return {
       courses: [],
-      studentId: 1, // Replace with actual logged-in student's ID
+      studentId: this.$route.query.student_id,
     }
   },
+
   computed: {
     navbarComponent() {
       return this.$route.path.includes('/ta') ? 'TA_NavBar' : 'NavBar'
@@ -45,6 +46,7 @@ export default {
   methods: {
     async fetchCourses() {
       try {
+        console.log(this.studentId)
         const response = await fetch(`http://localhost:5000/api/mycourses/${this.studentId}`)
         const data = await response.json()
         this.processCourseData(data)

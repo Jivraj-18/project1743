@@ -1,0 +1,49 @@
+# Ignore node_modules and build files
+node_modules/
+dist/
+.vite/
+.vitepress/cache/
+*.log
+
+# Ignore environment variables and dependencies
+.env
+.env.local
+.env.*.local
+
+# Ignore editor and OS-specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Ignore Python cache and virtual environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+venv/
+.env/
+
+
+# Ignore Flask and Django-specific files
+*.db
+*.sqlite3
+migrations/
+*.egg-info/
+*.pytest_cache/
+celerybeat-schedule
+*.coverage
+.coverage.*
+
+# Ignore logs and temp files
+logs/
+*.log
+*.out
+*.pid
+*.bak
+
+# Ignore package manager lock files (optional)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

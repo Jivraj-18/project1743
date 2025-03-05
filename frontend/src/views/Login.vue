@@ -116,12 +116,17 @@ export default {
           console.log(data)
           localStorage.setItem('role', data.roles);
           localStorage.setItem('token', data.token);
+          const queryParams = {
+            user_id: data.id,
+            student_id: data.student_id
+          };
+          console.log(queryParams);
           if (data.roles[0] === 'student') {
-            router.push('/student/announcements');
+            router.push({ path: '/student/courses', query: queryParams });
           } else if (data.roles[0] === 'instructor') {
-            router.push('/instructor/updates');
+            router.push({ path: '/instructor/updates', query: queryParams });
           } else if (data.roles[0] === 'ta') {
-            router.push('/ta/view_issues');
+            router.push({ path: '/ta/view_issues', query: queryParams });
           }
           
         } else {
