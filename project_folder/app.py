@@ -4,6 +4,7 @@ import init_db
 import application.views as views
 from flask_security import SQLAlchemyUserDatastore
 from application.resources import api
+from flask_cors import CORS
 
 def create_app():
     app = Flask(__name__)
@@ -38,6 +39,7 @@ def create_app():
 
 
 app = create_app()
+CORS(app)
 
 if __name__ == '__main__':
     app.run()

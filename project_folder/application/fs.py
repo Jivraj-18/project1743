@@ -44,4 +44,7 @@ python.text_to_file('L2.txt', 'Lets learn about int and string')
 for i in python.files_in_dir():
     print(i, python.file_to_text(f"{i}"))
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> krishna
