@@ -43,8 +43,9 @@ class Student(Base):
     enroll_date = Column(DateTime)
     current_level = Column(String, default="foundation")
     dob = Column(DateTime)
+    address = Column(String)
     about_me = Column(String)
-    phone = Column(Integer, unique=True)
+    phone = Column(Integer)
     email = Column(String, nullable=False, unique=True)
 
     user = relationship('User', uselist=False, back_populates='Student', overlaps="Instructor,user")
@@ -52,7 +53,7 @@ class Student(Base):
 class Course(Base):
     __tablename__ = 'Course'
     course_id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String, nullable=False)
+    course_name = Column(String, nullable=False)
     description = Column(String)
 
 class CourseStudent(Base):
@@ -78,8 +79,9 @@ class Content(Base):
     content_id = Column(Integer, primary_key=True, autoincrement=True)
     course_id = Column(ForeignKey('Course.course_id'), nullable=False)
     content_type = Column(String, nullable=False)
-    url = Column(String, unique=True)
-    transcript_url = Column(String, unique=True)
+    content_name = Column(String)
+    url = Column(String)
+    transcript_url = Column(String)
     ai_summary = Column(String)
 
     course = relationship('Course')
@@ -89,15 +91,16 @@ class Assignment(Base):
     assignment_id = Column(Integer, primary_key=True, autoincrement=True)
     category = Column(String, nullable=False)
     course_id = Column(ForeignKey('Course.course_id'), nullable=False)
-    deadline = Column(DateTime, nullable=False)
-    which_week = Column(DateTime, nullable=False)
+    deadline = Column(DateTime)
+    which_week = Column(Integer)
+    total_marks = Column(Integer, nullable=False)
 
     course = relationship('Course')
 
 class Question(Base):
     __tablename__ = 'Question'
     question_id = Column(Integer, primary_key=True, autoincrement=True)
-    type = Column(String, nullable=False)
+    question_type = Column(String, nullable=False)
     assignment_id = Column(ForeignKey('Assignment.assignment_id'), nullable=False)
     question = Column(String, nullable=False)
     options = Column(String)
@@ -113,42 +116,45 @@ class AssignmentStudent(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     assignment_id = Column(ForeignKey('Assignment.assignment_id'))
     student_id = Column(ForeignKey('Student.student_id'))
-    marks_answers = Column(String, nullable=False)
+    marks_answers = Column(String)
+    marks_obtained = Column(Integer, nullable=False)
+    code = Column(String)
     submission_date = Column(DateTime, nullable=False)
 
     assignment = relationship('Assignment')
     student = relationship('Student')
 
-class Feedback(Base):
-    __tablename__ = 'Feedback'
-    feedback_id = Column(Integer, primary_key=True, autoincrement=True)
-    type = Column(String, nullable=False)
-    student_id = Column(ForeignKey('Student.student_id'), nullable=False)
+class Issue(Base):
+    __tablename__ = 'Issue'
+    issue_id = Column(Integer, primary_key=True, autoincrement=True)
+    issue_type = Column(String, nullable=False)
+    user_id = Column(ForeignKey('User.user_id'), nullable=False)
+    course_id = Column(ForeignKey('Course.course_id'))
     subject = Column(String, nullable=False)
     description = Column(String, nullable=False)
+    issue_date = Column(DateTime, nullable=False)
+    resolved = Column(Boolean, default=False)
+    solution = Column(String)
  
-    student = relationship('Student')
+    user = relationship('User')
+    course = relationship('Course')
 
 class ActionLog(Base):
     __tablename__ = 'Action_log'
     action_id = Column(Integer, primary_key=True, autoincrement=True)
     action = Column(String) 
     date = Column(DateTime, nullable=False) 
-    type = Column(String)  
+    action_type = Column(String)  
     user_id = Column(ForeignKey('User.user_id'), nullable=False) 
 
     user = relationship('User') 
 
 class Event(Base):
-    __tablename__ = 'News'
-    news_id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(ForeignKey('User.user_id'), nullable=False) 
+    __tablename__ = 'Event'
+    event_id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String) 
     date = Column(DateTime, nullable=False) 
     description = Column(String)
-    deadline = Column(DateTime, nullable=False)
-
-    user = relationship('User') 
 
 class UserTask(Base):
     __tablename__ = 'User_task'
@@ -169,4 +175,3 @@ class StarredQuestion(Base):
 
     student = relationship('Student')
     question = relationship('Question')
-
