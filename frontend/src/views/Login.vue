@@ -7,6 +7,8 @@
         <p>Please sign in to continue</p>
       </div>
 
+      
+
       <!-- Email field -->
       <div class="mb-3">
         <input
@@ -91,13 +93,42 @@ export default {
     }
 
     // Login function using dummy data
-    const login = () => {
-      const user = users.find((u) => u.email === email.value)
-      if (user && user.password === password.value) {
-        errorMessage.value = ''
-        router.push(user.route)
-      } else {
-        errorMessage.value = 'Incorrect email or password'
+    const login = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email.value,
+            password: password.value,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+
+        if (response.ok) {
+          console.log(data)
+          localStorage.setItem('role', data.roles);
+          localStorage.setItem('token', data.token);
+          if (data.roles[0] === 'student') {
+            router.push('/student/announcements');
+          } else if (data.roles[0] === 'instructor') {
+            router.push('/instructor/updates');
+          } else if (data.roles[0] === 'ta') {
+            router.push('/ta/view_issues');
+          }
+          
+        } else {
+          errorMessage.value = data.message;
+        }
+      } catch (error) {
+        errorMessage.value = 'Failed to login. Please try again later.';
       }
     }
 
