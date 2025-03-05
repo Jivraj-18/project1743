@@ -28,8 +28,8 @@ Use the following credentials to log in:
 
 | Role       | Email                  | Password     |  
 |------------|------------------------|-------------|  
-| **Student**   | `student@example.com`   | `student123`   |  
-| **Instructor** | `instructor@example.com` | `instructor123` |  
-| **TA**       | `ta@example.com`       | `ta123`       |  
+| **Student**   | `test_student@gmail.com`   | `student123`   |  
+| **Instructor** | `test_instructor@gmail.com` | `instructor123` |  
+| **TA**       | `test_ta@gmail.com`       | `ta123`       |  
 
 ---
