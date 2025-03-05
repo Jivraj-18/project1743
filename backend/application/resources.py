@@ -143,7 +143,7 @@ class MyCourses(Resource):
             return {'message': 'Student not found'}, 404
 
         courses = (
-            db.session.query(Course.name, Assignment.assignment_id, Assignment.total_marks, AssignmentStudent.marks_obtained)
+            db.session.query(Course.course_name, Assignment.assignment_id, Assignment.total_marks, AssignmentStudent.marks_obtained)
             .join(CourseStudent, Course.course_id == CourseStudent.course_id)
             .join(Assignment, Course.course_id == Assignment.course_id)
             .join(AssignmentStudent, Assignment.assignment_id == AssignmentStudent.assignment_id)
