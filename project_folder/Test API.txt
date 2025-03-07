@@ -1,76 +1,146 @@
-/api/login (post)
+1. for login credentials and token
 
+/api/login (post)
 {
-  "email": "user@example.com"
+	"email" : "test_student@gmail.com"
 }
 
+
+2. for logout
 
 /api/logout (get)
 
+3. for getting student details
+
+/api/studinfo/<int:student_id> (get)
+
+4. for reporting issues
+
 /api/report (post)
-
 {
-  "student_id": 1,
-  "rating": 4,
-  "review": "Found an issue with content",
-  "content_id": 1
+	"issue_type" : "content",
+	"user_id" : 3,
+	"course_id" : 2,
+	"subject" : "API Test",
+	"description" : "API Testing working"
 }
 
-/api/mycourses/1/ (get)
+5. for getting issues user reported
 
-/api/course/1/content (get)
+/api/report/<int:user_id> (get)
 
-/api/assignment/answers (post)
+6. for getting tasks by user
 
+/api/tasks/<int:user_id> (get)
+
+7. for adding tasks by user
+
+/api/tasks (post)
 {
-  "assignment_id": 1,
-  "student_id": 1,
-  "answers": {
-    "1": "A",
-    "2": "C"
-  }
+	"user_id" : "2",
+	"title" : "API Test",
+	"description" : "API testing deadline",
+	"task_date" : "2025-04-13"
+} 
+
+
+8. for deleting tasks
+
+/api/tasks/delete/<int:task_id> (delete)
+
+9. to get course content
+
+/api/content/<int:course_id> (get)
+
+10. to post new course content
+
+/api/content (post)
+{
+	"course_id" : 2,
+        "content_name" : "Lecture 3.1",
+        "content_type" : "Week 3",
+        "transcript_url" : "https://drive.google.com/file/d/1_h32G_GIQtG-6ZUdEUbWaXR7Dx8f9HRL/view?usp=drive_link",
+	"url": "https://www.youtube.com/watch?v=nL-086Wy4GA"
 }
 
-/api/assignment/1 (get)
+11. to edit the content
 
-/api/question (post)
-
+/api/content/edit/<int:content_id> (put)
 {
-  "type": "MCQ",
-  "assignment_id": 5,
-  "question": "What is AI?",
-  "options": ["A", "B", "C", "D"],
-  "correct_options": "B",
-  "marks": 5,
-  "hints": "Think about automation",
-  "text_solution": "Explanation here"
+	"course_id" : 2,
+        "content_name" : "Lecture 2.1",
+        "content_type" : "Week 2",
+        "transcript_url" : "",
+	"url": "https://www.youtube.com/watch?v=nL-086Wy4GA"
 }
 
-/api/question/1 (put)
+12. to post one or multiple questions
 
+/api/questions (post)
+[
+    {
+        "question_type": "MCQ",
+        "assignment_id": 1,
+        "question": "What is the capital of France?",
+        "options": ["Paris", "London", "Berlin", "Madrid"],
+        "correct_options": "A",
+        "marks": 2,
+        "hints": "It's known as the city of love.",
+        "text_solution": "The capital of France is Paris."
+    },
+    {
+        "question_type": "MSQ",
+        "assignment_id": 1,
+        "question": "Which of the following are programming languages?",
+        "options": ["Python", "Java", "HTML", "C++"],
+        "correct_options": "A,B,C",
+        "marks": 4,
+        "hints": "One of them is used for markup.",
+        "text_solution": "Python, Java, and C++ are programming languages, while HTML is a markup language."
+    },
+    {
+        "question_type": "NAT",
+        "assignment_id": 1,
+        "question": "What is 5 + 7?",
+        "options": null,
+        "correct_options": "12",
+        "marks": 1,
+        "hints": "Simple addition.",
+        "text_solution": "5 + 7 = 12."
+    },
+    {
+        "question_type": "Programming",
+        "assignment_id": 2,
+        "question": "function factorial(n) { return n <= 1 ? 1 : n * factorial(n - 1); }",
+        "options": null,
+        "correct_options": [
+            {"input": 5, "expected_output": "120"},
+            {"input": 3, "expected_output": "6"}
+        ],
+        "marks": 5,
+        "hints": "Use recursion to solve.",
+        "text_solution": "The factorial function multiplies numbers down to 1 using recursion."
+    }
+]
+
+
+13. to edit existing questions
+
+/api/questions/<int:question_id> (put)
 {
-  "question": "What is Machine Learning?",
-  "marks": 6
+    "question_type": "NAT",
+    "correct_options": "Paris"
 }
 
 
-/api/results/1 (get)
+14. to check for starred questions
 
-/api/students/1 (get)
+/api/starred_questions/<int:student_id> (get)
 
-/api/content (put)
+15. to get questions and if submitted then responses also
 
-{
-  "course_id": 101,
-  "content_type": "PDF",
-  "url": "http://link.com/resource.pdf",
-  "transcript_url": "http://link.com/transcript.pdf"
-}
+/api/assignments/<int:assignment_id>/<int:student_id> (get)
 
+16. to post and evaluate answers 
 
-/api/content/1 (put)
-
-{
-  "url": "http://link.com/updated.pdf"
-}
-
+/api/
