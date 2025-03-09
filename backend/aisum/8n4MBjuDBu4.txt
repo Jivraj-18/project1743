@@ -1,0 +1,11 @@
+In this content, we learn about different data types in Python. When you assign a value to a variable, Python automatically recognizes what type of data it is. For example:
+
+- If you set n = 10, n is an integer (type int).
+- If you set r = 6.3, r is a float (type float), which means it has a decimal.
+- If you set s = "sudarshan", s is a string (type str), which is text.
+
+You can check the type of a variable using the command 'print(type(variable))'. 
+
+Python also allows you to create lists, like l = [10, 20, 30]. A list is a collection of items, and you can access each item using its index, starting from 0 (so l[0] gives you 10, l[1] gives you 20, etc.). The type of a list is 'class list'. 
+
+Understanding data types is important because it helps the computer know how to store and manage different kinds of data. Each type of data (int, float, str, list) has its own way of being stored in memory.

@@ -81,6 +81,7 @@
       <div class="question-box">
         <div class="d-flex justify-content-between align-items-start mb-3">
           <p class="fw-bold mb-0">{{ currentQuestion }}. {{ currentQuestionText }}</p>
+
           <i
             :class="bookmarked ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'"
             @click="toggleBookmark"
@@ -103,6 +104,7 @@
             </label>
           </div>
         </form>
+
         <!-- Student Actions for Practice Assignments -->
         <div v-if="!isGraded" class="mt-4 practice-actions">
           <button
@@ -205,6 +207,8 @@
 import { useRoute } from 'vue-router'
 import assignments from '@/assets/assignments.json'
 
+import {sb} from "../sb.js"
+
 export default {
   props: {
     isSidebarCollapsed: Boolean,
@@ -271,15 +275,20 @@ export default {
       return this.assignmentData.lastSubmitted || ''
     },
     currentQuestionData() {
+      // Accessing questions from the generated data
       return this.assignmentData.questions
-        ? this.assignmentData.questions[this.currentQuestion - 1] || {}
+        ? this.assignmentData.questions.find(q => q.questionId === this.currentQuestion) || {}
         : {}
     },
     currentQuestionText() {
-      return this.currentQuestionData.questionText || ''
+      return this.currentQuestionData.question || ''
     },
     options() {
-      return this.currentQuestionData.options || []
+      const options = this.currentQuestionData.options || {};
+      return Object.entries(options).map(([key, value]) => ({
+        id: key,
+        text: value
+      }));
     },
     stat() {
       return this.assignmentData.stat || {}
@@ -317,7 +326,16 @@ export default {
         this.numberOfQuestions -= 1
       }
     },
-    createAssignment() {
+    async createAssignment() {
+
+      var ques = await sb.gen( {
+          N : this.numberOfQuestions,
+          week : this.selectedWeek
+      } )
+      alert(ques)
+
+      this.assignmentData.questions = ques;
+
       this.step = 'editor'
     },
     goBack() {
@@ -348,9 +366,9 @@ export default {
       alert('Assignment submitted')
     },
     checkAnswer() {
-      const correctAnswer = this.currentQuestionData.correctAnswer
-      const studentAnswer = this.selectedAnswers[this.currentQuestion]
-      alert(studentAnswer === correctAnswer ? 'Correct!' : 'Incorrect')
+      const correctAnswer = this.currentQuestionData.answer;
+      const studentAnswer = this.selectedAnswers[this.currentQuestion];
+      alert(studentAnswer === correctAnswer ? 'Correct!' : 'Incorrect');
     },
     getAIExplanation() {
       alert('AI explanation feature coming soon!')

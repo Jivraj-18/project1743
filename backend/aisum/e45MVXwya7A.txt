@@ -1,0 +1,12 @@
+In this lecture, we learned more about strings in Python. Here are the key points:  
+1. **String Replication**: When you multiply a string by a number (e.g., `s * 5`), it repeats the string that many times. For example, `good * 5` gives `goodgoodgoodgoodgood`. If you use an index, like `s[0] * 5`, it gives `ggggg` because `s[0]` is 'g'.  
+
+2. **String Comparison**: Strings can be compared using operators. For example, `x == 'India'` is `True` if 'I' is uppercase, but `x == 'india'` is `False`.  
+   - Comparing strings like `apple > '1'` returns `False` not because of length, but because it checks character by character based on alphabetical order.  
+   - If first letters are the same, it continues comparing the next letters. For example, `ab < az` is `True` because 'b' is less than 'z'.  
+
+3. **Negative Indexing**: You can access characters from the end of the string using negative numbers. For instance, `s[-1]` gives the last character.  
+
+4. **Index Out of Range**: If you try to access an index that doesn't exist (like `s[100]`), you'll get an error. The `len()` function tells you the number of characters in the string. Remember, indexing starts at 0, so for a string of length 36, the highest index is 35.  
+
+Overall, we explored how to manipulate and compare strings, and learned about accessing them using both positive and negative indices.

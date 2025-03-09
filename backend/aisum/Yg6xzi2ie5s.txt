@@ -1,0 +1,5 @@
+In programming, we can use variables to store values. For example, if we set a variable 'a' to 10, we can print 'a' to see the value, which will be 10. If we create another variable 'b' and set it to 20, we can print both 'a' and 'b' to see their values. We can also do math with these variables, like adding or multiplying them.
+
+A common operation is incrementing a variable, which means adding 1 to its current value. For example, if we set 'a' to 10 and then do 'a = a + 1', 'a' will now be 11. This is different from traditional math where you can't just replace 'a' with itself plus 1; in programming, it updates the value.
+
+We can also ask users to input numbers. When we prompt the user to enter a number, we can store this input in a variable (like 'n') and then print it or perform calculations with it. For instance, if a user enters 100, we can print 'n', 'n + 1', 'n + 2', etc., which would show 100, 101, 102, and so on. The 'int' part in the code converts the input into a number so we can do math with it.

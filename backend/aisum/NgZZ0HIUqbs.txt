@@ -1,0 +1,5 @@
+In this tutorial, we learn how to write our first program using Python on Replit.com, a coding platform. First, we access the site and log in using our Google account. We create a new project, name it, and start coding. The basic command we use is 'print', which displays text on the screen. When you type something like 'print("hello")' and click 'run', it shows 'hello' on the output screen. You can try different phrases and see them appear as output. 
+
+The tutorial also demonstrates how to create a pattern using stars. By typing one star on the first line, two on the second, and so on, you can create a staircase effect. The program follows your instructions precisely, so if you type ten stars, it shows ten stars, no matter what. 
+
+Finally, the tutorial hints at automating repetitive tasks in coding, which will be explored in future lessons.

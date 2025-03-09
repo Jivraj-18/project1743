@@ -1,0 +1,13 @@
+In this Python lecture, we learned about variables and literals. We used a simple program to show how to ask for a user's name, location, and age, and then print a message using that information. 
+
+1. **Variables** are like containers that can store different values (e.g., name, age). You can change what is stored in a variable anytime (like changing the name from Sudarshan to Omkar).
+
+2. **Literals** are the actual values stored in variables (like 'Sudarshan', '40', 'Mysore').
+
+3. You can combine print and input commands to display a message while asking for input.
+
+4. When using variables, they can be on both sides of an equal sign, but literals can only be used on the right side.
+
+5. We also discussed when to use variables (when values may change) versus literals (when values are constant, like Pi = 3.14).
+
+In summary, variables are for changeable data, and literals are for fixed values. Happy learning!
