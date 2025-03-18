@@ -1,6 +1,9 @@
 from .models import Instructor, Student, Course, User, user_roles, Issue, CourseStudent, Content, Question, AssignmentStudent, Assignment, Event, UserTask, StarredQuestion
 from .extensions import db
 
+from .fs import FileManager
+aisum = FileManager('aisum')
+
 def makeS (s, t):
     s = s
     b = "Do it yourself"
@@ -17,7 +20,7 @@ def makeS (s, t):
             
             for row in results:
                 result_tuple = tuple(row.__dict__.values())
-                sumup += row.ai_summary + "\n"
+                sumup += aisum.file_to_text(row.ai_summary.split("/")[1]) + "\n"
 
         b = f"""
             Scope: { sumup } 
@@ -32,20 +35,19 @@ def makeS (s, t):
         
         if islec:
             results = db.session.query(Content).filter(Content.content_name == islec).first()
-            sumup += results.ai_summary
+            sumup += aisum.file_to_text(results.ai_summary.split("/")[1]) + "\n"
         
         elif isweek:
             
             results = db.session.query(Content).filter(Content.content_type == isweek).all()
             for row in results:
                 result_tuple = tuple(row.__dict__.values())
-                sumup += row.ai_summary
+                sumup += aisum.file_to_text(row.ai_summary.split("/")[1]) + "\n"
 
         else:
             sumup = "Do it Accoding to Query"
 
         b = f"Content to Summerize : {sumup}"
-    
 
     elif t == "chat":
         b = "This is the conversation which is going between you and the USER. Can you continue it?\n\n"

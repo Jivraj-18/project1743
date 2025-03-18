@@ -52,10 +52,17 @@ class Logout(Resource):
     
 # for student info
 class StudInfo(Resource):
-    def get(self, student_id):
-        student = db.session.get(Student, student_id)
+    @roles_required('student')
+    def get(self):
+        user_id = current_user.user_id
+        
+        user = db.session.get(User, user_id)
+        if not user:
+            return {'message': 'User not found'}, 404
+
+        student = db.session.query(Student).filter_by(email=user.email).first()
         if not student:
-            return {'message': 'Student not found'}, 404
+            return {'message': 'Student record not found'}, 404
         output={
                 'student_name': student.student_name,
                 'enroll_date': student.enroll_date,
@@ -84,7 +91,7 @@ class Report(Resource):
         db.session.add(report)
         db.session.commit()
 
-        return {'message': 'Issue reported successfully', 'issue_id': report.issue_id}, 201
+        return {'message': 'Issue reported successfully', 'issue_id': report.issue_id}, 200
 
     @roles_required('student')    
     def get(self, user_id):
@@ -97,7 +104,7 @@ class ViewReports(Resource):
     @roles_accepted('instructor', 'ta')    
     def get(self):
         issues = db.session.query(Issue).join(User, Issue.user_id == User.user_id).join(Course, Issue.course_id == Course.course_id, isouter=True).filter(Issue.resolved == False).all()
-        result = [{'issue_id': issue.issue_id, 'issue_type': issue.issue_type, 'course_name': issue.course.name if issue.course else None, 'user_email': issue.user.email, 'subject': issue.subject, 'description': issue.description, 'issue_date': issue.issue_date} for issue in issues]
+        result = [{'issue_id': issue.issue_id, 'issue_type': issue.issue_type, 'course_name': issue.course.course_name if issue.course else None, 'user_email': issue.user.email, 'subject': issue.subject, 'description': issue.description, 'issue_date': issue.issue_date} for issue in issues]
         return jsonify(result)
 
 # to get events
@@ -109,36 +116,59 @@ class Events(Resource):
     
 # to get and add tasks
 class Tasks(Resource):
-    def get(self, user_id):
+    @auth_required('token')
+    def get(self):
+        user_id = current_user.user_id  
+        
         tasks = db.session.query(UserTask).filter_by(user_id=user_id).all()
         result = [{'task_id': task.task_id, 'title': task.title, 'description': task.description, 'task_date': task.task_date} for task in tasks]
+        
         return jsonify(result)
     
+    @auth_required('token')
     def post(self):
         data = request.get_json()
         title = data.get('title')
         description = data.get('description')
         task_date_str = data.get('task_date')
-        user_id = data.get('user_id')
-        task_date = datetime.strptime(task_date_str, "%Y-%m-%d").date()
 
+        # Ensure required fields are provided
+        if not title or not task_date_str:
+            return {"error": "Missing required fields"}, 400
+
+        try:
+            task_date = datetime.strptime(task_date_str, "%Y-%m-%d").date()
+        except ValueError:
+            return {"error": "Invalid date format, expected YYYY-MM-DD"}, 400
+
+        # Assign task to the logged-in user
+        user_id = current_user.user_id  
         task = UserTask(title=title, description=description, task_date=task_date, user_id=user_id)
 
         db.session.add(task)
         db.session.commit()
 
         return {'message': 'Task created successfully', 'task_id': task.task_id}, 201
-    
+
+    @auth_required('token')
     def delete(self, task_id):
+        if not current_user.is_authenticated:
+            return {"error": "You must sign in to view this resource."}, 401
+
         task = db.session.get(UserTask, task_id)
+        
         if not task:
             return {'message': 'Task not found'}, 404
+
+        # Ensure only the owner of the task can delete it
+        if task.user_id != current_user.user_id:
+            return {'error': 'Unauthorized to delete this task'}, 403
 
         db.session.delete(task)
         db.session.commit()
 
         return {'message': 'Task deleted successfully'}, 200
-
+    
 # to get courses for a student
 class MyCourses(Resource):
     def get(self, student_id):
@@ -147,7 +177,7 @@ class MyCourses(Resource):
             return {'message': 'Student not found'}, 404
 
         courses = (
-            db.session.query(Course.name, Assignment.assignment_id, Assignment.total_marks, AssignmentStudent.marks_obtained)
+            db.session.query(Course.course_name, Assignment.assignment_id, Assignment.total_marks, AssignmentStudent.marks_obtained)
             .join(CourseStudent, Course.course_id == CourseStudent.course_id)
             .join(Assignment, Course.course_id == Assignment.course_id)
             .join(AssignmentStudent, Assignment.assignment_id == AssignmentStudent.assignment_id)
@@ -173,7 +203,7 @@ class CourseContent(Resource):
     def get(self, course_id):
         course = db.session.get(Course, course_id)
         if not course:
-            return jsonify({'message': 'Course not found'}), 404
+            return {'message': 'Course not found'}, 404
 
         contents = db.session.query(Content).filter_by(course_id=course_id).all()
 
@@ -236,24 +266,43 @@ class Questions(Resource):
     def post(self):
         data = request.get_json()
 
-        if not data or not isinstance(data, list):  # Ensure input is a list of questions
-            return jsonify({"message": "Invalid input format. Expected a list of questions."}), 400
+        if not data or not isinstance(data, dict):  # Ensure input is a dictionary
+            return jsonify({"error": "Invalid input format. Expected a dictionary."}), 400
+
+        # Extract assignment details
+        category = data.get("category")
+        course_id = data.get("course_id")
+        which_week = data.get("which_week")
+        total_marks = sum(q.get("marks", 0) for q in data.get("questions", []))
+
+        if not category or not course_id or which_week is None:
+            return jsonify({"error": "Missing required assignment details"}), 400
+
+        # Create the assignment
+        new_assignment = Assignment(
+            category=category,
+            course_id=course_id,
+            which_week=which_week,
+            total_marks=total_marks
+        )
+        db.session.add(new_assignment)
+        db.session.commit()  # Commit to get assignment_id
 
         added_questions = []
 
-        for q in data:
+        for q in data.get("questions", []):
             correct_options = q.get("correct_options")
 
-            # Store as JSON only if it's a list (for programming Qs)
+            # Convert correct_options to JSON string if it's a list (for programming Qs)
             if isinstance(correct_options, list):
                 correct_options = json.dumps(correct_options)
 
             question = Question(
                 question_type=q.get("question_type"),
-                assignment_id=q.get("assignment_id"),
+                assignment_id=new_assignment.assignment_id,
                 question=q.get("question"),
                 options=base64.b64encode(json.dumps(q.get("options")).encode()).decode() if q.get("options") else None,
-                correct_options=correct_options,  # Store as JSON string for lists
+                correct_options=correct_options,
                 marks=q.get("marks"),
                 hints=q.get("hints"),
                 text_solution=q.get("text_solution")
@@ -263,9 +312,9 @@ class Questions(Resource):
 
             # Decode correct_options only if it is JSON (list)
             try:
-                parsed_correct_options = json.loads(correct_options)  # If it's a list, decode it
+                parsed_correct_options = json.loads(correct_options)
             except (json.JSONDecodeError, TypeError):
-                parsed_correct_options = correct_options  # Keep it as a string if not JSON
+                parsed_correct_options = correct_options
 
             added_questions.append({
                 "question_id": question.question_id,
@@ -273,13 +322,15 @@ class Questions(Resource):
                 "question_type": question.question_type,
                 "question": question.question,
                 "options": q.get("options"),
-                "correct_options": parsed_correct_options,  # Return decoded JSON if needed
+                "correct_options": parsed_correct_options,
                 "marks": question.marks,
                 "hints": question.hints,
                 "text_solution": question.text_solution
             })
 
-        return jsonify({"message": "Questions added successfully", "questions": added_questions})
+        return {
+            "message": "Assignment and questions added successfully"
+        }, 201
         
     def put(self, question_id):
         data = request.get_json()
@@ -394,6 +445,9 @@ class Assignments(Resource):
 
         if not student_id or not assignment_id:
             return jsonify({"error": "Missing required fields"}), 400
+        
+        if student_answers=={}:
+            return {'error':'No answers provided'}, 400
 
         if isinstance(student_answers, list):
             student_answers = {str(i): ans for i, ans in enumerate(student_answers)}
@@ -410,7 +464,7 @@ class Assignments(Resource):
 
         if code:
             if not student_answers or len(student_answers) != 1:
-                return jsonify({"error": "Programming questions require exactly one question_id"}), 400
+                return {"error": "Programming questions require exactly one question_id"}, 400
             result, total_marks = evaluate_programming(assignment_id, student_answers)
         else:
             result, total_marks = evaluate_assignment(assignment_id, student_answers)
@@ -482,45 +536,7 @@ class Assignments(Resource):
 
         return jsonify(response)  # No ", 200"
 
-class NewAssignment(Resource):
-    # 🔹 POST: Create a new assignment
-    def post(self):
-        data = request.get_json()
-
-        # Extract required fields
-        category = data.get("category")
-        course_id = data.get("course_id")
-        deadline = data.get("deadline")
-        which_week = data.get("which_week")
-        total_marks = data.get("total_marks")
-
-        # Validate input
-        if not category or not course_id or total_marks is None:
-            return jsonify({"error": "Missing required fields"}), 400
-
-        # Convert deadline if provided
-        try:
-            deadline = datetime.strptime(deadline, "%Y-%m-%dT%H:%M:%S") if deadline else None
-        except ValueError:
-            return jsonify({"error": "Invalid datetime format"}), 400
-
-        # Create a new Assignment instance
-        new_assignment = Assignment(
-            category=category,
-            course_id=course_id,
-            deadline=deadline,
-            which_week=which_week,
-            total_marks=total_marks
-        )
-
-        # Save to database
-        db.session.add(new_assignment)
-        db.session.commit()
-
-        return jsonify({"message": "Assignment created successfully", "assignment_id": new_assignment.assignment_id}), 201
-
-    
-    # 🔹 PUT: Update an existing assignment
+class Editdeadline(Resource):
     def put(self, assignment_id):
         data = request.get_json()
 
@@ -528,27 +544,18 @@ class NewAssignment(Resource):
         assignment = db.session.query(Assignment).filter_by(assignment_id=assignment_id).first()
 
         if not assignment:
-            return jsonify({"error": "Assignment not found"}), 404
+            return {"error": "Assignment not found"}, 404 
 
-        # Update fields if provided
-        if "category" in data:
-            assignment.category = data["category"]
-        if "course_id" in data:
-            assignment.course_id = data["course_id"]
         if "deadline" in data:
             try:
                 assignment.deadline = datetime.strptime(data["deadline"], "%Y-%m-%dT%H:%M:%S") if data["deadline"] else None
             except ValueError:
-                return jsonify({"error": "Invalid datetime format"}), 400
-        if "which_week" in data:
-            assignment.which_week = data["which_week"]
-        if "total_marks" in data:
-            assignment.total_marks = data["total_marks"]
+                return {"error": "Invalid datetime format"}, 400
 
         # Save updates
         db.session.commit()
 
-        return jsonify({"message": "Assignment updated successfully"}), 200
+        return {"message": "Assignment updated successfully"}, 200
 
 
 
@@ -556,38 +563,44 @@ class NewAssignment(Resource):
 class AI(Resource):
 
     def post(self):
-        s = request.get_json()
 
-        t = s["type"]
-        p = s["prompt"]
-        b = s["background"]
+        try :
+            s = request.get_json() if request.is_json else {}
 
-        c = makeS(b, t) # Make it using the background details
+            t = s.get("type", "")
+            p = s.get("prompt", "")
+            b = s.get("background", {})
 
-        i = { 
-            "prompt" : p,
-            "content" : c
-        }
+            if not isinstance(t, str) or not isinstance(p, str) or not isinstance(b, dict):
+                b = {"res": "Oops, BAD Request", "error" : True}, 400
+                return b
 
-        link = {
-            "gen" : ink.generate_questions,
-            "sumup" : ink.summarize,
-            "chat" : ink.chat,
-            "analyse" : ink.chat,
-            "explain" : ink.chat
-        }
+            link = {
+                "gen" : ink.generate_questions,
+                "sumup" : ink.summarize,
+                "chat" : ink.chat,
+                "analyse" : ink.chat,
+                "explain" : ink.chat
+            }
 
-        print("API => ", c, i)
-        # return jsonify({})
+            if t in link:
+                c = makeS(b, t)
+                i = { 
+                    "prompt" : p,
+                    "content" : c
+                }
+                # print("API => ", c, i)
+                d = link[t](i)
+            else :
+                b = {"res": "Oops, Invalid Type", "error" : True}, 400
+                return b
 
-        if (link[t]):
-            d = link[t](i)
-        else :
-            d = "Invaild"
-
-        b = jsonify({"res" : json.dumps(d)})
-        return b
-
+            b = jsonify({"res" : json.dumps(d)})
+            return b
+        except Exception as e:
+            print("Error : ", e)
+            b = { "res" : "Internal Server Error", "error" : True }, 500
+            return b
 
 api.add_resource(AI, '/ai')
 
@@ -605,7 +618,7 @@ api.add_resource(Questions, '/questions', '/questions/<int:question_id>')
 api.add_resource(StarredQuestions, '/starred_questions/<int:student_id>')
 api.add_resource(AssignmentSubmissions, '/submissions')
 api.add_resource(Assignments, '/assignments/<int:assignment_id>/<int:student_id>', '/assignments')
-api.add_resource(NewAssignment, '/new_assignment', '/new_assignment/<int:assignment_id>')
+api.add_resource(Editdeadline, '/edit_assignment/<int:assignment_id>')
 
 
 
