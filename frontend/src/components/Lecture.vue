@@ -185,6 +185,7 @@ export default {
       // const weekId = 1
       // const videoId = 2
       // this.videoData = this.getDummyVideoData(courseId, weekId, videoId)
+      
     },
   },
   created() {

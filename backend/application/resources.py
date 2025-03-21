@@ -52,8 +52,9 @@ class Logout(Resource):
     
 # for student info
 class StudInfo(Resource):
-    @roles_required('student')
+    @roles_accepted('student','ta')
     def get(self):
+        
         user_id = current_user.user_id
         
         user = db.session.get(User, user_id)
@@ -64,9 +65,9 @@ class StudInfo(Resource):
         if not student:
             return {'message': 'Student record not found'}, 404
         output={
-                'student_name': student.student_name,
+                'name': student.student_name,
                 'enroll_date': student.enroll_date,
-                'current_level': student.current_level,
+                'level': student.current_level,
                 'dob': student.dob,
                 'about_me' : student.about_me,
                 'phone' : student.phone,
@@ -81,12 +82,11 @@ class Report(Resource):
     def post(self):
         data = request.get_json()
         issue_type = data.get('issue_type')
-        user_id = data.get('user_id')
         course_id = data.get('course_id')  
         subject = data.get('subject')  
         description = data.get('description')
-
-        report = Issue(issue_type=issue_type, user_id=user_id, subject=subject, description=description, course_id=course_id, issue_date=datetime.now(timezone.utc))
+        
+        report = Issue(issue_type=issue_type, user_id=current_user.user_id, subject=subject, description=description, course_id=course_id, issue_date=datetime.now(timezone.utc))
 
         db.session.add(report)
         db.session.commit()
@@ -94,9 +94,9 @@ class Report(Resource):
         return {'message': 'Issue reported successfully', 'issue_id': report.issue_id}, 200
 
     @roles_required('student')    
-    def get(self, user_id):
-        issues = db.session.query(Issue).join(Course, Issue.course_id == Course.course_id, isouter=True).filter(Issue.user_id == user_id).all()
-        result = [{'issue_id': issue.issue_id, 'issue_type': issue.issue_type, 'course_name': issue.course.course_name if issue.course else None, 'subject': issue.subject, 'description': issue.description, 'issue_date': issue.issue_date, 'solution': issue.solution, 'resolved': issue.resolved} for issue in issues]
+    def get(self):
+        issues = db.session.query(Issue).join(Course, Issue.course_id == Course.course_id, isouter=True).filter(Issue.user_id == current_user.user_id).all()
+        result = [{'id': issue.issue_id, 'issue_type': issue.issue_type, 'course_name': issue.course.course_name if issue.course else None, 'subject': issue.subject, 'description': issue.description, 'date': issue.issue_date, 'solution': issue.solution, 'resolved': issue.resolved} for issue in issues]
         return jsonify(result)
 
 # to view reports
@@ -607,8 +607,8 @@ api.add_resource(AI, '/ai')
 
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
-api.add_resource(StudInfo, '/studinfo/<int:student_id>')
-api.add_resource(Report, '/report', '/report/<int:user_id>')
+api.add_resource(StudInfo, '/studinfo')
+api.add_resource(Report, '/report', '/report')
 api.add_resource(ViewReports, '/view_reports')
 api.add_resource(Events, '/events')
 api.add_resource(Tasks, '/tasks/<int:user_id>', '/tasks', '/tasks/delete/<int:task_id>')

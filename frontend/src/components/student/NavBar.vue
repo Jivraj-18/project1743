@@ -66,6 +66,7 @@
             </router-link>
           </li>
         </ul>
+        
         <!-- Right-aligned links for larger screens: icons for Profile & Logout -->
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-none d-lg-flex gap-3">
           <li class="nav-item">
@@ -74,9 +75,13 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/login">
+            <!--run logout method when cliced on icon instead of redirecting to login page-->
+            <a class="nav-link" href="#" @click.prevent="logout">
               <i class="fa-solid fa-right-from-bracket fs-4"></i>
-            </router-link>
+            </a>
+            <!-- <router-link class="nav-link" to="/login">
+              <i class="fa-solid fa-right-from-bracket fs-4"></i>
+            </router-link> -->
           </li>
         </ul>
         <!-- Right-aligned links for small screens: text links for Profile & Logout -->
@@ -96,7 +101,34 @@
 <script>
 export default {
   name: 'NavbarComponent',
+  // write a method that sends request using fetch api to logout of application and also remove the token from local storage
+  methods: {
+    logout() {
+      // Send a request to the backend to log out
+      fetch('http://localhost:5000/api/logout', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            // Remove token from local storage
+            localStorage.removeItem('token');
+            // Redirect to login page
+            this.$router.push('/login');
+          } else {
+            console.error('Logout failed');
+          }
+        })
+        .catch((error) => {
+          console.error('Error during logout:', error);
+        });
+    },
+  },
 }
+
 </script>
 
 <style scoped>

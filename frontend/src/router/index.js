@@ -12,65 +12,65 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/', // done
       redirect: '/login',
     },
     {
-      path: '/login',
+      path: '/login', //done
       name: 'login',
       component: Login,
     },
     {
-      path: '/student/announcements',
+      path: '/student/announcements', // There is no backend for this
       name: 'announcements',
       component: () => import('@/views/Student/Announcements.vue'),
     },
     {
-      path: '/student/profile',
+      path: '/student/profile', //done
       name: 'student_profile',
       component: () => import('@/views/Student/Profile.vue'),
     },
     {
-      path: '/instructor/profile',
+      path: '/instructor/profile', // there is no backend for this and frontend is just copy of student profile page, which doesn't make any sense
       name: 'instructor_profile',
       component: () => import('@/views/Instructor/Profile.vue'),
     },
     {
-      path: '/ta/profile',
+      path: '/ta/profile', //done
       name: 'ta_profile',
       component: () => import('@/views/TA/Profile.vue'),
     },
     {
-      path: '/instructor/courses',
+      path: '/instructor/courses', // there is no backend for this
       name: 'instructor-courses',
       component: Courses,
     },
     {
-      path: '/instructor/updates',
+      path: '/instructor/updates', // there is no backend for this
       name: 'instructor-updates',
       component: Updates,
       props: true,
     },
     {
-      path: '/student/courses',
+      path: '/student/courses', // there is no backend for this
       name: 'student-courses',
       component: Student_Courses,
       props: true,
     },
     {
-      path: '/student/report-issues',
+      path: '/student/report-issues', // done 
       name: 'report-issues',
       component: ReportIssues,
       props: true,
     },
     {
-      path: '/student/to_do',
+      path: '/student/to_do', // ther is no backend for this
       name: 'to_do',
       component: ToDo,
       props: true,
     },
     {
-      path: '/instructor/course/:id',
+      path: '/instructor/course/:id', 
       name: 'instructor_course',
       component: course,
       props: true,
