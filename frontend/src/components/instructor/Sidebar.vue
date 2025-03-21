@@ -371,7 +371,23 @@ export default {
       const id =
         item.lec_id || item.ga_id || item.pa_id || item.ppa_id || item.grpa_id || item.cs_id
       this.activeLesson = type + '-' + id
+      // this.$router.push(`/instructor/course/${this.courseId}/week/${week.id}/${type}/${id}`)
+      // from courses object find the course with this.courseId and then find the week with week.id and then find the lecture with id 
+      this.courseData.weeks.forEach((w) => {
+        if (w.id === week.id) {
+          w.lectures.forEach((l) => {
+            if (l.lec_id === id) {
+              // store the data in local Storage
+              localStorage.setItem('lectureData', JSON.stringify(l))              
+            
+            }
+          })
+        }
+      })
+      // store the data in local Storage
+
       this.$router.push(`/instructor/course/${this.courseId}/week/${week.id}/${type}/${id}`)
+
     },
     navigateToAssignment() {
       // Update activeLesson and navigate to the proper route.

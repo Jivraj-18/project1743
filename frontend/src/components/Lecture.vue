@@ -10,10 +10,23 @@
           <!-- Video Section (left) -->
           <div class="col-md-8 mb-3">
             <!-- Example HTML5 video with controls -->
-            <video class="w-100" controls :poster="videoData.poster">
-              <source :src="videoData.videoUrl" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            <!-- <video class="w-100" controls :poster="videoData.poster"> -->
+              <!-- videoData.url is a youtube url, so show it properly-->
+              <!-- <source
+                v-if="videoData.url.includes('youtube')"
+
+                :src="videoData.url.replace('watch?v=', 'embed/')"
+                type="video/youtube"
+              /> -->
+              <iframe width="560" height="315" 
+                  src="https://www.youtube.com/embed/NgZZ0HIUqbs" 
+                  frameborder="0" 
+                  allowfullscreen>
+              </iframe>
+              <!-- Fallback for unsupported video formats -->
+              <!-- <source :src="videoData.url" type="video/mp4" />
+              Your browser does not support the video tag. -->
+            <!-- </video> -->
           </div>
 
           <!-- Scrollable text (right) -->
@@ -25,7 +38,7 @@
         <!-- AI SUMMARY -->
         <div class="ai-summary-box">
           <h5 class="mb-2">AI SUMMARY</h5>
-          <p>{{ videoData.aiSummary }}</p>
+          <p>{{ videoData.transcript_url }}</p>
         </div>
       </div>
     </div>
@@ -42,9 +55,9 @@ export default {
       videoData: {
         title: '',
         poster: '',
-        videoUrl: '',
+        url: '',
         description: '',
-        aiSummary: '',
+        transcript_url: '',
       },
     }
   },
@@ -64,22 +77,22 @@ export default {
             return {
               title: 'L1.1 Introduction to Python',
               poster: '', // Add a poster image if available
-              videoUrl:
+              url:
                 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
               description:
                 'Introduction to Python programming, its applications, and why it is widely used.',
-              aiSummary:
+              transcript_url:
                 'This lesson introduces Python, its features, and its applications in modern programming.',
             }
           } else if (video === 'lecture-2') {
             return {
               title: 'L1.2 Python Installation',
               poster: '',
-              videoUrl:
+              url:
                 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
               description:
                 'Step-by-step guide on installing Python and setting up a development environment.',
-              aiSummary:
+              transcript_url:
                 'Covers Python installation, setting up an IDE, and writing a simple Python script.',
             }
           }
@@ -88,11 +101,11 @@ export default {
             return {
               title: 'L2.1 Lists and Tuples',
               poster: '',
-              videoUrl:
+              url:
                 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
               description:
                 'Understanding Python lists and tuples, their differences, and use cases.',
-              aiSummary:
+              transcript_url:
                 'Explains Python lists and tuples, their syntax, and when to use each data structure.',
             }
           }
@@ -100,11 +113,11 @@ export default {
             return {
               title: 'L2.2 Dictionaries',
               poster: '',
-              videoUrl:
+              url:
                 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
               description:
                 'Introduction to algebra, including variables, expressions, and basic equations.',
-              aiSummary:
+              transcript_url:
                 'Explains algebra fundamentals, including expressions, operations, and simple equations.',
             }
           }
@@ -115,22 +128,22 @@ export default {
             return {
               title: 'L1.1 Introduction to Linear Equations',
               poster: '', // Add a poster image if available
-              videoUrl:
+              url:
                 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
               description:
                 'Introduction to Python programming, its applications, and why it is widely used.',
-              aiSummary:
+              transcript_url:
                 'This lesson introduces Python, its features, and its applications in modern programming.',
             }
           } else if (video === 'lecture-2') {
             return {
               title: 'L1.2 Quadratic Equations',
               poster: '',
-              videoUrl:
+              url:
                 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
               description:
                 'Step-by-step guide on installing Python and setting up a development environment.',
-              aiSummary:
+              transcript_url:
                 'Covers Python installation, setting up an IDE, and writing a simple Python script.',
             }
           }
@@ -139,11 +152,11 @@ export default {
             return {
               title: 'L2.1 Limits',
               poster: '',
-              videoUrl:
+              url:
                 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
               description:
                 'Understanding Python lists and tuples, their differences, and use cases.',
-              aiSummary:
+              transcript_url:
                 'Explains Python lists and tuples, their syntax, and when to use each data structure.',
             }
           }
@@ -151,11 +164,11 @@ export default {
             return {
               title: 'L2.2 Derivatives',
               poster: '',
-              videoUrl:
+              url:
                 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
               description:
                 'Introduction to algebra, including variables, expressions, and basic equations.',
-              aiSummary:
+              transcript_url:
                 'Explains algebra fundamentals, including expressions, operations, and simple equations.',
             }
           }
@@ -164,9 +177,9 @@ export default {
       return {
         title: 'Video Not Found',
         poster: '',
-        videoUrl: '',
+        url: '',
         description: 'No content available for this course, week, or video.',
-        aiSummary: 'No summary available.',
+        transcript_url: 'No summary available.',
       }
     },
 
@@ -181,11 +194,16 @@ export default {
       const videoId = this.$route.params.lecture_id
       console.log(videoId)
       this.videoData = this.getDummyVideoData(courseId, weekId, videoId)
-      // const courseId = 1
-      // const weekId = 1
-      // const videoId = 2
-      // this.videoData = this.getDummyVideoData(courseId, weekId, videoId)
-      
+      // get data from l variable of localsto
+      this.videoData = JSON.parse(localStorage.getItem('lectureData'))
+console.log(this.videoData)
+      //   videoData: {
+      //   title: '',
+      //   poster: '',
+      //   url: '',
+      //   description: '',
+      //   transcript_url: '',
+      // }, 
     },
   },
   created() {
