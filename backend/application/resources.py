@@ -2,15 +2,14 @@ from flask import request, jsonify
 from flask_restful import Api, Resource, reqparse, fields, marshal, marshal_with
 from flask_security import current_user, logout_user, auth_required, roles_required, roles_accepted
 from sqlalchemy import text, func
-from .models import Instructor, Student, Course, User, user_roles, Issue, CourseStudent, Content, Question, AssignmentStudent, Assignment, Event, UserTask, StarredQuestion
+from .models import Instructor, Student, Course, User, user_roles, Issue, CourseStudent, InstructorCourse, Content, Question, AssignmentStudent, Assignment, Event, UserTask, StarredQuestion
 from .extensions import db
 from datetime import datetime, timezone
 import base64
 import json
 from .evaluate import evaluate_assignment, evaluate_programming
-
-
 from .sb import makeS
+from flask_security.utils import verify_password
 from .ai import ink
 
 api=Api(prefix='/api')
@@ -20,29 +19,36 @@ class Login(Resource):
     def post(self):
         data = request.get_json()
         email = data.get('email')
-        
+        password = data.get('password')
+
+        if not email:
+            return {"message": "Email not provided"}, 400
+        if not password:
+            return {"message": "Password not provided"}, 400        
+
         user = db.session.query(User).filter_by(email=email).first()
         student = db.session.query(Student).filter_by(email=email).first()
         instructor = db.session.query(Instructor).filter_by(email=email).first()
         
-        if user and user.active:
+        if user and user.active and verify_password(password, user.password):  # Check email & password
             roles = [role.name for role in user.roles]
+            student = db.session.query(Student).filter_by(email=email).first()
+            instructor = db.session.query(Instructor).filter_by(email=email).first()
+            
+            response_data = {
+                "token": user.get_auth_token(),
+                "roles": roles,
+                "id": user.user_id
+            }
+            
             if student:
-                return {
-                    "token": user.get_auth_token(),
-                    "roles": roles,
-                    "id": user.user_id,
-                    "student_id": student.student_id
-                }, 200
+                response_data["student_id"] = student.student_id
             elif instructor:
-                return {
-                    "token": user.get_auth_token(),
-                    "roles": roles,
-                    "id": user.user_id,
-                    "instructor_id": instructor.instructor_id
-                }, 200
-        
-        return {"message": 'Invalid credentials'}, 401
+                response_data["instructor_id"] = instructor.instructor_id
+            
+            return response_data, 200
+
+        return {"message": "Invalid credentials"}, 401
 
 # for logout        
 class Logout(Resource):
@@ -186,18 +192,47 @@ class MyCourses(Resource):
         )
 
         course_data = {}
-        for course_name, assignment_id, total_marks, marks_obtained in courses:
+        for course_name, which_week, category, total_marks, marks_obtained in courses:
             if course_name not in course_data:
                 course_data[course_name] = []
             
+            assignment_name = f"Week {which_week} {category}"
+            
             percentage = (int(marks_obtained) / total_marks) * 100 if total_marks else 0
             course_data[course_name].append({
-                "assignment_id": assignment_id,
+                "assignment_name": assignment_name,
                 "percentage": round(percentage, 2)
             })
 
         return jsonify(course_data)
 
+
+class InstructorCourses(Resource):
+    @auth_required('token')  # Ensure user is authenticated
+    def get(self):
+        # Find the instructor using the current user's email
+        instructor = db.session.query(Instructor).filter_by(email=current_user.email).first()
+
+        if not instructor:
+            return {"message": "User is not an instructor"}, 403  # Forbidden
+
+        # Fetch all course IDs linked to this instructor
+        instructor_courses = db.session.query(InstructorCourse).filter_by(instructor_id=instructor.instructor_id).all()
+
+        if not instructor_courses:
+            return {"message": "No courses found for this instructor"}, 404  # Not Found
+
+        # Extract course details
+        course_list = [
+            {
+                'course_id': ic.course.course_id,
+                'course_name': ic.course.course_name,
+            }
+            for ic in instructor_courses
+        ]
+
+        return jsonify(course_list)
+    
 # to get course content     
 class CourseContent(Resource):
     def get(self, course_id):
@@ -613,6 +648,7 @@ api.add_resource(ViewReports, '/view_reports')
 api.add_resource(Events, '/events')
 api.add_resource(Tasks, '/tasks/<int:user_id>', '/tasks', '/tasks/delete/<int:task_id>')
 api.add_resource(MyCourses, '/mycourses/<int:student_id>')
+api.add_resource(InstructorCourses, '/instructorcourses')
 api.add_resource(CourseContent, '/content/<int:course_id>', '/content', '/content/edit/<int:content_id>')
 api.add_resource(Questions, '/questions', '/questions/<int:question_id>')
 api.add_resource(StarredQuestions, '/starred_questions/<int:student_id>')

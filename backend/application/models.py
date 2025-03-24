@@ -15,6 +15,7 @@ class User(Base, UserMixin):
     __tablename__ = 'User'
     user_id = Column(Integer, primary_key=True, autoincrement=True)
     fs_uniquifier = Column(String, nullable=False, unique=True)
+    password = Column(String, nullable=True)
     email = Column(ForeignKey('Student.email'), ForeignKey('Instructor.email'), nullable=False, unique=True)
     active = Column(Boolean, default=True)
 
