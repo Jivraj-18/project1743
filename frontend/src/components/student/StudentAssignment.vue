@@ -51,7 +51,11 @@
         </div>
 
         <form>
-          <div v-for="(option, index) in options" :key="option.id" class="form-check mb-2">
+          <div
+            v-for="(option, index) in options"
+            :key="option.id"
+            class="form-check mb-2"
+          >
             <input
               class="form-check-input"
               type="radio"
@@ -66,6 +70,11 @@
           </div>
         </form>
 
+        <!-- Display answer result below options -->
+        <div v-if="answerResult" class="mt-2" :style="{ color: answerResultColor }">
+          {{ answerResult }}
+        </div>
+
         <!-- Student Actions for Practice Assignments -->
         <div v-if="!isGraded" class="mt-4 practice-actions">
           <button
@@ -75,7 +84,9 @@
           >
             Check Answer
           </button>
-          <button class="btn btn-info me-2" @click="getAIExplanation">AI Explanation</button>
+          <button class="btn btn-info me-2" @click="getAIExplanation">
+            AI Explanation
+          </button>
           <button class="btn btn-warning" @click="getHint">Get Hint</button>
         </div>
       </div>
@@ -96,7 +107,6 @@
         >
           Next Question
         </button>
-        <!-- Global submit button shown only for graded assignments -->
         <button
           v-if="isGraded && !route.path.includes('/ta')"
           class="btn btn-primary"
@@ -128,6 +138,9 @@ export default {
       selectedAnswers: {},
       totalQuestions: 0,
       bookmarked: false,
+      // New properties for checkAnswer functionality
+      answerResult: "",
+      answerIsCorrect: false,
     }
   },
   mounted() {
@@ -184,23 +197,31 @@ export default {
     progressStyle() {
       return { width: `${this.progress}%` }
     },
+    // Compute the color of the answer result message
+    answerResultColor() {
+      return this.answerIsCorrect ? 'green' : 'red'
+    },
   },
   methods: {
     changeQuestion(n) {
       if (n < 1 || n > this.totalQuestions) return
       this.currentQuestion = n
       this.progress = (n / this.totalQuestions) * 100
+      // Clear previous answer result when switching questions
+      this.answerResult = ""
     },
     prevQuestion() {
       if (this.currentQuestion > 1) {
         this.currentQuestion--
         this.progress = (this.currentQuestion / this.totalQuestions) * 100
+        this.answerResult = ""
       }
     },
     nextQuestion() {
       if (this.currentQuestion < this.totalQuestions) {
         this.currentQuestion++
         this.progress = (this.currentQuestion / this.totalQuestions) * 100
+        this.answerResult = ""
       }
     },
 
@@ -212,7 +233,20 @@ export default {
     checkAnswer() {
       const correctAnswer = this.currentQuestionData.correctAnswer
       const studentAnswer = this.selectedAnswers[this.currentQuestion]
-      alert(studentAnswer === correctAnswer ? 'Correct!' : 'Incorrect')
+      const correctOption = this.options.find(
+        (option) => option.id === correctAnswer
+      )
+      if (studentAnswer === correctAnswer) {
+        this.answerResult = `Correct! The correct answer is: ${
+          correctOption ? correctOption.text : correctAnswer
+        }`
+        this.answerIsCorrect = true
+      } else {
+        this.answerResult = `Incorrect. The correct answer is: ${
+          correctOption ? correctOption.text : correctAnswer
+        }`
+        this.answerIsCorrect = false
+      }
     },
     getAIExplanation() {
       alert('AI explanation feature coming soon!')
