@@ -10,7 +10,7 @@
       <div v-if="chatOpen" class="offcanvas-chat">
         <!-- Chat Header (Sky Blue) -->
         <div class="chat-header d-flex justify-content-between align-items-center">
-          <h5 class="offcanvas-title">Kai</h5>
+          <h5 class="offcanvas-title">Kai the Bhai</h5>
           <button
             type="button"
             class="btn-close btn-close-white"
@@ -55,6 +55,10 @@
 import { ref, nextTick, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
+
+import {sb} from "./sb.js"
+
+
 export default {
   name: 'Chatbot',
   setup() {
@@ -72,20 +76,21 @@ export default {
       }
     }
 
-    const sendMessage = () => {
+    const sendMessage = async () => {
       if (newMessage.value.trim() !== '') {
         messages.value.push({ sender: 'user', text: newMessage.value.trim() })
+        
+        const prompt = newMessage.value
         newMessage.value = ''
-        nextTick(() => {
-          scrollToBottom()
-        })
-        // Simulate Kai response
-        setTimeout(() => {
-          messages.value.push({ sender: 'bot', text: 'I am here to help you!' })
-          nextTick(() => {
-            scrollToBottom()
-          })
-        }, 500)
+        nextTick(() => { scrollToBottom() })
+        
+        const conversation = messages.value.map(message => [message.sender, message.text]);
+
+        var msg = await sb.chat( {prompt, conversation} )
+        messages.value.push({ sender: 'bot', text: msg })
+        nextTick(() => { scrollToBottom() })
+
+
       }
     }
 

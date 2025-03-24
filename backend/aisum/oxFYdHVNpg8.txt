@@ -1,0 +1,9 @@
+In this lesson, we learned about manipulating strings using the alphabet. We defined a variable called 'alpha' to represent all the letters from 'a' to 'z'. By using indices, we could access specific letters in the alphabet. For example, 'alpha[0]' gives us 'a', 'alpha[10]' gives us 'k', and so on. We also explored what happens when we try to access an index that is out of range, such as 'alpha[26]', which results in an error. 
+
+To avoid this error, we introduced the modulo operator (%) to wrap around the alphabet. For instance, '30 % 26' equals 4, which corresponds to the letter 'e'. This way, we can shift letters in the alphabet by a certain number and still stay within the bounds of the alphabet.
+
+We then applied this concept to create a simple form of encryption called the Caesar Cipher, where each letter in a string can be shifted by a specific number of positions. By iterating through each letter, we can create a new string that reflects this shift.
+
+For example, shifting 'sudarshan' by one position results in 'tvebstibo'. We also discussed the importance of using variables for the shift amount so that we can easily change it without rewriting the code multiple times.
+
+In summary, we learned how to manipulate strings, use indices, apply the modulo operator to avoid errors, and create a simple encryption technique. With practice, these concepts will become easier to understand and implement.

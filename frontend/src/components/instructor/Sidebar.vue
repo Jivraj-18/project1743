@@ -132,6 +132,7 @@
     <!-- end .sidebar-wrapper -->
   </div>
   <!-- end #sidebar -->
+
 </template>
 
 <script>
@@ -145,133 +146,202 @@ export default {
     const courseId = computed(() => route.params.id)
     return { courseId, router, route }
   },
+  // create a mounted function for fetching data from backend here is link for fetching lectures http://localhost:5000/api/content/course_id 
+  // it returns a json object which have a key contents individual content is of following format
+  // {
+  //     "content_id": 1,
+  //     "content_name": "L1.1: Introduction",
+  //     "content_type": "Week 1",
+  //     "transcript_url": "sub/8ndsDXohLMQ.txt",
+  //     "url": "https://www.youtube.com/watch?v=8ndsDXohLMQ"
+  //   },
+  //   {
+  //     "content_id": 2,
+  //     "content_name": "L1.2: Introduction to Replit",
+  //     "content_type": "Week 1",
+  //     "transcript_url": "sub/NgZZ0HIUqbs.txt",
+  //     "url": "https://www.youtube.com/watch?v=NgZZ0HIUqbs"
+  //   },
+  //   {
+  //     "content_id": 3,
+  //     "content_name": "L1.3: More on Replit, print and Common Mistakes",
+  //     "content_type": "Week 1",
+  //     "transcript_url": "sub/As7_aq6XGfI.txt",
+  //     "url": "https://www.youtube.com/watch?v=As7_aq6XGfI"
+  //   },
+
+    // store it in a variable called courses, which have weeks and then lectures, properly classify which week it belongs to
+   // it would need some mofificationns to the data received from backend, such as from content type we need to identify week number 
+   // store url in a field called url and transcript_url in a field called transcript_url
+  // and then push it to the lectures array of the week
+  // and then push the week to the weeks array of the course
+  // and then push the course to the courses array
+  mounted() {
+    // Fetch data from backend and populate the courses array
+    fetch('http://localhost:5000/api/content/' + this.courseId)
+      .then((response) => response.json())
+      .then((data) => {
+
+        const course = {}
+        course.id = data['course_id']
+          course.title = data['course_name']
+          course.weeks = []
+        data['contents'].forEach((content) => {
+          const weekNumber = content.content_type.split(' ')[1]
+          
+          const weekIndex = course['weeks'].findIndex((week) =>week.id  === weekNumber)
+
+          if (weekIndex === -1) {
+            course['weeks'].push({
+              id: weekNumber,
+              title: 'Week ' + weekNumber,
+              lectures: [],
+            })
+
+            
+            
+          }
+          course['weeks'][weekNumber-1]['lectures'].push({
+              lec_id: content.content_id,
+              title: content.content_name,
+              type: 'lecture',
+              url: content.url,
+              transcript_url: content.transcript_url,
+            })
+          
+        })
+        this.courses.push(course)
+
+         console.log(this.courses)  
+      })
+  },
   data() {
     return {
       isCollapsed: false,
       activeItem: null,
       activeLesson: null,
       courses: [
-        {
-          id: '1',
-          title: 'Python',
-          weeks: [
-            {
-              id: '1',
-              title: 'Week 1',
-              lectures: [
-                { lec_id: 'lecture-1', title: 'L1.1 - Introduction', type: 'lecture' },
-                { lec_id: 'lecture-2', title: 'L1.2 - Basics', type: 'lecture' },
-              ],
-              g_assignments: [
-                { ga_id: '1', title: 'Graded Assignment 1', type: 'graded-assignment' },
-              ],
-              grp_assignments: [
-                {
-                  grpa_id: '1',
-                  title: 'Graded Programming Assignment 1',
-                  type: 'graded-programming-assignment',
-                },
-              ],
-              p_assignments: [
-                { pa_id: '1', title: 'Practice Assignment 1', type: 'practice-assignment' },
-              ],
-              pp_assignments: [
-                {
-                  ppa_id: '1',
-                  title: 'Practice Programming Assignment 1',
-                  type: 'practice-programming-assignment',
-                },
-                {
-                  ppa_id: '2',
-                  title: 'Practice Programming Assignment 2',
-                  type: 'practice-programming-assignment',
-                },
-              ],
-              concept_summary: {
-                cs_id: 'cs1',
-                title: 'Concept Summary 1',
-                type: 'concept-summary',
-              },
-            },
-            {
-              id: '2',
-              title: 'Week 2',
-              lectures: [
-                { lec_id: 'lecture-3', title: 'L2.1 - Advanced Concepts', type: 'lecture' },
-                { lec_id: 'lecture-4', title: 'L2.2 - Hands-on', type: 'lecture' },
-              ],
-              g_assignments: [
-                { ga_id: '2', title: 'Graded Assignment 2', type: 'graded-assignment' },
-              ],
-              grp_assignments: [
-                {
-                  grpa_id: '3',
-                  title: 'Graded Programming Assignment 3',
-                  type: 'graded-programming-assignment',
-                },
-              ],
-              p_assignments: [
-                { pa_id: '2', title: 'Practice Assignment 2', type: 'practice-assignment' },
-              ],
-              pp_assignments: [
-                {
-                  ppa_id: '4',
-                  title: 'Practice Programming Assignment 4',
-                  type: 'practice-programming-assignment',
-                },
-              ],
-              concept_summary: {
-                cs_id: 'cs2',
-                title: 'Concept Summary 2',
-                type: 'concept-summary',
-              },
-            },
-          ],
-        },
-        {
-          id: '2',
-          title: 'Maths-1',
-          weeks: [
-            {
-              id: '1',
-              title: 'Week 1: Algebra',
-              lectures: [
-                { lec_id: 'lecture-1', title: 'L1.1 - Linear Equations', type: 'lecture' },
-                { lec_id: 'lecture-2', title: 'L1.2 - Quadratic Equations', type: 'lecture' },
-              ],
-              g_assignments: [
-                { ga_id: '1', title: 'Graded Assignment 1', type: 'graded-assignment' },
-              ],
-              p_assignments: [
-                { pa_id: '1', title: 'Practice Assignment 1', type: 'practice-assignment' },
-              ],
-              concept_summary: {
-                cs_id: 'cs1',
-                title: 'Concept Summary 1',
-                type: 'concept-summary',
-              },
-            },
-            {
-              id: '2',
-              title: 'Week 2: Calculus',
-              lectures: [
-                { lec_id: 'lecture-3', title: 'L2.1 - Limits', type: 'lecture' },
-                { lec_id: 'lecture-4', title: 'L2.2 - Derivatives', type: 'lecture' },
-              ],
-              g_assignments: [
-                { ga_id: '2', title: 'Graded Assignment 2', type: 'graded-assignment' },
-              ],
-              p_assignments: [
-                { pa_id: '2', title: 'Practice Assignment 2', type: 'practice-assignment' },
-              ],
-              concept_summary: {
-                cs_id: 'cs2',
-                title: 'Concept Summary 2',
-                type: 'concept-summary',
-              },
-            },
-          ],
-        },
+        // {
+        //   id: '1',
+        //   title: 'Python',
+        //   weeks: [
+        //     {
+        //       id: '1',
+        //       title: 'Week 1',
+        //       lectures: [
+        //         { lec_id: 'lecture-1', title: 'L1.1 - Introduction', type: 'lecture' },
+        //         { lec_id: 'lecture-2', title: 'L1.2 - Basics', type: 'lecture' },
+        //       ],
+        //       g_assignments: [
+        //         { ga_id: '1', title: 'Graded Assignment 1', type: 'graded-assignment' },
+        //       ],
+        //       grp_assignments: [
+        //         {
+        //           grpa_id: '1',
+        //           title: 'Graded Programming Assignment 1',
+        //           type: 'graded-programming-assignment',
+        //         },
+        //       ],
+        //       p_assignments: [
+        //         { pa_id: '1', title: 'Practice Assignment 1', type: 'practice-assignment' },
+        //       ],
+        //       pp_assignments: [
+        //         {
+        //           ppa_id: '1',
+        //           title: 'Practice Programming Assignment 1',
+        //           type: 'practice-programming-assignment',
+        //         },
+        //         {
+        //           ppa_id: '2',
+        //           title: 'Practice Programming Assignment 2',
+        //           type: 'practice-programming-assignment',
+        //         },
+        //       ],
+        //       concept_summary: {
+        //         cs_id: 'cs1',
+        //         title: 'Concept Summary 1',
+        //         type: 'concept-summary',
+        //       },
+        //     },
+        //     {
+        //       id: '2',
+        //       title: 'Week 2',
+        //       lectures: [
+        //         { lec_id: 'lecture-3', title: 'L2.1 - Advanced Concepts', type: 'lecture' },
+        //         { lec_id: 'lecture-4', title: 'L2.2 - Hands-on', type: 'lecture' },
+        //       ],
+        //       g_assignments: [
+        //         { ga_id: '2', title: 'Graded Assignment 2', type: 'graded-assignment' },
+        //       ],
+        //       grp_assignments: [
+        //         {
+        //           grpa_id: '3',
+        //           title: 'Graded Programming Assignment 3',
+        //           type: 'graded-programming-assignment',
+        //         },
+        //       ],
+        //       p_assignments: [
+        //         { pa_id: '2', title: 'Practice Assignment 2', type: 'practice-assignment' },
+        //       ],
+        //       pp_assignments: [
+        //         {
+        //           ppa_id: '4',
+        //           title: 'Practice Programming Assignment 4',
+        //           type: 'practice-programming-assignment',
+        //         },
+        //       ],
+        //       concept_summary: {
+        //         cs_id: 'cs2',
+        //         title: 'Concept Summary 2',
+        //         type: 'concept-summary',
+        //       },
+        //     },
+        //   ],
+        // },
+        // {
+        //   id: '2',
+        //   title: 'Maths-1',
+        //   weeks: [
+        //     {
+        //       id: '1',
+        //       title: 'Week 1: Algebra',
+        //       lectures: [
+        //         { lec_id: 'lecture-1', title: 'L1.1 - Linear Equations', type: 'lecture' },
+        //         { lec_id: 'lecture-2', title: 'L1.2 - Quadratic Equations', type: 'lecture' },
+        //       ],
+        //       g_assignments: [
+        //         { ga_id: '1', title: 'Graded Assignment 1', type: 'graded-assignment' },
+        //       ],
+        //       p_assignments: [
+        //         { pa_id: '1', title: 'Practice Assignment 1', type: 'practice-assignment' },
+        //       ],
+        //       concept_summary: {
+        //         cs_id: 'cs1',
+        //         title: 'Concept Summary 1',
+        //         type: 'concept-summary',
+        //       },
+        //     },
+        //     {
+        //       id: '2',
+        //       title: 'Week 2: Calculus',
+        //       lectures: [
+        //         { lec_id: 'lecture-3', title: 'L2.1 - Limits', type: 'lecture' },
+        //         { lec_id: 'lecture-4', title: 'L2.2 - Derivatives', type: 'lecture' },
+        //       ],
+        //       g_assignments: [
+        //         { ga_id: '2', title: 'Graded Assignment 2', type: 'graded-assignment' },
+        //       ],
+        //       p_assignments: [
+        //         { pa_id: '2', title: 'Practice Assignment 2', type: 'practice-assignment' },
+        //       ],
+        //       concept_summary: {
+        //         cs_id: 'cs2',
+        //         title: 'Concept Summary 2',
+        //         type: 'concept-summary',
+        //       },
+        //     },
+        //   ],
+        // },
       ],
     }
   },
@@ -281,7 +351,8 @@ export default {
     },
     courseData() {
       return (
-        this.courses.find((course) => course.id === this.courseId) || {
+        console.log(this.courses),
+        this.courses.find((course) => course.id == this.courseId) || {
           title: 'Unknown Course',
           weeks: [],
         }
@@ -300,7 +371,23 @@ export default {
       const id =
         item.lec_id || item.ga_id || item.pa_id || item.ppa_id || item.grpa_id || item.cs_id
       this.activeLesson = type + '-' + id
+      // this.$router.push(`/instructor/course/${this.courseId}/week/${week.id}/${type}/${id}`)
+      // from courses object find the course with this.courseId and then find the week with week.id and then find the lecture with id 
+      this.courseData.weeks.forEach((w) => {
+        if (w.id === week.id) {
+          w.lectures.forEach((l) => {
+            if (l.lec_id === id) {
+              // store the data in local Storage
+              localStorage.setItem('lectureData', JSON.stringify(l))              
+            
+            }
+          })
+        }
+      })
+      // store the data in local Storage
+
       this.$router.push(`/instructor/course/${this.courseId}/week/${week.id}/${type}/${id}`)
+
     },
     navigateToAssignment() {
       // Update activeLesson and navigate to the proper route.

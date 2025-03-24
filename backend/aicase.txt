@@ -1,0 +1,42 @@
+{
+  "type": "gen",     
+  "prompt": "",
+  "background": {
+      "week": "Week 1"
+  }
+}
+
+
+{
+  "type": "sumup",     
+  "prompt": "",
+  "background": {
+      "week" : "Week 1"
+  }
+}
+
+{
+      "type": "sumup",     
+      "prompt": "",
+      "background": {
+      "week": "Week 1",
+      "lecture": "Lecture 1.1"
+  }
+}
+
+{
+  "type": "chat",     
+  "prompt": "Okay so Can you tell me little bit more about it and next concepts",
+  "background": {
+      "week": "Week 1",
+      "lecture": "Lecture 1.1",
+      "conversation" : [
+          ["User", "Hi"],
+          ["AI", "Hi, How can I help you"],
+          ["User", "Can you tell me what Python exactly is"],
+          ["AI", "Okay, so Python is a high-level, interpreted programming language known for its easy-to-read syntax. Its used for various applications, including web development, data analysis, artificial intelligence, machine learning, automation, and more. Python is versatile and has a large community and vast library support."],
+          ["User", "Okay, so how many data types are in Python"],
+          ["AI", "Python has several built-in data types. The basic ones include:\n1. **int** (integer) - For whole numbers\n2. **float** (floating point) - For decimal numbers\n3. **str** (string) - For text\n4. **bool** (boolean) - For True or False values\n5. **list** - An ordered collection of items\n6. **tuple** - An ordered, immutable collection of items\n7. **set** - An unordered collection of unique items\n8. **dict** (dictionary) - A collection of key-value pairs\n\nAdditionally, Python allows the creation of custom data types using classes."]
+      ] 
+  }
+}

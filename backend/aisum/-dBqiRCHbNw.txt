@@ -1,0 +1,11 @@
+In this tutorial for Python students, we learn how to use if, else, and else-if conditions through practical examples. 
+
+1. **Even or Odd**: We start by checking if a number is even or odd. We take an input number from the user, convert it to an integer, and use the modulo operator to determine if the number is divisible by 2. If the remainder is 0, the number is even; otherwise, it is odd. We test this with several numbers and confirm the code works correctly.
+
+2. **Last Digit Check**: Next, we check if a number ends with 0, 5, or another digit. Again, we take an input number, and if it is divisible by 5, we check if it is also divisible by 10 to determine if it ends in 0 or 5. We run tests and verify the outputs.
+
+3. **Student Grades**: We then assign grades based on a student's marks. We accept marks as input, check the range (0-100), and assign grades A, B, C, D, or E based on predefined thresholds. We correct a mistake in our code to handle invalid inputs (marks < 0 or > 100) and optimize the grading logic using else-if statements.
+
+4. **Flowchart to Code**: Finally, we convert a flowchart into Python code. This involves taking user input for time and price to decide if a train or coach should be chosen based on the comparisons. We also handle the logic for flight options based on the same inputs. The final code reflects the flowchart logic accurately. 
+
+Overall, the tutorial emphasizes using conditional statements effectively in Python programming.

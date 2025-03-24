@@ -129,6 +129,18 @@
               </ul>
             </div>
           </div>
+          <div
+            v-if="!this.$route.path.includes('/ta/course/')"
+            class="accordion-item no-toggle"
+            id="createWithAI"
+          >
+            <h2 class="accordion-header">
+              <!-- Use a static accordion button that never toggles -->
+              <button class="accordion-button text-dark static" @click="showBookmarkQuestions">
+                Bookmarked Questions
+              </button>
+            </h2>
+          </div>
         </div>
       </div>
       <!-- end .sidebar-content -->
@@ -321,6 +333,9 @@ export default {
     fetch_contents() {
       alert('Will be uploaded later')
     },
+    showBookmarkQuestions(){
+      this.$router.push(`/student/course/${this.courseId}/bookmarked_questions`)
+    }
   },
   watch: {
     $route: {

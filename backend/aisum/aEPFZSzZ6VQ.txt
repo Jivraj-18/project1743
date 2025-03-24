@@ -1,0 +1,7 @@
+This week, we're continuing to learn about programming, using the example of driving a car. Just like you need to drive instead of just watching videos, you should start coding after you understand the basics. Programming can get more complex, but it helps us do complicated tasks quickly. 
+
+We'll start by learning about 'variables', which are like baskets that store different types of data (like numbers or text) in a computer. Python makes it easy to create these variables. 
+
+Next, we will work with print statements and learn about 'if' statements, which are important for making decisions in programming. We'll also introduce 'for' and 'while' loops, which are essential concepts to understand programming fully. 
+
+Finally, we'll play with some simple coding examples, including a basic way to encode messages. Don't worry if it seems confusing now; it will make more sense as we go along!

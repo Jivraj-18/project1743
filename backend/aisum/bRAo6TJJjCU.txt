@@ -1,0 +1,32 @@
+In this lecture, we learn about string methods in Python, which are functions that can be used to manipulate strings. Here are some key string methods:
+
+1. **Lower**: Converts all characters in a string to lowercase.
+2. **Upper**: Converts all characters in a string to uppercase.
+3. **Capitalize**: Makes the first character uppercase and the rest lowercase.
+4. **Title**: Capitalizes the first character of each word in the string.
+5. **Swapcase**: Switches uppercase letters to lowercase and vice versa.
+
+Next, we have methods that check the string:
+- **Islower**: Checks if all characters are lowercase.
+- **Isupper**: Checks if all characters are uppercase.
+- **Istitle**: Checks if the string follows title case.
+
+Then, we have methods that check character types:
+- **Isdigit**: Checks if all characters are digits.
+- **Isalpha**: Checks if all characters are letters.
+- **Isalnum**: Checks if all characters are either letters or numbers.
+
+We also have methods for trimming and checking string starts and ends:
+- **Strip**: Removes spaces or specified characters from both ends of the string.
+- **Lstrip**: Removes from the left side.
+- **Rstrip**: Removes from the right side.
+- **Startswith**: Checks if the string starts with a specific value.
+- **Endswith**: Checks if the string ends with a specific value.
+
+Further, we can count occurrences and find indexes:
+- **Count**: Counts how many times a character appears in a string.
+- **Index**: Finds the position of the first occurrence of a specified value.
+
+Lastly, the **Replace** method replaces specified characters with others in the string.
+
+The lecture encourages students to practice these methods with different strings.

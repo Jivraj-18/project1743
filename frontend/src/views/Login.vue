@@ -64,26 +64,7 @@ export default {
     const router = useRouter()
 
     // Dummy user data
-    const users = [
-      {
-        email: 'student@example.com',
-        password: 'student123',
-        role: 'student',
-        route: '/student/announcements',
-      },
-      {
-        email: 'instructor@example.com',
-        password: 'instructor123',
-        role: 'instructor',
-        route: '/instructor/updates',
-      },
-      {
-        email: 'ta@example.com',
-        password: 'ta123',
-        role: 'ta',
-        route: '/ta/view_issues',
-      },
-    ]
+    
 
     // Toggle password visibility
     const togglePassword = () => {
@@ -92,13 +73,45 @@ export default {
 
     // Login function using dummy data
     const login = () => {
-      const user = users.find((u) => u.email === email.value)
-      if (user && user.password === password.value) {
-        errorMessage.value = ''
-        router.push(user.route)
-      } else {
-        errorMessage.value = 'Incorrect email or password'
-      }
+      // use fetch to send a post request with email alone in the body, it should get a json response back with token as one key store in browsers local storage 
+      // and redirect to the dashboard
+      // use this url : http://localhost:5000/api/login
+      fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email.value }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok')
+          }
+          return response.json()
+        })
+        .then((data) => {
+          localStorage.setItem('token', data.token)
+          // in the response data there is a key roles which is an array of strings, get the first element and check if it's a student or ta or instructore based on that redirect to appropriate dashboard following urls 
+          //'/ta/profile','/instructor/profile','/student/profile'
+          const role = data.roles[0]
+          if (role === 'student') {
+            router.push('/student/profile')
+          } else if (role === 'ta') {
+            router.push('/ta/profile')
+          } else if (role === 'instructor') {
+            router.push('/instructor/updates')
+          } else {
+            errorMessage.value = 'Invalid role'
+          }
+
+
+          
+        })
+        .catch((error) => {
+          errorMessage.value = 'Login failed. Please try again.'
+          console.error('Error:', error)
+        })
+      
     }
 
     // Google sign in alert

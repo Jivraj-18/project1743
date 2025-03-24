@@ -152,7 +152,11 @@
             </div>
           </div>
         </div>
-        <button class="go-back-btn btn btn-outline-secondary" @click="goBack">← Go Back</button>
+        <div class="d-flex align-items-center">
+          <button class="go-back-btn btn btn-outline-secondary" @click="goBack">← Go Back</button>
+          <!-- New Create Assignment Button -->
+          <button class="btn btn-primary ms-2" @click="createAssignmentNow">Create Assignment</button>
+        </div>
       </div>
 
       <!-- Edit Question Modal -->
@@ -423,6 +427,11 @@ export default {
       // Return to options view (Template 1)
       this.step = 'options'
     },
+    // New method: Create assignment button handler
+    createAssignmentNow() {
+      // Placeholder for backend request
+      alert('Placeholder: Assignment creation request sent to backend')
+    },
     // Template 2 methods
     changeQuestion(n) {
       this.currentQuestion = n
@@ -560,8 +569,6 @@ export default {
 }
 
 /* Template 2 Styles */
-
-/* Additional style so the editor takes full available height */
 .editor-inner {
   min-height: calc(100vh - 2rem);
 }
@@ -593,15 +600,10 @@ export default {
   border-radius: 4px;
   padding: 1rem;
 }
-
 .bi-pencil {
   cursor: pointer;
 }
 .go-back-btn {
-  /* position: fixed;
-  bottom: 200px;
-  right: 50px;
-  z-index: 1000; */
   margin-top: 5px;
 }
 

@@ -1,0 +1,5 @@
+In this lecture for Python students, we learned about the features of Replit and the print command. We started by exploring the Replit interface, particularly the file management options which allow us to create new files and folders to organize our programs. We also looked at settings such as layout and themes, and the code intelligence feature that provides helpful information about commands like print.
+
+Next, we discussed how to use the print command. It's possible to print multiple messages or values (strings, whole numbers, and fractional numbers) in one print statement, separated by commas. For example, we can print "Hello India," 10, and 20.5 together.
+
+We also covered common mistakes in using the print command, such as spelling errors, using the wrong type of brackets (always use round brackets), and the importance of quotes (single or double) around strings. Python is flexible with quotes but requires specific syntax for commands.

@@ -60,15 +60,18 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <router-link
+              class="nav-link"
+              :class="{ active: $route.path === '/instructor/upload_resources' }"
+              to="/instructor/upload_resources"
+              >Upload Resources
+            </router-link>
+          </li>
         </ul>
 
         <!-- Right-side menu items -->
         <ul class="navbar-nav ms-auto gap-3 d-none d-lg-flex">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/instructor/profile">
-              <i class="fa-solid fa-circle-user fs-4"></i>
-            </router-link>
-          </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/login">
               <i class="fa-solid fa-right-from-bracket fs-4"></i>
@@ -78,9 +81,6 @@
 
         <!-- Responsive menu items -->
         <ul class="navbar-nav d-lg-none w-100">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/instructor/profile"> Profile </router-link>
-          </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/login"> Logout </router-link>
           </li>

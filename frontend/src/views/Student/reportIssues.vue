@@ -164,6 +164,27 @@
 <script>
 import NavBar from '@/components/student/NavBar.vue'
 export default {
+  // use mounted to fetch data for submittedIssues use fetch and get request to http://localhost:5000/api/report 
+  mounted () {
+    fetch('http://localhost:5000/api/report', {
+      method: 'GET',
+      headers: {
+        Authentication: localStorage.getItem('token'),
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        return response.json()
+      })
+      .then((data) => {
+        this.submittedIssues = data
+      })
+      .catch((error) => {
+        console.error('Error fetching issues:', error)
+      })
+  },
   components: { NavBar },
   data() {
     return {
@@ -202,6 +223,7 @@ export default {
     }
   },
   methods: {
+    
     selectIssue(issueType) {
       this.selectedIssue = issueType
       if (issueType !== 'content') {
@@ -227,6 +249,40 @@ export default {
         description: this.form.description,
         date: new Date().toISOString().split('T')[0],
       }
+      // use fetch and send a post request  to http://localhost:5000/api/report which takes following json object as body
+//       {
+//   "issue_type": "string",
+//   "user_id": 0,
+//   "course_id": 0,
+//   "subject": "string",
+//   "description": "string"
+// }
+      fetch('http://localhost:5000/api/report', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authentication: localStorage.getItem('token'),
+        },
+        body: JSON.stringify({
+          issue_type: this.selectedIssue,
+          user_id: 1, // Replace with actual user ID
+          course_id: this.form.course, // Replace with actual course ID
+          subject: this.form.subject,
+          description: this.form.description,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok')
+          }
+          return response.json()
+        })
+        .then((data) => {
+          console.log('Issue submitted successfully:', data)
+        })
+        .catch((error) => {
+          console.error('Error submitting issue:', error)
+        })
       this.submittedIssues.unshift(newIssue)
       this.form.subject = ''
       this.form.course = ''

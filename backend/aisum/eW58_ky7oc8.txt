@@ -1,0 +1,11 @@
+In this lecture, we discussed how to use the Python 'calendar' library and different ways to import libraries in Python. 
+
+1. **Basic Import**: You can import a library using `import calendar`. This allows you to access functions like `calendar.month(year, month)` to get the calendar for a specific month and year.
+
+2. **Importing Entire Library**: You can use `from calendar import *` to import everything from the calendar library, letting you call functions directly without the 'calendar.' prefix.
+
+3. **Importing Specific Function**: If you only need one function, use `from calendar import month`. This way, you can use `month(year, month)` directly, but you can’t use other parts of the library without importing them.
+
+4. **Using Aliases**: You can import a library or function with an alias using `import calendar as c` or `from calendar import month as m`. This can make your code shorter and easier to read.
+
+In summary, there are multiple ways to import libraries in Python, and knowing these methods helps you write cleaner and more efficient code.

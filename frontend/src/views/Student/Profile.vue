@@ -131,6 +131,31 @@ export default {
     // This function will later fetch student data from the backend.
     // For now, it uses dummy data.
     fetchStudentData() {
+      // use fetch to get data from http://localhost:5000/api/studinfo, while sending request use token from local storage
+      // and set the response to student object
+  
+      const token = localStorage.getItem('token')
+      fetch(`http://localhost:5000/api/studinfo`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authentication": `${token}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok')
+          }
+          return response.json()
+        })
+        .then((data) => {
+          this.student = data
+          this.student.program = "BS Degree in Data Science and Applications"
+        })
+        .catch((error) => {
+          console.error('Error fetching student data:', error)
+        })
+
       // Dummy data is already loaded in data()
       // Future: make an API call and update the student object.
     },

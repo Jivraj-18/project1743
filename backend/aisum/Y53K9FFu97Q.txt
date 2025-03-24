@@ -1,0 +1,22 @@
+In this lecture, we learned about Python operators, which are divided into three main types: arithmetic, relational, and logical operators. 
+
+1. **Arithmetic Operators**: These include basic operations like addition (+), subtraction (-), multiplication (*), and division (/). Additionally, there are:
+   - **Floor Division (//)**: Gives the whole number part of a division. For example, 7 // 3 equals 2.
+   - **Modulus (%)**: Gives the remainder of a division. For example, 7 % 3 equals 1.
+   - **Exponential (**)**: Raises a number to a power. For example, 6 ** 2 equals 36.
+
+2. **Relational Operators**: These compare values and return a Boolean (true or false). They include:
+   - Greater than (>)
+   - Less than (<)
+   - Greater than or equal to (>=)
+   - Less than or equal to (<=)
+   - Equal to (==)
+   - Not equal to (!=)
+   For example, 5 > 10 is false, while 5 < 10 is true.
+
+3. **Logical Operators**: These are used to combine multiple conditions and include:
+   - **AND**: Returns true only if both conditions are true.
+   - **OR**: Returns true if at least one condition is true.
+   - **NOT**: Inverts the truth value (true becomes false and vice versa).
+
+In summary, understanding these operators is crucial for performing calculations and comparisons in Python programming.

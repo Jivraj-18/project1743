@@ -8,6 +8,7 @@
   "exclude": [
     "node_modules",
     "src/components/instructor/Created_Assignment.vue",
-    "src/components/instructor/dummy_create.vue"
+    "src/components/instructor/dummy_create.vue",
+    "src/views/instructor/Profile.vue"
   ]
 }

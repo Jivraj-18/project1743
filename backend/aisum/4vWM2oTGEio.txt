@@ -1,0 +1,19 @@
+In this lecture, we learned about escape characters and how to use quotes in Python. 
+
+1. **Escape Characters**: These are used to include special characters in strings. For example, if you want to include a single quote in a string that is also enclosed in single quotes, you use a backslash (\) before the quote: 
+   - Example: To print "It's a beautiful day," you write: `print('It\'s a beautiful day')`.
+   - Similarly, to include double quotes in a string, use: `print("We are from IIT Madras")`.
+   - You can also use `\t` for a tab space and `\n` for a new line.
+
+2. **Using Quotes**: Python supports three types of quotes: single ('), double ("), and triple (''' or """). 
+   - Single and double quotes are used for single-line strings. 
+   - Triple quotes are used for multi-line strings. For example: 
+     ``` 
+     z = '''First line
+Second line
+Third line''' 
+     print(z) 
+     ```
+   - Triple quotes can also be used to write multi-line comments without using the hash (#) for every line.
+
+In summary, escape characters help manage special characters in strings, while different types of quotes allow for flexibility in defining strings, especially multiline ones.

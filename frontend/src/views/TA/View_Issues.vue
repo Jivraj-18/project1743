@@ -28,13 +28,7 @@
                     >
                       {{ issue.instructorNotified ? 'Sent to Instructor' : 'Resolve' }}
                     </button>
-                    <button
-                      class="btn btn-secondary btn-md"
-                      @click="askInstructor(issue)"
-                      :disabled="issue.instructorNotified"
-                    >
-                      {{ issue.instructorNotified ? 'Sent to Instructor' : 'Ask Instructor' }}
-                    </button>
+                    
                   </div>
                 </li>
               </ul>
@@ -119,10 +113,6 @@ export default {
       this.issues = this.issues.filter((i) => i.id !== this.selectedIssue.id)
       alert('Issue resolved successfully!')
       bootstrap.Modal.getInstance(document.getElementById('resolveIssueModal')).hide()
-    },
-    askInstructor(issue) {
-      alert('Sent to Instructor')
-      issue.instructorNotified = true
     },
   },
 }

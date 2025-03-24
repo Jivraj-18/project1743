@@ -1,0 +1,11 @@
+In programming, the 'if statement' is a powerful tool that lets you make decisions in your code. For example, let's say we want to check if someone can watch the movie Avengers, which is rated for ages 13 and older. 
+
+Here's a simple way to do it:
+1. Ask the user for their birth year.
+2. Calculate their age by subtracting their birth year from the current year (2021).
+3. Use an 'if statement' to check if the age is less than 13:
+   - If yes, print "You are under age, you cannot watch this movie."
+   - If no (the person is 13 or older), print "You are old enough to watch Avengers, enjoy!"
+4. Regardless of age, print "Have a nice time!"
+
+This shows how the 'if statement' works by checking a condition (age) and executing different actions based on that condition. You can also nest 'if statements' within each other for more complex decisions, which will be covered in later lessons.
