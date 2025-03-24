@@ -47,7 +47,6 @@
       </div>
 
       <!-- QUESTION -->
-      <!-- QUESTION -->
       <div class="question-box">
         <div class="d-flex justify-content-between align-items-start mb-3">
           <p class="fw-bold mb-0">{{ currentQuestion }}. {{ currentQuestionText }}</p>
@@ -69,19 +68,7 @@
             </label>
           </div>
         </form>
-
-        <!-- Inline Mark Adjustment Control -->
-        <div class="d-flex justify-content-end align-items-center mt-2">
-          <button
-            class="btn btn-outline-secondary btn-sm me-2"
-            @click="decreaseMarks"
-            :disabled="marks <= 1"
-          >
-            -
-          </button>
-          <span class="me-2">{{ marks }} Mark</span>
-          <button class="btn btn-outline-secondary btn-sm" @click="increaseMarks">+</button>
-        </div>
+        <!-- (Inline Mark Adjustment Control moved to the edit question modal) -->
       </div>
 
       <!-- STATS -->
@@ -109,6 +96,7 @@
       </div>
     </div>
 
+    <!-- Edit Question Modal -->
     <div
       class="modal fade"
       id="editQuestionModal"
@@ -181,6 +169,22 @@
                   </option>
                 </select>
               </div>
+
+              <!-- Inline Mark Adjustment Control moved here -->
+              <div class="d-flex justify-content-end align-items-center mt-2">
+                <button
+                  class="btn btn-outline-secondary btn-sm me-2"
+                  @click="decreaseMarks"
+                  :disabled="marks <= 1"
+                  type="button"
+                >
+                  -
+                </button>
+                <span class="me-2">{{ marks }} Mark</span>
+                <button class="btn btn-outline-secondary btn-sm" @click="increaseMarks" type="button">
+                  +
+                </button>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -192,56 +196,57 @@
         </div>
       </div>
     </div>
-  </div>
-  <!-- Edit Deadline Modal -->
-  <div
-    class="modal fade"
-    id="editDeadlineModal"
-    tabindex="-1"
-    aria-labelledby="editDeadlineModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editDeadlineModalLabel">Edit Deadline</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <form @submit.prevent="saveDeadline">
-            <!-- Date Picker -->
-            <div class="mb-3">
-              <label for="deadlineDate" class="form-label">Select Date</label>
-              <input
-                type="date"
-                class="form-control"
-                id="deadlineDate"
-                v-model="editDeadlineForm.date"
-                required
-              />
-            </div>
 
-            <!-- Time Picker -->
-            <div class="mb-3">
-              <label for="deadlineTime" class="form-label">Select Time</label>
-              <input
-                type="time"
-                class="form-control"
-                id="deadlineTime"
-                v-model="editDeadlineForm.time"
-                required
-              />
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" @click="saveDeadline">Save Changes</button>
+    <!-- Edit Deadline Modal -->
+    <div
+      class="modal fade"
+      id="editDeadlineModal"
+      tabindex="-1"
+      aria-labelledby="editDeadlineModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editDeadlineModalLabel">Edit Deadline</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="saveDeadline">
+              <!-- Date Picker -->
+              <div class="mb-3">
+                <label for="deadlineDate" class="form-label">Select Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="deadlineDate"
+                  v-model="editDeadlineForm.date"
+                  required
+                />
+              </div>
+
+              <!-- Time Picker -->
+              <div class="mb-3">
+                <label for="deadlineTime" class="form-label">Select Time</label>
+                <input
+                  type="time"
+                  class="form-control"
+                  id="deadlineTime"
+                  v-model="editDeadlineForm.time"
+                  required
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" @click="saveDeadline">Save Changes</button>
+          </div>
         </div>
       </div>
     </div>
@@ -273,9 +278,6 @@ export default {
         options: [],
         correctAnswer: '',
       },
-      currentQuestion: 1,
-      progress: 10,
-      selectedAnswer: null,
       editDeadlineForm: {
         date: '',
         time: '',
@@ -353,9 +355,14 @@ export default {
       this.selectedAnswer = null
     },
     editDeadline() {
-      // Handle deadline edit logic
-    },
+      // Pre-fill the modal with the current deadline
+      this.editDeadlineForm.date = this.dueDate ? this.dueDate.split(' ')[0] : ''
+      this.editDeadlineForm.time = this.dueDate ? this.dueDate.split(' ')[1] : ''
 
+      // Open the modal
+      const modal = new bootstrap.Modal(document.getElementById('editDeadlineModal'))
+      modal.show()
+    },
     editQuestion() {
       // Initialize form with current question data
       this.editForm = {
@@ -366,7 +373,6 @@ export default {
       const modal = new bootstrap.Modal(document.getElementById('editQuestionModal'))
       modal.show()
     },
-
     addOption() {
       if (this.editForm.options.length < 5) {
         this.editForm.options.push({
@@ -375,7 +381,6 @@ export default {
         })
       }
     },
-
     removeOption(index) {
       if (this.editForm.options.length > 2) {
         const removedOption = this.editForm.options[index]
@@ -385,17 +390,17 @@ export default {
         }
       }
     },
-
     saveQuestion() {
       try {
         const typeKey = this.isGraded ? 'graded_assignments' : 'practice_assignments'
 
-        // Create updated question object
+        // Create updated question object including the updated marks value
         const updatedQuestion = {
           ...this.currentQuestionData,
           questionText: this.editForm.questionText,
           options: this.editForm.options,
           correctAnswer: this.editForm.correctAnswer,
+          marks: this.marks, // Save the updated marks
         }
 
         // Update local assignments data
@@ -405,23 +410,13 @@ export default {
         const modal = bootstrap.Modal.getInstance(document.getElementById('editQuestionModal'))
         modal.hide()
 
-        // Optional: Show success message
+        // Show success message only after the modal is saved
         alert('Question updated successfully')
       } catch (error) {
         console.error('Error updating question:', error)
         alert('Error updating question')
       }
     },
-    editDeadline() {
-      // Pre-fill the modal with the current deadline
-      this.editDeadlineForm.date = this.dueDate ? this.dueDate.split(' ')[0] : ''
-      this.editDeadlineForm.time = this.dueDate ? this.dueDate.split(' ')[1] : ''
-
-      // Open the modal
-      const modal = new bootstrap.Modal(document.getElementById('editDeadlineModal'))
-      modal.show()
-    },
-
     saveDeadline() {
       // Ensure both date and time are selected
       if (!this.editDeadlineForm.date || !this.editDeadlineForm.time) {
@@ -436,26 +431,17 @@ export default {
       const modal = bootstrap.Modal.getInstance(document.getElementById('editDeadlineModal'))
       modal.hide()
 
-      // Optional: Show success message
+      // Show success message
       alert('Deadline updated successfully')
     },
     increaseMarks() {
+      // Only update local marks state; do not save or alert yet
       this.marks += 1
-      this.sendUpdatedMarksToBackend()
     },
-
-    // Decrease the marks for the current question
     decreaseMarks() {
       if (this.marks > 1) {
         this.marks -= 1
-        this.sendUpdatedMarksToBackend()
       }
-    },
-
-    // Dummy method to send updated marks to the backend
-    sendUpdatedMarksToBackend() {
-      console.log(`Marks for question ${this.currentQuestion} updated to ${this.marks}`)
-      // You can replace this with an actual API call to update marks in the backend
     },
     toggleBookmark() {
       this.bookmarked = !this.bookmarked

@@ -43,9 +43,7 @@
 
           <!-- Selected File Display -->
           <div v-if="selectedFile" class="mb-2">
-            <small
-              >Selected file: <strong>{{ selectedFile.name }}</strong></small
-            >
+            <small>Selected file: <strong>{{ selectedFile.name }}</strong></small>
           </div>
 
           <!-- Upload Button Area -->
@@ -74,93 +72,6 @@
             <div class="text-muted mb-3">OR</div>
             <button class="browse-button" @click="triggerFileInput">Browse Files</button>
             <input ref="fileInput" type="file" class="d-none" @change="handleFileChange" />
-          </div>
-        </div>
-      </div>
-
-      <!-- Uploaded Resources Section -->
-      <div class="mt-5">
-        <h5>Uploaded Resources</h5>
-        <div v-if="!selectedCourse || !selectedWeek" class="alert alert-info">
-          Choose a course and a week
-        </div>
-        <div v-else>
-          <div v-if="resourcesList.length">
-            <div class="card mb-3" v-for="resource in resourcesList" :key="resource.id">
-              <div class="card-body">
-                <h6 class="card-title">{{ resource.title }}</h6>
-                <p class="card-text">{{ resource.description }}</p>
-                <small class="text-muted">File: {{ resource.fileName }}</small>
-                <br />
-                <button class="btn btn-sm btn-outline-primary" @click="openEditModal(resource)">
-                  Edit
-                </button>
-              </div>
-            </div>
-          </div>
-          <div v-else class="alert alert-info">No resources uploaded yet.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Edit Resource Modal -->
-    <div
-      class="modal fade"
-      id="editResourceModal"
-      tabindex="-1"
-      aria-labelledby="editResourceModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editResourceModalLabel">Edit Resource</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              @click="closeEditModal"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <!-- Edit Form -->
-            <div class="mb-3">
-              <label class="form-label">Resource Title</label>
-              <input type="text" class="form-control" v-model="editForm.title" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Description</label>
-              <textarea class="form-control" rows="4" v-model="editForm.description"></textarea>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Change File (optional)</label>
-              <input type="file" class="form-control" @change="handleEditFileChange" />
-              <div v-if="editForm.newFileName" class="mt-2">
-                <small
-                  >New file selected: <strong>{{ editForm.newFileName }}</strong></small
-                >
-              </div>
-            </div>
-            <div v-if="editForm.fileName" class="mb-3">
-              <button class="btn btn-outline-info" @click="viewFile(editForm.fileName)">
-                View File
-              </button>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-outline-danger" @click="deleteResource(editForm.id)">
-              Delete
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-              @click="closeEditModal"
-            >
-              Cancel
-            </button>
-            <button type="button" class="btn btn-primary" @click="saveEdit">Save changes</button>
           </div>
         </div>
       </div>
@@ -366,7 +277,6 @@ body {
 .page-title {
   text-align: center;
   padding: 1rem;
-  border-bottom: 1px solid #dee2e6;
   background-color: white;
   margin-bottom: 2rem;
   padding-top: 70px;

@@ -31,11 +31,6 @@ const router = createRouter({
       component: () => import('@/views/Student/Profile.vue'),
     },
     {
-      path: '/instructor/profile', // there is no backend for this and frontend is just copy of student profile page, which doesn't make any sense
-      name: 'instructor_profile',
-      component: () => import('@/views/Instructor/Profile.vue'),
-    },
-    {
       path: '/ta/profile', //done
       name: 'ta_profile',
       component: () => import('@/views/TA/Profile.vue'),
@@ -140,6 +135,11 @@ const router = createRouter({
           component: () => import('@/components/student/Practice_with_AI.vue'),
         },
         {
+          path: 'bookmarked_questions',
+          name: 'bookmarked_questions',
+          component: () => import('@/components/student/Bookmark_Questions.vue'),
+        },
+        {
           path: 'week/:week_id',
           name: 'student_week',
           children: [
@@ -176,6 +176,12 @@ const router = createRouter({
           ],
         },
       ],
+    },
+    {
+      path: '/instructor/upload_resources',
+      name: 'instructor_upload_resources',
+      component: () => import('@/views/Instructor/Upload_Resources.vue'),
+      props: true,
     },
     {
       path: '/ta/upload_resources',

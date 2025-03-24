@@ -99,7 +99,7 @@ export default {
           } else if (role === 'ta') {
             router.push('/ta/profile')
           } else if (role === 'instructor') {
-            router.push('/instructor/profile')
+            router.push('/instructor/updates')
           } else {
             errorMessage.value = 'Invalid role'
           }
