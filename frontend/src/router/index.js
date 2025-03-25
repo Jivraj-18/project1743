@@ -91,25 +91,25 @@ const router = createRouter({
               component: () => import('@/components/Lecture.vue'),
             },
             {
-              path: 'graded_assignments/:assignment_id',
+              path: 'graded_assignments/:assignment_id', // done
               component: () => import('@/components/instructor/InstructorAssignment.vue'),
             },
             {
-              path: 'practice_assignments/:assignment_id',
+              path: 'practice_assignments/:assignment_id', //done
               component: () => import('@/components/instructor/InstructorAssignment.vue'),
             },
             {
-              path: 'concept_summary/:cs_id',
+              path: 'concept_summary/:cs_id', // siddhant will do this 
               component: () => import('@/components/ConceptsSummary.vue'),
             },
             {
-              path: 'practice_programming/:programming_assignment_id',
+              path: 'practice_programming/:programming_assignment_id', // done
               name: 'instructor_practice_programming_assignment',
               component: () =>
                 import('@/components/instructor/InstructorProgrammingAssignment.vue'),
             },
             {
-              path: 'graded_programming/:programming_assignment_id',
+              path: 'graded_programming/:programming_assignment_id', // done
               name: 'instructor_graded_programming_assignment',
               component: () =>
                 import('@/components/instructor/InstructorProgrammingAssignment.vue'),
@@ -130,7 +130,7 @@ const router = createRouter({
           component: () => import('@/components/student/About.vue'), // Default component
         },
         {
-          path: 'practice_with_ai',
+          path: 'practice_with_ai', // siddhant will do this
           name: 'practice_with_ai',
           component: () => import('@/components/student/Practice_with_AI.vue'),
         },
@@ -159,7 +159,7 @@ const router = createRouter({
               component: () => import('@/components/student/StudentAssignment.vue'),
             },
             {
-              path: 'concept_summary/:cs_id',
+              path: 'concept_summary/:cs_id', // siddhant will do this
               name: 'student_concept_summary',
               component: () => import('@/components/ConceptsSummary.vue'),
             },
@@ -226,7 +226,7 @@ const router = createRouter({
               component: () => import('@/components/student/StudentAssignment.vue'),
             },
             {
-              path: 'concept_summary/:cs_id',
+              path: 'concept_summary/:cs_id', // siddhant will do this
               name: 'ta_concept_summary',
               component: () => import('@/components/ConceptsSummary.vue'),
             },

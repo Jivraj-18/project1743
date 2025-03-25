@@ -18,11 +18,13 @@
                 :src="videoData.url.replace('watch?v=', 'embed/')"
                 type="video/youtube"
               /> -->
-              <iframe width="560" height="315" 
-                  src="https://www.youtube.com/embed/NgZZ0HIUqbs" 
-                  frameborder="0" 
-                  allowfullscreen>
-              </iframe>
+              <iframe 
+    width="560" 
+    height="315" 
+    :src="getEmbedUrl(videoData.url)"
+    frameborder="0" 
+    allowfullscreen>
+</iframe>
               <!-- Fallback for unsupported video formats -->
               <!-- <source :src="videoData.url" type="video/mp4" />
               Your browser does not support the video tag. -->
@@ -62,6 +64,23 @@ export default {
     }
   },
   methods: {
+
+    getEmbedUrl(url) {
+    if (!url) return '';
+    
+    // Check if it's a YouTube URL
+    if (url.includes('youtube.com/watch')) {
+      // Extract video ID
+      const videoId = url.split('v=')[1].split('&')[0];
+      return `https://www.youtube.com/embed/${videoId}`;
+    } else if (url.includes('youtu.be')) {
+      // Handle youtu.be short links
+      const videoId = url.split('youtu.be/')[1].split('?')[0];
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+    // Return the original URL if it's not a YouTube URL or already an embed URL
+    return url;
+  },
     /**
      * Fetches dummy video data based on courseId, weekId, and videoId.
      * Later, this function can be replaced with an API call.

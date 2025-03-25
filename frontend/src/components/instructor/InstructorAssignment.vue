@@ -179,9 +179,10 @@ export default {
   methods: {
     async fetchData() {
       // if (!this.assignmentId || !this.studentId) return;
-      
+      const assignmentId = this.assignmentId || this.$route.params.assignment_id;
       try {
-        const response = await fetch(`http://localhost:5000/api/assignments/1/1`, {
+        // const response = await fetch(`http://localhost:5000/api/questions_for_assignment/${assignmentId}`, {
+        const response = await fetch(`http://localhost:5000/api/questions_for_assignment/${assignmentId}`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`

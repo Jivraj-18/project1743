@@ -148,107 +148,106 @@ export default {
   },
   
   mounted() {
-    // Fetch data from backend and populate the courses array
-    fetch('http://localhost:5000/api/content/' + this.courseId)
-      .then((response) => response.json())
-      .then((data) => {
-        // store the data fetched from requesst to local storage
-        localStorage.setItem('courseData', JSON.stringify(data))
-        const course = {}
-        course.id = data['course_id']
-          course.title = data['course_name']
-          course.weeks = []
-        data['contents'].forEach((content) => {
-          const weekNumber = content.content_type.split(' ')[1]
-          
-          const weekIndex = course['weeks'].findIndex((week) =>week.id  === weekNumber)
-
-          if (weekIndex === -1) {
-            course['weeks'].push({
-              id: weekNumber,
-              title: 'Week ' + weekNumber,
-              lectures: [],
-            })
-          }
-          course['weeks'][weekNumber-1]['lectures'].push({
-              lec_id: content.content_id,
-              title: content.content_name,
-              type: 'lecture',
-              url: content.url,
-              transcript_url: content.transcript_url,
-            })
-          
-        })
-        this.courses.push(course)
-
-         console.log(this.courses)  
-      })
+  // First, fetch course content
+  fetch('http://localhost:5000/api/content/' + this.courseId)
+    .then((response) => response.json())
+    .then((data) => {
+      // Store the data fetched from request to local storage
+      localStorage.setItem('courseData', JSON.stringify(data));
       
-      //  send a fetch get request to http://localhost:5000/api/assignments_for_course/1 
-      // data in response will be of follwoing format 
-      // [
-        //   {
-        //     "assignment_id": 1,
-        //     "category": "Practice Assignment",
-        //     "total_marks": 10,
-        //     "which_week": 1
-        //   }
-        // ]
-      // store data in courses array 0th index weeks key identify by week number 
-      fetch('http://localhost:5000/api/assignments_for_course/' + this.courseId)
-        .then((response) => response.json())
-        .then((data) => {
-          data.forEach((assignment) => {
-            const weekIndex = this.courses[0]['weeks'].findIndex(
-              (week) => week.id === assignment.which_week.toString()
-            )
-            // console.log(weekIndex)
-            if (weekIndex !== -1) {
-              if (assignment.category === 'Practice Assignment') {
-                if (!this.courses[0].weeks[weekIndex].p_assignments) {
-                  this.courses[0].weeks[weekIndex].p_assignments = []
-                }
-                this.courses[0].weeks[weekIndex].p_assignments.push({
-                  pa_id: assignment.assignment_id,
-                  title: 'Practice Assignment ' + assignment.assignment_id,
-                  type: 'practice-assignment',
-                })
-              } else if (assignment.category === 'Graded Assignment') {
-                // check if g_assignments is not defined then define it
-                if (!this.courses[0].weeks[weekIndex].g_assignments) {
-                  this.courses[0].weeks[weekIndex].g_assignments = []
-                }
-                this.courses[0].weeks[weekIndex].g_assignments.push({
-                  ga_id: assignment.assignment_id,
-                  title: 'Graded Assignment ' + assignment.assignment_id,
-                  type: 'graded-assignment',
-                })
-              } else if (assignment.category === 'Practice Programming Assignment') {
-                if (!this.courses[0].weeks[weekIndex].pp_assignments) {
-                  this.courses[0].weeks[weekIndex].pp_assignments = []
-                }
-                this.courses[0].weeks[weekIndex].pp_assignments.push({
-                  ppa_id: assignment.assignment_id,
-                  title: 'Practice Programming Assignment ' + assignment.assignment_id,
-                  type: 'practice-programming-assignment',
-                })
-              } else if (assignment.category === 'Graded Programming Assignment') {
-                if (!this.courses[0].weeks[weekIndex].grp_assignments) {
-                  this.courses[0].weeks[weekIndex].grp_assignments = []
-                }
-                this.courses[0].weeks[weekIndex].grp_assignments.push({
-                  grpa_id: assignment.assignment_id,
-                  title: 'Graded Programming Assignment ' + assignment.assignment_id,
-                  type: 'graded-programming-assignment',
-                })
-              }
-            }
-          })
-          console.log(this.courses)
-        })
+      const course = {};
+      course.id = data['course_id'];
+      course.title = data['course_name'];
+      course.weeks = [];
+      
+      data['contents'].forEach((content) => {
+        const weekNumber = content.content_type.split(' ')[1];
         
+        const weekIndex = course['weeks'].findIndex((week) => week.id === weekNumber);
+
+        if (weekIndex === -1) {
+          course['weeks'].push({
+            id: weekNumber,
+            title: 'Week ' + weekNumber,
+            lectures: [],
+          });
+        }
+        
+        course['weeks'][weekNumber-1]['lectures'].push({
+          lec_id: content.content_id,
+          title: content.content_name,
+          type: 'lecture',
+          url: content.url,
+          transcript_url: content.transcript_url,
+        });
+      });
       
-  },
+      this.courses.push(course);
+      console.log("Course content loaded:", this.courses);
+      
+      // Only AFTER course content is loaded, then fetch assignments
+      return fetch('http://localhost:5000/api/assignments_for_course/' + this.courseId);
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((assignment) => {
+        // Make sure courses[0] exists before trying to access it
+        if (!this.courses || this.courses.length === 0) {
+          console.error("No courses available to add assignments to");
+          return;
+        }
+        
+        const weekIndex = this.courses[0]['weeks'].findIndex(
+          (week) => week.id === assignment.which_week.toString()
+        );
+        
+        if (weekIndex !== -1) {
+          if (assignment.category === 'Practice Assignment') {
+            if (!this.courses[0].weeks[weekIndex].p_assignments) {
+              this.courses[0].weeks[weekIndex].p_assignments = [];
+            }
+            this.courses[0].weeks[weekIndex].p_assignments.push({
+              pa_id: assignment.assignment_id,
+              title: 'Practice Assignment ' + assignment.assignment_id,
+              type: 'practice-assignment',
+            });
+          } else if (assignment.category === 'Graded Assignment') {
+            if (!this.courses[0].weeks[weekIndex].g_assignments) {
+              this.courses[0].weeks[weekIndex].g_assignments = [];
+            }
+            this.courses[0].weeks[weekIndex].g_assignments.push({
+              ga_id: assignment.assignment_id,
+              title: 'Graded Assignment ' + assignment.assignment_id,
+              type: 'graded-assignment',
+            });
+          } else if (assignment.category === 'Practice Programming Assignment') {
+            if (!this.courses[0].weeks[weekIndex].pp_assignments) {
+              this.courses[0].weeks[weekIndex].pp_assignments = [];
+            }
+            this.courses[0].weeks[weekIndex].pp_assignments.push({
+              ppa_id: assignment.assignment_id,
+              title: 'Practice Programming Assignment ' + assignment.assignment_id,
+              type: 'practice-programming-assignment',
+            });
+          } else if (assignment.category === 'Graded Programming Assignment') {
+            if (!this.courses[0].weeks[weekIndex].grp_assignments) {
+              this.courses[0].weeks[weekIndex].grp_assignments = [];
+            }
+            this.courses[0].weeks[weekIndex].grp_assignments.push({
+              grpa_id: assignment.assignment_id,
+              title: 'Graded Programming Assignment ' + assignment.assignment_id,
+              type: 'graded-programming-assignment',
+            });
+          }
+        }
+      });
+      
+      console.log("Assignments loaded:", this.courses);
+    })
+    .catch((error) => {
+      console.error("Error in loading sequence:", error);
+    });
+},
   data() {
     return {
       isCollapsed: false,

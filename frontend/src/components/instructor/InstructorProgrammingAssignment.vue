@@ -1,590 +1,304 @@
 <template>
-  <div id="sidebar" :class="{ collapsed: isCollapsed }">
-    <!-- Toggle Button (outside scrollable area) -->
-    <button
-      @click="toggleSidebar"
-      class="toggle-btn btn btn-sm btn-outline-secondary"
-      title="Toggle sidebar"
-    >
-      <i :class="toggleIcon"></i>
-    </button>
+  <div>
+    <h2>Programming Assignment</h2>
 
-    <!-- Fixed Heading (outside scrollable area) -->
-    <div class="sidebar-header" v-show="!isCollapsed">
-      <h5 class="text-center">{{ courseData.title }}</h5>
-    </div>
+    <div class="question-box">
+      <p>{{ questionText }}</p>
 
-    <!-- Scrollable Wrapper -->
-    <div class="sidebar-wrapper">
-      <!-- The rest of the sidebar content scrolls -->
-      <div class="sidebar-content" v-show="!isCollapsed">
-        <div class="accordion" id="weeksAccordion">
-          <div v-for="(week, index) in courseData.weeks" :key="index" class="accordion-item">
-            <h2 class="accordion-header">
-              <button
-                class="accordion-button"
-                :class="{ collapsed: activeItem !== `week-${index}` }"
-                @click="toggleItem(`week-${index}`)"
-              >
-                {{ week.title }}
-              </button>
-            </h2>
-            <div
-              class="accordion-collapse collapse"
-              :class="{ show: activeItem === `week-${index}` }"
-            >
-              <ul class="list-group list-group-flush">
-                <!-- Lectures -->
-                <li
-                  v-for="lecture in week.lectures"
-                  :key="lecture.lec_id"
-                  class="list-group-item"
-                  :class="{ active: activeLesson === `lecture-${lecture.lec_id}` }"
-                  @click="navigateToLesson(lecture, 'lecture', week)"
-                >
-                  {{ lecture.title }}
-                </li>
-                <!-- Practice Assignments -->
-                <li
-                  v-for="assignment in week.p_assignments"
-                  :key="assignment.pa_id"
-                  class="list-group-item"
-                  :class="{ active: activeLesson === `practice_assignments-${assignment.pa_id}` }"
-                  @click="navigateToLesson(assignment, 'practice_assignments', week)"
-                >
-                  {{ assignment.title }}
-                </li>
-                <!-- Practice Programming Assignments -->
-                <li
-                  v-for="assignment in week.pp_assignments || []"
-                  :key="assignment.ppa_id"
-                  class="list-group-item"
-                  :class="{ active: activeLesson === `practice_programming-${assignment.ppa_id}` }"
-                  @click="navigateToLesson(assignment, 'practice_programming', week)"
-                >
-                  {{ assignment.title }}
-                </li>
-                <!-- Graded Assignments -->
-                <li
-                  v-for="assignment in week.g_assignments"
-                  :key="assignment.ga_id"
-                  class="list-group-item"
-                  :class="{ active: activeLesson === `graded_assignments-${assignment.ga_id}` }"
-                  @click="navigateToLesson(assignment, 'graded_assignments', week)"
-                >
-                  {{ assignment.title }}
-                </li>
-                <!-- Graded Programming Assignments -->
-                <li
-                  v-for="assignment in week.grp_assignments || []"
-                  :key="assignment.grpa_id"
-                  class="list-group-item"
-                  :class="{ active: activeLesson === `graded_programming-${assignment.grpa_id}` }"
-                  @click="navigateToLesson(assignment, 'graded_programming', week)"
-                >
-                  {{ assignment.title }}
-                </li>
-                <!-- Concept Summary -->
-                <li
-                  v-if="week.concept_summary"
-                  :key="week.concept_summary.cs_id"
-                  class="list-group-item"
-                  :class="{
-                    active: activeLesson === `concept_summary-${week.concept_summary.cs_id}`,
-                  }"
-                  @click="navigateToLesson(week.concept_summary, 'concept_summary', week)"
-                >
-                  {{ week.concept_summary.title }}
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="accordion-item no-toggle" id="createWithAI">
-            <h2 class="accordion-header">
-              <!-- Use a static accordion button that never toggles -->
-              <button class="accordion-button text-dark static" @click="navigateToAssignment">
-                Create with AI
-              </button>
-            </h2>
-          </div>
-
-          <div class="accordion-item" id="weeksAccordion">
-            <button
-              class="accordion-button"
-              :class="{ collapsed: activeItem !== `week-${index}` }"
-              @click="toggleItem(`week-${index}`)"
-            >
-              Supplementary contents
-            </button>
-            <div
-              class="accordion-collapse collapse"
-              :class="{ show: activeItem === `week-${index}` }"
-            >
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item" @click="fetch_contents">Extra Contents</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+      <div v-if="showHint" class="hint-box">
+        <p><strong>Hint:</strong> {{ currentQuestion?.hints }}</p>
       </div>
-      <!-- end .sidebar-content -->
+      <button @click="toggleHint" class="hint-btn">{{ showHint ? 'Hide Hint' : 'Show Hint' }}</button>
     </div>
-    <!-- end .sidebar-wrapper -->
-  </div>
-  <!-- end #sidebar -->
 
+    <div id="onecompiler-embed">
+      <iframe id="oc-editor" :src="editorUrl" width="100%" height="450px" frameborder="0" style="border-radius: 4px"
+        @load="onIframeLoad"></iframe>
+    </div>
+
+    <div class="test-cases-section">
+      <h3>Test Cases</h3>
+      <div v-for="(testCase, index) in testCases" :key="index" class="test-case">
+        <div><strong>Input:</strong> {{ testCase.input }}</div>
+        <div><strong>Expected Output:</strong> {{ testCase.expected_output }}</div>
+      </div>
+    </div>
+
+    <button @click="sendCode" class="btn">Reset Code</button>
+    <button @click="runCode" class="btn primary">Run Code</button>
+    <button @click="submitCode" class="btn success">Submit Solution</button>
+
+    <!-- Execution Output Section -->
+    <div class="execution-output" v-if="currentOutput">
+      <h3>Execution Output</h3>
+      <pre>{{ currentOutput }}</pre>
+    </div>
+
+    <div v-if="testResults.length" class="test-results">
+      <h3>Test Results</h3>
+      <ul>
+        <li v-for="(result, index) in testResults" :key="index" :class="{ pass: result.passed, fail: !result.passed }">
+          <strong>Input:</strong> {{ result.input }} |
+          <strong>Expected:</strong> {{ result.expected }} |
+          <strong>Actual:</strong> {{ result.actual }} |
+          <strong>Status:</strong> {{ result.passed ? '✅ Pass' : '❌ Fail' }}
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
-import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-
 export default {
-  setup() {
-    const route = useRoute()
-    const router = useRouter()
-    const courseId = computed(() => route.params.id)
-    return { courseId, router, route }
-  },
-  
-  mounted() {
-    // Fetch data from backend and populate the courses array
-    fetch('http://localhost:5000/api/content/' + this.courseId)
-      .then((response) => response.json())
-      .then((data) => {
-        // store the data fetched from requesst to local storage
-        localStorage.setItem('courseData', JSON.stringify(data))
-        const course = {}
-        course.id = data['course_id']
-          course.title = data['course_name']
-          course.weeks = []
-        data['contents'].forEach((content) => {
-          const weekNumber = content.content_type.split(' ')[1]
-          
-          const weekIndex = course['weeks'].findIndex((week) =>week.id  === weekNumber)
-
-          if (weekIndex === -1) {
-            course['weeks'].push({
-              id: weekNumber,
-              title: 'Week ' + weekNumber,
-              lectures: [],
-            })
-          }
-          course['weeks'][weekNumber-1]['lectures'].push({
-              lec_id: content.content_id,
-              title: content.content_name,
-              type: 'lecture',
-              url: content.url,
-              transcript_url: content.transcript_url,
-            })
-          
-        })
-        this.courses.push(course)
-
-         console.log(this.courses)  
-      })
-      
-      //  send a fetch get request to http://localhost:5000/api/assignments_for_course/1 
-      // data in response will be of follwoing format 
-      // [
-        //   {
-        //     "assignment_id": 1,
-        //     "category": "Practice Assignment",
-        //     "total_marks": 10,
-        //     "which_week": 1
-        //   }
-        // ]
-      // store data in courses array 0th index weeks key identify by week number 
-      fetch('http://localhost:5000/api/assignments_for_course/' + this.courseId)
-        .then((response) => response.json())
-        .then((data) => {
-          data.forEach((assignment) => {
-            const weekIndex = this.courses[0]['weeks'].findIndex(
-              (week) => week.id === assignment.which_week.toString()
-            )
-            // console.log(weekIndex)
-            if (weekIndex !== -1) {
-              if (assignment.category === 'Practice Assignment') {
-                if (!this.courses[0].weeks[weekIndex].p_assignments) {
-                  this.courses[0].weeks[weekIndex].p_assignments = []
-                }
-                this.courses[0].weeks[weekIndex].p_assignments.push({
-                  pa_id: assignment.assignment_id,
-                  title: 'Practice Assignment ' + assignment.assignment_id,
-                  type: 'practice-assignment',
-                })
-              } else if (assignment.category === 'Graded Assignment') {
-                // check if g_assignments is not defined then define it
-                if (!this.courses[0].weeks[weekIndex].g_assignments) {
-                  this.courses[0].weeks[weekIndex].g_assignments = []
-                }
-                this.courses[0].weeks[weekIndex].g_assignments.push({
-                  ga_id: assignment.assignment_id,
-                  title: 'Graded Assignment ' + assignment.assignment_id,
-                  type: 'graded-assignment',
-                })
-              } else if (assignment.category === 'Practice Programming Assignment') {
-                if (!this.courses[0].weeks[weekIndex].pp_assignments) {
-                  this.courses[0].weeks[weekIndex].pp_assignments = []
-                }
-                this.courses[0].weeks[weekIndex].pp_assignments.push({
-                  ppa_id: assignment.assignment_id,
-                  title: 'Practice Programming Assignment ' + assignment.assignment_id,
-                  type: 'practice-programming-assignment',
-                })
-              } else if (assignment.category === 'Graded Programming Assignment') {
-                if (!this.courses[0].weeks[weekIndex].grp_assignments) {
-                  this.courses[0].weeks[weekIndex].grp_assignments = []
-                }
-                this.courses[0].weeks[weekIndex].grp_assignments.push({
-                  grpa_id: assignment.assignment_id,
-                  title: 'Graded Programming Assignment ' + assignment.assignment_id,
-                  type: 'graded-programming-assignment',
-                })
-              }
-            }
-          })
-          console.log(this.courses)
-        })
-        
-      
-  },
   data() {
     return {
-      isCollapsed: false,
-      activeItem: null,
-      activeLesson: null,
-      courses: [
-        // {
-        //   id: '1',
-        //   title: 'Python',
-        //   weeks: [
-        //     {
-        //       id: '1',
-        //       title: 'Week 1',
-        //       lectures: [
-        //         { lec_id: 'lecture-1', title: 'L1.1 - Introduction', type: 'lecture' },
-        //         { lec_id: 'lecture-2', title: 'L1.2 - Basics', type: 'lecture' },
-        //       ],
-        //       g_assignments: [
-        //         { ga_id: '1', title: 'Graded Assignment 1', type: 'graded-assignment' },
-        //       ],
-        //       grp_assignments: [
-        //         {
-        //           grpa_id: '1',
-        //           title: 'Graded Programming Assignment 1',
-        //           type: 'graded-programming-assignment',
-        //         },
-        //       ],
-        //       p_assignments: [
-        //         { pa_id: '1', title: 'Practice Assignment 1', type: 'practice-assignment' },
-        //       ],
-        //       pp_assignments: [
-        //         {
-        //           ppa_id: '1',
-        //           title: 'Practice Programming Assignment 1',
-        //           type: 'practice-programming-assignment',
-        //         },
-        //         {
-        //           ppa_id: '2',
-        //           title: 'Practice Programming Assignment 2',
-        //           type: 'practice-programming-assignment',
-        //         },
-        //       ],
-        //       concept_summary: {
-        //         cs_id: 'cs1',
-        //         title: 'Concept Summary 1',
-        //         type: 'concept-summary',
-        //       },
-        //     },
-        //     {
-        //       id: '2',
-        //       title: 'Week 2',
-        //       lectures: [
-        //         { lec_id: 'lecture-3', title: 'L2.1 - Advanced Concepts', type: 'lecture' },
-        //         { lec_id: 'lecture-4', title: 'L2.2 - Hands-on', type: 'lecture' },
-        //       ],
-        //       g_assignments: [
-        //         { ga_id: '2', title: 'Graded Assignment 2', type: 'graded-assignment' },
-        //       ],
-        //       grp_assignments: [
-        //         {
-        //           grpa_id: '3',
-        //           title: 'Graded Programming Assignment 3',
-        //           type: 'graded-programming-assignment',
-        //         },
-        //       ],
-        //       p_assignments: [
-        //         { pa_id: '2', title: 'Practice Assignment 2', type: 'practice-assignment' },
-        //       ],
-        //       pp_assignments: [
-        //         {
-        //           ppa_id: '4',
-        //           title: 'Practice Programming Assignment 4',
-        //           type: 'practice-programming-assignment',
-        //         },
-        //       ],
-        //       concept_summary: {
-        //         cs_id: 'cs2',
-        //         title: 'Concept Summary 2',
-        //         type: 'concept-summary',
-        //       },
-        //     },
-        //   ],
-        // },
-        // {
-        //   id: '2',
-        //   title: 'Maths-1',
-        //   weeks: [
-        //     {
-        //       id: '1',
-        //       title: 'Week 1: Algebra',
-        //       lectures: [
-        //         { lec_id: 'lecture-1', title: 'L1.1 - Linear Equations', type: 'lecture' },
-        //         { lec_id: 'lecture-2', title: 'L1.2 - Quadratic Equations', type: 'lecture' },
-        //       ],
-        //       g_assignments: [
-        //         { ga_id: '1', title: 'Graded Assignment 1', type: 'graded-assignment' },
-        //       ],
-        //       p_assignments: [
-        //         { pa_id: '1', title: 'Practice Assignment 1', type: 'practice-assignment' },
-        //       ],
-        //       concept_summary: {
-        //         cs_id: 'cs1',
-        //         title: 'Concept Summary 1',
-        //         type: 'concept-summary',
-        //       },
-        //     },
-        //     {
-        //       id: '2',
-        //       title: 'Week 2: Calculus',
-        //       lectures: [
-        //         { lec_id: 'lecture-3', title: 'L2.1 - Limits', type: 'lecture' },
-        //         { lec_id: 'lecture-4', title: 'L2.2 - Derivatives', type: 'lecture' },
-        //       ],
-        //       g_assignments: [
-        //         { ga_id: '2', title: 'Graded Assignment 2', type: 'graded-assignment' },
-        //       ],
-        //       p_assignments: [
-        //         { pa_id: '2', title: 'Practice Assignment 2', type: 'practice-assignment' },
-        //       ],
-        //       concept_summary: {
-        //         cs_id: 'cs2',
-        //         title: 'Concept Summary 2',
-        //         type: 'concept-summary',
-        //       },
-        //     },
-        //   ],
-        // },
-      ],
-    }
+      editorUrl: "https://onecompiler.com/embed/javascript?listenToEvents=true&codeChangeEvent=true",
+      questionText: "Loading question...",
+      defaultCode: "",
+      iframeLoaded: false,
+      currentQuestion: null,
+      testCases: [],
+      showHint: false,
+      testResults: [],
+      currentTestIndex: -1,  // Track which test case is currently running
+      isTestRunning: false,  // Flag to indicate if a test is running
+      currentOutput: null,   // Store the current execution output
+    };
   },
-  computed: {
-    toggleIcon() {
-      return this.isCollapsed ? 'bi bi-chevron-right' : 'bi bi-chevron-left'
-    },
-    courseData() {
-      return (
-        console.log(this.courses),
-        this.courses.find((course) => course.id == this.courseId) || {
-          title: 'Unknown Course',
-          weeks: [],
-        }
-      )
-    },
+  mounted() {
+    this.fetchAssignmentQuestions();
+    window.addEventListener('message', this.handleIframeMessage);
+  },
+  beforeUnmount() {
+    window.removeEventListener('message', this.handleIframeMessage);
   },
   methods: {
-    toggleSidebar() {
-      this.isCollapsed = !this.isCollapsed
-      this.$emit('sidebar-toggled', this.isCollapsed)
-    },
-    toggleItem(item) {
-      this.activeItem = this.activeItem === item ? null : item
-    },
-    navigateToLesson(item, type, week) {
-      const id =
-        item.lec_id || item.ga_id || item.pa_id || item.ppa_id || item.grpa_id || item.cs_id
-      this.activeLesson = type + '-' + id
-      // this.$router.push(`/instructor/course/${this.courseId}/week/${week.id}/${type}/${id}`)
-      // from courses object find the course with this.courseId and then find the week with week.id and then find the lecture with id 
-      this.courseData.weeks.forEach((w) => {
-        if (w.id === week.id) {
-          w.lectures.forEach((l) => {
-            if (l.lec_id === id) {
-              // store the data in local Storage
-              localStorage.setItem('lectureData', JSON.stringify(l))              
-            
-            }
-          })
+    fetchAssignmentQuestions() {
+      fetch(`http://localhost:5000/api/questions_for_assignment/${this.$route.params.programming_assignment_id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       })
-      // store the data in local Storage
-
-      this.$router.push(`/instructor/course/${this.courseId}/week/${week.id}/${type}/${id}`)
-
+        .then(response => response.json())
+        .then(data => {
+          if (data.questions?.length > 0) {
+            this.currentQuestion = data.questions.find(q => q.question_type === 'Programming');
+            if (this.currentQuestion) {
+              this.questionText = `${data.questions[0].question}`;
+              this.defaultCode = this.currentQuestion.question;
+              try {
+                this.testCases = JSON.parse(this.currentQuestion.correct_options);
+              } catch (e) {
+                console.error("Error parsing test cases:", e);
+              }
+              if (this.iframeLoaded) this.sendCode();
+            }
+          }
+        }).catch(error => {
+          console.error("Error fetching questions:", error);
+        });
     },
-    navigateToAssignment() {
-      // Update activeLesson and navigate to the proper route.
-      this.$router.push(`/instructor/course/${this.courseId}/create_assignment`)
+    onIframeLoad() {
+      this.iframeLoaded = true;
+      if (this.defaultCode) this.sendCode();
     },
-    fetch_contents() {
-      alert('Will be uploaded later')
+    sendCode() {
+      const iFrame = document.getElementById("oc-editor");
+      if (iFrame?.contentWindow) {
+        iFrame.contentWindow.postMessage({
+          eventType: "populateCode",
+          language: "javascript",
+          files: [{ name: "solution.js", content: this.defaultCode }]
+        }, "*");
+      }
     },
-  },
-  watch: {
-    $route: {
-      immediate: true,
-      handler(newRoute) {
-        if (newRoute.params.week_id) {
-          const weekIndex = this.courseData.weeks.findIndex((w) => w.id === newRoute.params.week_id)
-          this.activeItem = weekIndex !== -1 ? `week-${weekIndex}` : null
-        } else {
-          this.activeItem = null
+    runCode() {
+      this.testResults = [];
+      this.currentTestIndex = 0;
+      
+      if (this.testCases.length > 0) {
+        this.runNextTestCase();
+      }
+    },
+    runNextTestCase() {
+      if (this.currentTestIndex >= this.testCases.length) {
+        // All tests completed
+        this.isTestRunning = false;
+        this.currentTestIndex = -1;
+        return;
+      }
+      
+      const testCase = this.testCases[this.currentTestIndex];
+      this.isTestRunning = true;
+      
+      const iFrame = document.getElementById("oc-editor");
+      if (iFrame?.contentWindow) {
+        // Send the test input to the editor
+        iFrame.contentWindow.postMessage({
+          eventType: "populateStdin",
+          stdin: testCase.input.toString()
+        }, "*");
+        
+        // Wait a moment to ensure input is set, then trigger the run
+        setTimeout(() => {
+          iFrame.contentWindow.postMessage({ eventType: "triggerRun" }, "*");
+        }, 100);
+      }
+    },
+    handleIframeMessage(event) {
+      // Handle the new format of event.data
+      if (event.data?.action === 'runComplete') {
+        if (this.isTestRunning && this.currentTestIndex >= 0) {
+          // Get output from the new data structure
+          const output = event.data.result?.output;
+          this.currentOutput = output; // Store the raw execution output
+          
+          // Process the test case result
+          this.processTestResult(output);
         }
-        let type = ''
-        let id = ''
-        if (newRoute.path.includes('/lecture/')) {
-          type = 'lecture'
-          id = newRoute.params.lecture_id
-        } else if (newRoute.path.includes('/practice_assignments/')) {
-          type = 'practice_assignments'
-          id = newRoute.params.assignment_id
-        } else if (newRoute.path.includes('/practice_programming/')) {
-          type = 'practice_programming'
-          id = newRoute.params.programming_assignment_id
-        } else if (newRoute.path.includes('/graded_assignments/')) {
-          type = 'graded_assignments'
-          id = newRoute.params.assignment_id
-        } else if (newRoute.path.includes('/graded_programming/')) {
-          type = 'graded_programming'
-          id = newRoute.params.programming_assignment_id
-        } else if (newRoute.path.includes('/concept_summary/')) {
-          type = 'concept_summary'
-          id = newRoute.params.cs_id
-        }
-        this.activeLesson = type && id ? `${type}-${id}` : null
-      },
+      }
     },
-  },
-}
+    processTestResult(output) {
+      if (this.currentTestIndex >= 0 && this.currentTestIndex < this.testCases.length) {
+        const testCase = this.testCases[this.currentTestIndex];
+        const actualOutput = output ? output.trim() : '';
+        const expected = testCase.expected_output.trim();
+        const passed = actualOutput === expected;
+        
+        // Store the result
+        this.testResults.push({
+          input: testCase.input,
+          expected: expected,
+          actual: actualOutput || '(no output)',
+          passed
+        });
+        
+        // Move to next test case after a short delay
+        this.currentTestIndex++;
+        setTimeout(() => {
+          this.runNextTestCase();
+        }, 500);
+      }
+    },
+    toggleHint() {
+      this.showHint = !this.showHint;
+    },
+    submitCode() {
+      alert("Solution submitted for evaluation!");
+    }
+  }
+};
 </script>
 
 <style scoped>
-/* The main sidebar container */
-#sidebar {
-  /* Increased width from 250px to 280px */
-  width: 280px;
-  transition: width 0.3s ease-in-out;
-  position: fixed;
-  top: 60px; /* Below the navbar */
-  left: 0;
-  height: calc(100vh - 60px);
-  background-color: #f8f9fa;
-  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* We don't want the main container to scroll */
+.test-results {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
-#sidebar.collapsed {
-  width: 60px; /* Slightly bigger when collapsed to give more room */
+.test-results ul {
+  list-style: none;
+  padding: 0;
 }
 
-/* The fixed heading at the top of the sidebar */
-.sidebar-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  padding: 15px 0;
-  background-color: #f8f9fa;
-  text-align: center;
-  z-index: 999;
-  box-sizing: border-box;
-  border-bottom: 1px solid #ddd;
+.test-results li {
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 3px;
 }
 
-/* The scrollable wrapper (below the heading) */
-.sidebar-wrapper {
-  position: absolute;
-  top: 60px; /* space for heading (15px top + heading size ~45px = ~60px total) */
-  left: 0;
-  width: 100%;
-  height: calc(100% - 60px);
+.pass {
+  background: #d4edda;
+  color: #155724;
+}
+
+.fail {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Added styles for execution output display */
+.execution-output {
+  margin-top: 20px;
+  padding: 10px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+}
+
+.execution-output pre {
+  white-space: pre-wrap;
+  font-family: monospace;
+  margin: 0;
+  padding: 10px;
+  background: #f1f1f1;
+  border-radius: 3px;
+  max-height: 200px;
   overflow-y: auto;
-  padding-right: 10px;
-  /* Add a bit of left padding so items aren't glued to the edge */
-  padding-left: 10px;
 }
 
-/* Hide content when collapsed */
-#sidebar.collapsed .sidebar-content,
-#sidebar.collapsed .sidebar-header {
-  display: none;
+.question-box {
+  border: 1px solid #4a90e2;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: #f5f9ff;
+  position: relative;
 }
 
-/* Toggle button styling */
-.toggle-btn {
+.hint-box {
+  background-color: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 10px;
+  margin-top: 15px;
+}
+
+.hint-btn {
   position: absolute;
   top: 10px;
-  right: -35px; /* shift the button to the right so it doesn't overlap the scrollbar */
-  transform: translateX(-100%);
-  transition: right 0.3s ease-in-out;
-  z-index: 1000; /* So it stays on top */
-}
-
-#sidebar.collapsed .toggle-btn {
-  right: -35px;
-  transform: translateX(-100%);
-}
-
-/* Accordion & active item styling */
-.accordion-button {
-  cursor: pointer;
-  font-size: 1rem;
-  /* Add some left padding to separate text from the edge */
-  padding-left: 1.5rem !important;
-}
-
-.list-group-item {
-  /* Slight left padding for list items */
-  padding-left: 1.5rem !important;
-}
-
-.list-group-item.active {
-  background-color: #d6d6d6 !important;
-  color: black !important;
-  font-weight: bold;
-  border: 1px solid #d6d6d6 !important;
-}
-
-/* Custom scrollbar styling */
-.sidebar-wrapper::-webkit-scrollbar {
-  width: 8px;
-}
-
-.sidebar-wrapper::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
-}
-
-.sidebar-wrapper::-webkit-scrollbar-thumb {
-  background-color: #c1c1c1;
+  right: 10px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
   border-radius: 4px;
-  border: 1px solid #f1f1f1;
+  cursor: pointer;
 }
 
-/* For Firefox (scrollbar styling) */
-.sidebar-wrapper {
-  scrollbar-width: thin; /* "auto" or "thin" */
-  scrollbar-color: #c1c1c1 #f1f1f1; /* thumb and track color */
+.test-cases-section {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
 }
 
-.no-toggle .accordion-button::after {
-  display: none; /* Hide the arrow */
+.test-case {
+  padding: 8px;
+  margin-bottom: 5px;
+  background-color: white;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
 }
 
-.accordion-button.static {
-  background-color: inherit; /* Keep same background as siblings */
-  /* Optionally override active styles if needed */
-  box-shadow: none;
+.btn {
+  margin-right: 10px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn.success {
+  background-color: #28a745;
+  color: white;
 }
 </style>

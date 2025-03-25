@@ -656,6 +656,12 @@ class AssignmentsForCourse(Resource):
         result = [{'assignment_id': assignment.assignment_id, 'category': assignment.category, 'which_week': assignment.which_week, 'total_marks': assignment.total_marks} for assignment in assignments]
         return jsonify(result)
 
+class QuestionsForAssignment(Resource):
+    def get(self, assignment_id):
+        questions = db.session.query(Question).filter_by(assignment_id=assignment_id).all()
+        result = [{'question_id': question.question_id, 'question_type': question.question_type, 'question': question.question, 'options': json.loads(base64.b64decode(question.options).decode()) if question.options else None, 'correct_options': question.correct_options, 'marks': question.marks, 'hints': question.hints, 'text_solution': question.text_solution} for question in questions]
+        return jsonify({"questions":result})
+api.add_resource(QuestionsForAssignment, '/questions_for_assignment/<int:assignment_id>')
 
 
 api.add_resource(AI, '/ai')
