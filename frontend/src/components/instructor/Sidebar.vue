@@ -146,42 +146,14 @@ export default {
     const courseId = computed(() => route.params.id)
     return { courseId, router, route }
   },
-  // create a mounted function for fetching data from backend here is link for fetching lectures http://localhost:5000/api/content/course_id 
-  // it returns a json object which have a key contents individual content is of following format
-  // {
-  //     "content_id": 1,
-  //     "content_name": "L1.1: Introduction",
-  //     "content_type": "Week 1",
-  //     "transcript_url": "sub/8ndsDXohLMQ.txt",
-  //     "url": "https://www.youtube.com/watch?v=8ndsDXohLMQ"
-  //   },
-  //   {
-  //     "content_id": 2,
-  //     "content_name": "L1.2: Introduction to Replit",
-  //     "content_type": "Week 1",
-  //     "transcript_url": "sub/NgZZ0HIUqbs.txt",
-  //     "url": "https://www.youtube.com/watch?v=NgZZ0HIUqbs"
-  //   },
-  //   {
-  //     "content_id": 3,
-  //     "content_name": "L1.3: More on Replit, print and Common Mistakes",
-  //     "content_type": "Week 1",
-  //     "transcript_url": "sub/As7_aq6XGfI.txt",
-  //     "url": "https://www.youtube.com/watch?v=As7_aq6XGfI"
-  //   },
-
-    // store it in a variable called courses, which have weeks and then lectures, properly classify which week it belongs to
-   // it would need some mofificationns to the data received from backend, such as from content type we need to identify week number 
-   // store url in a field called url and transcript_url in a field called transcript_url
-  // and then push it to the lectures array of the week
-  // and then push the week to the weeks array of the course
-  // and then push the course to the courses array
+  
   mounted() {
     // Fetch data from backend and populate the courses array
     fetch('http://localhost:5000/api/content/' + this.courseId)
       .then((response) => response.json())
       .then((data) => {
-
+        // store the data fetched from requesst to local storage
+        localStorage.setItem('courseData', JSON.stringify(data))
         const course = {}
         course.id = data['course_id']
           course.title = data['course_name']
@@ -197,9 +169,6 @@ export default {
               title: 'Week ' + weekNumber,
               lectures: [],
             })
-
-            
-            
           }
           course['weeks'][weekNumber-1]['lectures'].push({
               lec_id: content.content_id,
@@ -214,6 +183,71 @@ export default {
 
          console.log(this.courses)  
       })
+      
+      //  send a fetch get request to http://localhost:5000/api/assignments_for_course/1 
+      // data in response will be of follwoing format 
+      // [
+        //   {
+        //     "assignment_id": 1,
+        //     "category": "Practice Assignment",
+        //     "total_marks": 10,
+        //     "which_week": 1
+        //   }
+        // ]
+      // store data in courses array 0th index weeks key identify by week number 
+      fetch('http://localhost:5000/api/assignments_for_course/' + this.courseId)
+        .then((response) => response.json())
+        .then((data) => {
+          data.forEach((assignment) => {
+            const weekIndex = this.courses[0]['weeks'].findIndex(
+              (week) => week.id === assignment.which_week.toString()
+            )
+            // console.log(weekIndex)
+            if (weekIndex !== -1) {
+              if (assignment.category === 'Practice Assignment') {
+                if (!this.courses[0].weeks[weekIndex].p_assignments) {
+                  this.courses[0].weeks[weekIndex].p_assignments = []
+                }
+                this.courses[0].weeks[weekIndex].p_assignments.push({
+                  pa_id: assignment.assignment_id,
+                  title: 'Practice Assignment ' + assignment.assignment_id,
+                  type: 'practice-assignment',
+                })
+              } else if (assignment.category === 'Graded Assignment') {
+                // check if g_assignments is not defined then define it
+                if (!this.courses[0].weeks[weekIndex].g_assignments) {
+                  this.courses[0].weeks[weekIndex].g_assignments = []
+                }
+                this.courses[0].weeks[weekIndex].g_assignments.push({
+                  ga_id: assignment.assignment_id,
+                  title: 'Graded Assignment ' + assignment.assignment_id,
+                  type: 'graded-assignment',
+                })
+              } else if (assignment.category === 'Practice Programming Assignment') {
+                if (!this.courses[0].weeks[weekIndex].pp_assignments) {
+                  this.courses[0].weeks[weekIndex].pp_assignments = []
+                }
+                this.courses[0].weeks[weekIndex].pp_assignments.push({
+                  ppa_id: assignment.assignment_id,
+                  title: 'Practice Programming Assignment ' + assignment.assignment_id,
+                  type: 'practice-programming-assignment',
+                })
+              } else if (assignment.category === 'Graded Programming Assignment') {
+                if (!this.courses[0].weeks[weekIndex].grp_assignments) {
+                  this.courses[0].weeks[weekIndex].grp_assignments = []
+                }
+                this.courses[0].weeks[weekIndex].grp_assignments.push({
+                  grpa_id: assignment.assignment_id,
+                  title: 'Graded Programming Assignment ' + assignment.assignment_id,
+                  type: 'graded-programming-assignment',
+                })
+              }
+            }
+          })
+          console.log(this.courses)
+        })
+        
+      
   },
   data() {
     return {
@@ -554,3 +588,4 @@ export default {
   box-shadow: none;
 }
 </style>
+  

@@ -81,7 +81,7 @@ export default {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: email.value }),
+        body: JSON.stringify({ email: email.value, password: password.value }),
       })
         .then((response) => {
           if (!response.ok) {
@@ -90,6 +90,9 @@ export default {
           return response.json()
         })
         .then((data) => {
+          // load course from localhost:5000/api/mycourses/student_id, get student_id from data.student_id and store in localstorage allcourses  
+          
+          localStorage.setItem('userdata', JSON.stringify(data))
           localStorage.setItem('token', data.token)
           // in the response data there is a key roles which is an array of strings, get the first element and check if it's a student or ta or instructore based on that redirect to appropriate dashboard following urls 
           //'/ta/profile','/instructor/profile','/student/profile'

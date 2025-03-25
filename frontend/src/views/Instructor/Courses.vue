@@ -3,7 +3,7 @@
     <NavBar />
     <div class="dashboard-container">
       <div class="course-card" v-for="(course, index) in courses" :key="index">
-        <div class="course-header">{{ course.header }}</div>
+        <div class="course-header">{{ course.course_name }}</div>
         <div class="course-content">
           <div class="course-item" v-for="(summary, idx) in course.summaries" :key="idx">
             {{ summary.label }}: <strong>{{ summary.value }}</strong>
@@ -11,7 +11,7 @@
         </div>
         <div class="course-footer">
           <!-- Router link to instructor/course/id -->
-          <router-link :to="`/instructor/course/${course.id}`">
+          <router-link :to="`/instructor/course/${course.course_id}`">
             <i class="bi bi-chevron-right"></i>
           </router-link>
         </div>
@@ -29,11 +29,37 @@ export default {
   },
   data() {
     return {
-      courses: this.getDummyData(),
+      courses: [],
     }
   },
+  mounted() {
+    this.fetchCourses();
+  },
   methods: {
-    // This method returns dummy summary data for the courses.
+    fetchCourses() {
+      fetch('http://localhost:5000/api/instructorcourses', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authentication: `${localStorage.getItem('token')}`,
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.length) {
+            console.log('Fetched courses:', data);  
+            this.courses = data;
+          } else {
+            // Fallback to dummy data if API returns empty response
+            this.courses = this.getDummyData();
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching courses:', error);
+          // Fallback to dummy data if API request fails
+          this.courses = this.getDummyData();
+        });
+    },
     getDummyData() {
       return [
         {

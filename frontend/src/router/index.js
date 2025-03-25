@@ -21,7 +21,7 @@ const router = createRouter({
       component: Login,
     },
     {
-      path: '/student/announcements', // There is no backend for this
+      path: '/student/announcements', // done
       name: 'announcements',
       component: () => import('@/views/Student/Announcements.vue'),
     },
@@ -36,7 +36,7 @@ const router = createRouter({
       component: () => import('@/views/TA/Profile.vue'),
     },
     {
-      path: '/instructor/courses', // there is no backend for this
+      path: '/instructor/courses', // done
       name: 'instructor-courses',
       component: Courses,
     },
@@ -47,7 +47,7 @@ const router = createRouter({
       props: true,
     },
     {
-      path: '/student/courses', // there is no backend for this
+      path: '/student/courses', // there is some issues
       name: 'student-courses',
       component: Student_Courses,
       props: true,
@@ -59,7 +59,7 @@ const router = createRouter({
       props: true,
     },
     {
-      path: '/student/to_do', // ther is no backend for this
+      path: '/student/to_do', // there is no backend for this
       name: 'to_do',
       component: ToDo,
       props: true,
@@ -72,11 +72,11 @@ const router = createRouter({
       children: [
         {
           path: '',
-          name: 'instructor_course_about',
+          name: 'instructor_course_about', //done
           component: () => import('@/components/instructor/About.vue'), // Default component
         },
         {
-          path: 'create_assignment',
+          path: 'create_assignment', // siddant will do 
           name: 'instructor_create_assignment',
           component: () => import('@/components/instructor/Create_with_AI.vue'),
         },
@@ -86,7 +86,7 @@ const router = createRouter({
           // component: week,
           children: [
             {
-              path: 'lecture/:lecture_id',
+              path: 'lecture/:lecture_id', //done
               name: 'lecture',
               component: () => import('@/components/Lecture.vue'),
             },

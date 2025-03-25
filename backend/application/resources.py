@@ -182,30 +182,40 @@ class MyCourses(Resource):
         if not student:
             return {'message': 'Student not found'}, 404
 
-        courses = (
-            db.session.query(Course.course_name, Assignment.assignment_id, Assignment.total_marks, AssignmentStudent.marks_obtained)
-            .join(CourseStudent, Course.course_id == CourseStudent.course_id)
+        courses = db.session.query(Course.course_name, Course.course_id) \
+            .join(CourseStudent, Course.course_id == CourseStudent.course_id) \
+            .filter(CourseStudent.student_id == student_id) \
+            .all()
+
+        course_data = {course_name: [] for course_name, _ in courses}  # Initialize empty lists for each course
+
+        # Fetch assignment submissions for the student
+        assignments = (
+            db.session.query(
+                Course.course_name,
+                Assignment.which_week,
+                Assignment.category,
+                Assignment.total_marks,
+                AssignmentStudent.marks_obtained
+            )
             .join(Assignment, Course.course_id == Assignment.course_id)
             .join(AssignmentStudent, Assignment.assignment_id == AssignmentStudent.assignment_id)
-            .filter(CourseStudent.student_id == student_id)
+            .filter(
+                AssignmentStudent.student_id == student_id  # Get only submitted assignments
+            )
             .all()
         )
 
-        course_data = {}
-        for course_name, which_week, category, total_marks, marks_obtained in courses:
-            if course_name not in course_data:
-                course_data[course_name] = []
-            
-            assignment_name = f"Week {which_week} {category}"
-            
+        # Populate submitted assignments
+        for course_name, which_week, category, total_marks, marks_obtained in assignments:
             percentage = (int(marks_obtained) / total_marks) * 100 if total_marks else 0
+            assignment_name = f"Week {which_week} {category}"
             course_data[course_name].append({
                 "assignment_name": assignment_name,
                 "percentage": round(percentage, 2)
             })
 
         return jsonify(course_data)
-
 
 class InstructorCourses(Resource):
     @auth_required('token')  # Ensure user is authenticated
@@ -366,7 +376,8 @@ class Questions(Resource):
         return {
             "message": "Assignment and questions added successfully"
         }, 201
-        
+    
+    
     def put(self, question_id):
         data = request.get_json()
         question = db.session.query(Question).get(question_id)            
@@ -581,6 +592,7 @@ class Editdeadline(Resource):
         if not assignment:
             return {"error": "Assignment not found"}, 404 
 
+    
         if "deadline" in data:
             try:
                 assignment.deadline = datetime.strptime(data["deadline"], "%Y-%m-%dT%H:%M:%S") if data["deadline"] else None
@@ -637,19 +649,32 @@ class AI(Resource):
             b = { "res" : "Internal Server Error", "error" : True }, 500
             return b
 
+
+class AssignmentsForCourse(Resource):
+    def get(self, course_id):
+        assignments = db.session.query(Assignment).filter_by(course_id=course_id).all()
+        result = [{'assignment_id': assignment.assignment_id, 'category': assignment.category, 'which_week': assignment.which_week, 'total_marks': assignment.total_marks} for assignment in assignments]
+        return jsonify(result)
+
+
+
 api.add_resource(AI, '/ai')
 
 
-api.add_resource(Login, '/login')
-api.add_resource(Logout, '/logout')
-api.add_resource(StudInfo, '/studinfo')
-api.add_resource(Report, '/report', '/report')
-api.add_resource(ViewReports, '/view_reports')
-api.add_resource(Events, '/events')
-api.add_resource(Tasks, '/tasks/<int:user_id>', '/tasks', '/tasks/delete/<int:task_id>')
+api.add_resource(Login, '/login') ## done
+api.add_resource(Logout, '/logout') ## done
+api.add_resource(StudInfo, '/studinfo') ## done
+api.add_resource(Report, '/report', '/report') ## done 
+api.add_resource(ViewReports, '/view_reports') ## done
+api.add_resource(Events, '/events') ## done 
+
+
+
+api.add_resource(Tasks, '/tasks/<int:user_id>', '/tasks', '/tasks/delete/<int:task_id>') ## do later 
+
 api.add_resource(MyCourses, '/mycourses/<int:student_id>')
-api.add_resource(InstructorCourses, '/instructorcourses')
-api.add_resource(CourseContent, '/content/<int:course_id>', '/content', '/content/edit/<int:content_id>')
+api.add_resource(InstructorCourses, '/instructorcourses') ## done
+api.add_resource(CourseContent, '/content/<int:course_id>', '/content', '/content/edit/<int:content_id>') ## done
 api.add_resource(Questions, '/questions', '/questions/<int:question_id>')
 api.add_resource(StarredQuestions, '/starred_questions/<int:student_id>')
 api.add_resource(AssignmentSubmissions, '/submissions')
@@ -657,7 +682,7 @@ api.add_resource(Assignments, '/assignments/<int:assignment_id>/<int:student_id>
 api.add_resource(Editdeadline, '/edit_assignment/<int:assignment_id>')
 
 
-
+api.add_resource(AssignmentsForCourse, '/assignments_for_course/<int:course_id>')
 
 
 

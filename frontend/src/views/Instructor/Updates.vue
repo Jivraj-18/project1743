@@ -158,25 +158,52 @@ export default {
   },
   methods: {
     async fetchIssues() {
-      this.issues = [
-        {
-          id: 1,
-          studentName: 'John Doe',
-          subject: 'Login not working',
-          courseId: 'CS101',
-          description: 'I cannot login to my account even after resetting my password.',
-          date: '2025-02-19',
-        },
-        {
-          id: 2,
-          studentName: 'Jane Smith',
-          subject: 'Video not loading',
-          courseId: 'DS102',
-          description: 'The video in module 3 keeps buffering and does not load.',
-          date: '2025-02-18',
-        },
-      ]
-    },
+  try {
+    const response = await fetch('http://localhost:5000/api/view_reports', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch issues');
+    }
+    
+    const data = await response.json();
+    this.issues = data.map(issue => ({
+      id: issue.issue_id,
+      studentName: issue.user_email,
+      subject: issue.subject,
+      courseId: issue.course_name,
+      description: issue.description,
+      date: new Date(issue.issue_date).toLocaleDateString(),
+      issueType: issue.issue_type
+    }));
+  } catch (error) {
+    console.error('Error fetching issues:', error);
+    // Fallback to dummy data if API request fails
+    this.issues = [
+      {
+        id: 1,
+        studentName: 'John Doe',
+        subject: 'Login not working',
+        courseId: 'CS101',
+        description: 'I cannot login to my account even after resetting my password.',
+        date: '2025-02-19',
+      },
+      {
+        id: 2,
+        studentName: 'Jane Smith',
+        subject: 'Video not loading',
+        courseId: 'DS102',
+        description: 'The video in module 3 keeps buffering and does not load.',
+        date: '2025-02-18',
+      },
+    ];
+  }
+},
     openModal(issue) {
       this.selectedIssue = { ...issue }
       this.solutionText = ''

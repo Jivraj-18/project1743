@@ -1,19 +1,9 @@
 <template>
   <div :class="['content', { 'content-expanded': isSidebarCollapsed }]">
     <div class="content-inner">
-      <h1 v-if="courseId === '1'">Welcome to Python Course</h1>
-      <h1 v-else-if="courseId === '2'">Welcome to Math-1 Course</h1>
-      <h1 v-else>Welcome to the Course</h1>
-
-      <p v-if="courseId === '1'">
-        This Python course covers fundamental to advanced programming concepts, including data
-        structures, OOP, and frameworks.
-      </p>
-      <p v-else-if="courseId === '2'">
-        This Math-1 course focuses on calculus, linear algebra, and foundational mathematical
-        principles essential for further studies.
-      </p>
-      <p v-else>This is the main content of the about page.</p>
+      <!-- Show course description from localstroage courseData variable description fileld also name from course_name field-->
+      <h1>{{ courseData.course_name }}</h1>
+      <p>{{ courseData.description }}</p>
     </div>
   </div>
 </template>
@@ -24,6 +14,18 @@ export default {
     courseId() {
       return this.$route.params.id // Extracts course ID from the route
     },
+  },
+  data() {
+    return {
+      courseData: {}, // Initialize courseData to an empty object
+    }
+  },
+  mounted() {
+    // Fetch course data from local storage when the component is mounted
+    const courseData = localStorage.getItem('courseData')
+    if (courseData) {
+      this.courseData = JSON.parse(courseData)
+    }
   },
 }
 </script>

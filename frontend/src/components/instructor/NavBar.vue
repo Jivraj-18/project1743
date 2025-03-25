@@ -40,24 +40,20 @@
               Courses
               <i class="bi bi-chevron-down"></i>
             </router-link>
+            <!--populate courses in ul's replace existing uls-->
 
+            
+            
             <ul class="dropdown-menu" aria-labelledby="coursesDropdown">
-              <li>
+              <li v-for="course in courses" :key="course.id">
                 <router-link
                   class="dropdown-item"
-                  :class="{ active: $route.path.startsWith('/instructor/course/1') }"
-                  to="/instructor/course/1"
-                  >Python</router-link
+                  :class="{ active: $route.path.startsWith('/instructor/course/' + course.id) }"
+                  :to="'/instructor/course/' + course.id"
+                  >{{ course.name }}</router-link
                 >
               </li>
-              <li>
-                <router-link
-                  class="dropdown-item"
-                  :class="{ active: $route.path.startsWith('/instructor/course/2') }"
-                  to="/instructor/course/2"
-                  >Maths 1</router-link
-                >
-              </li>
+              
             </ul>
           </li>
           <li class="nav-item">
@@ -93,6 +89,42 @@
 <script>
 export default {
   name: 'NavbarComponent',
+  // send a get request to localhost:5000/api/instructorcourses and save all the courses in a variable called courses
+  data() {
+    return {
+      courses: [],
+    }
+  },
+  mounted() {
+    this.fetchCourses()
+  },
+  methods: {
+    async fetchCourses() {
+      try {
+        const response = await fetch('http://localhost:5000/api/instructorcourses', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authentication: `${localStorage.getItem('token')}`,
+      },
+        })
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch courses')
+        }
+
+        const data = await response.json()
+        this.courses = data.map((course) => ({
+          id: course.course_id,
+          name: course.course_name,
+        }))
+      } catch (error) {
+        console.error('Error fetching courses:', error)
+      }
+    },
+
+    
+  },
 }
 </script>
 
