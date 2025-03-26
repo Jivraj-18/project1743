@@ -1,0 +1,55 @@
+After section formula let us try to understand
+the three points when they are not on one line that is when they form a triangle. So, you have been given three points, and
+you know they are not collinear points and therefore, they will form a triangle. And the question can be how to find the area
+of triangle using the coordinate system. So, let us try to see that using the coordinate
+system. So, there is some triangle ABC and I want
+to find the area of triangle ABC. Let the coordinates of that triangle be x
+1, y 1, x 2, y 2 and x 3, y 3. Once I have these coordinates, I can plot
+it here. You can see on the right there is an image
+of a triangle. Now, how to find the area of this triangle? Now, whatever I discussed so far everything
+actually relied on dropping a perpendicular to x axis and finding the area of the geometric
+object that is formed. In earlier cases, it was just a triangle. Now, if we follow that theory then you can
+easily see that I need to do something like dropping a perpendicular to x axis. So, I have dropped perpendiculars to x axis. Now, I have generated some figures. What are the figures that I have generated? In particular, I have generated 3 trapeziums,
+trapezium ADFC that is the biggest one encompassing everything. Then, you can look at trapezium ABED or ADEB,
+then you can look at the trapezium BEFC, right. Now, my triangle is trapped in between these
+trapeziums. So, let us try to make our understanding crystal
+clear. If I want to find the area of triangle ABC,
+then I need to first consider the biggest possible quadrilateral or trapezium that is
+ADFC and eliminate the areas of two smaller trapeziums that is ADEB and BEFC. And whatever I am left with is the area of
+triangle ABC. Now, do I know how to find the area of trapezium? Yes, I know. The formula is half times sum of parallel
+sides into the height of the trapezium. So, we need to quantify what how these quantities
+will be calculated. Let us consider trapezium ADFC, if I consider
+a trapezium the ADFC then what are the parallel sides of this trapezium? Side AD and side FC or CF, right. So, I will take average of these two parallel
+sides that is half of AD plus FC. Then, what is a height? Height should have a perpendicular distance,
+so that is x axis. So, I know the distance will be DF, correct. So, let us take the general coordinate system
+rather than using this coordinate system. What are the coordinates of AD? So, D will have in our general coordinate
+system the coordinates of AD will be, A has coordinates x 1 y 1 and D is after dropping
+a perpendicular on x axis. So, its y 1 coordinate will vanish, that is
+y coordinate will vanish and therefore, the coordinates coordinates of D will be x 1 comma
+0. So, what will be the length of AD? It will be purely in terms of y that is y
+1. Similar, thing is applicable for CF. So, it will be nothing but y 3; so, half y
+1 plus y 3. Now, what is the length of line segment DF
+or FD? Highest minus the lowest, right. So, in this case our F is 8 comma 0 or x 3
+comma 0 and D, the point D is x 1 comma 0. So, it is x 3 minus x 1. We can easily see the point here is actually
+the copy of 8 in this particular thing, our C is this, so my point is x 3 minus x 1. In a similar manner, I can actually see a
+smaller trapezium that is ADEB, smaller quadrilateral that is ADEB and the length of that quadrilateral
+will be, the length or the height of that quadrilateral will be the length of ED which
+is 2 in this case or x 2 minus x 1 in the coordinate system, ok. So, this is what our understanding of the
+length is. In a similar manner, the parallel sides are
+y 1 and y 2, lengths of parallel sides is y 1 plus y 2. So, I have this angle. In a similar manner you can compute BEFC. Now, using this you can compute the area of
+the triangle which can be easily seen to be in this form. So, I have just taken this example and computed
+this, these values. So, the values are effectively in this particular
+case the length of AD was, the length of AD was 2 yes, 4 comma 2 and 4 comma 0, the length
+of AD was 2. The length of CF was 3 into 4 minus and similar
+calculations go ahead, minus half into 2 plus 1 into 2, minus half into 1 plus 3 into 2. So, essentially what I got here is the length
+the area of the triangle ABC is 10 minus 3 minus 4 which is 3 square units. Now, if you look at this particular thing
+and rewrite this expression you will get a very nice expression. You can juggle with this expression and try
+to simplify it by taking a cross products and you will come up with the expression of
+this form. The absolute sign is just to ensure that the
+area value should not be negative, but the calculation still remain same. And you need to consider the one reminder
+or one caution here, you need to consider all the vertices of a triangle in an anticlockwise
+direction, right, then only this formula is valid, ok. So, I have considered area of a triangle. Now, we have, what we have seen so far is
+given two points how to find the distance between two points, given three points if
+they are collinear we have found how to find how section formula can help us to find their
+ratios or the coordinates of the middle point. Now, if the points are non-collinear we have
+seen how to compute the area of the triangle using the coordinate system.

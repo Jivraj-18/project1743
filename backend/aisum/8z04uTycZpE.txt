@@ -1,0 +1,7 @@
+A set is simply a collection of items, like the days of the week or the factors of a number. Sets can be finite (like a set of numbers) or infinite (like natural numbers). Different types of numbers like natural numbers (N), integers (Z), rational numbers (Q), and real numbers (R) are examples of sets. A set can include any type of members, and the order of members does not matter. The number of items in a set is called its cardinality. 
+
+There can be infinite sets, but measuring their size (cardinality) is more complex. A set can also contain other sets. The empty set, which has no elements, is a subset of every set. 
+
+When we talk about subsets, a set X is a subset of set Y if all elements in X are also in Y. A proper subset means that X is included in Y but not equal to Y. 
+
+The power set of a set is the set of all possible subsets, and the number of subsets is 2 raised to the number of elements in the original set (2^n). This means that a set with n elements has 2^n subsets. For example, a set with 3 elements has 8 subsets.

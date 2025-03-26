@@ -20,13 +20,13 @@ class FileManager:
             return []
 
     def text_to_file(self, file_name, text):
-        with open(f"{self.directory_name}/{file_name}", 'w') as file:
+        with open(f"{self.directory_name}/{file_name}", 'w', errors='ignore') as file:
             file.write(text)
         print(f"Text has been written to {file_name}")
 
     def file_to_text(self, file_name):
         try:
-            with open(f"{self.directory_name}/{file_name}", 'r') as file:
+            with open(f"{self.directory_name}/{file_name}", 'r', errors='ignore') as file:
                 content = file.read()
             return content
         except FileNotFoundError:

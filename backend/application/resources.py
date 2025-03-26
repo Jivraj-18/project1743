@@ -714,6 +714,7 @@ class AI(Resource):
         try :
             s = request.get_json() if request.is_json else {}
 
+
             t = s.get("type", "")
             p = s.get("prompt", "")
             b = s.get("background", {})
@@ -736,8 +737,11 @@ class AI(Resource):
                     "prompt" : p,
                     "content" : c
                 }
-                # print("API => ", c, i)
-                d = link[t](i)
+                if b.get("pre", False):
+                    d = c
+                else:
+                    d = link[t](i)
+
             else :
                 b = {"res": "Oops, Invalid Type", "error" : True}, 400
                 return b

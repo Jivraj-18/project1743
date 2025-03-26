@@ -1,0 +1,13 @@
+In this content, we are learning how to find the distance from a point to a line and between two parallel lines. To find the distance from a point (x1, y1) to a line represented by the equation Ax + By + C = 0, we use the formula:  
+
+Distance = |Ax1 + By1 + C| / √(A² + B²).  
+
+First, we identify the coefficients A, B, and C from the line equation and substitute the coordinates of the point into the formula to calculate the distance.  
+
+For the distance between two parallel lines, we can use the formula:  
+
+Distance = |C1 - C2| / √(A² + B²),  
+
+where C1 and C2 are the constant terms from the two line equations. This shows that the distance between the lines is determined by the difference in their constant terms and the coefficients A and B.  
+
+The content also includes examples to illustrate how to apply these formulas to get the distances.

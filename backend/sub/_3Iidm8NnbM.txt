@@ -1,0 +1,163 @@
+So, far in our journey we have studied how
+to represent on line which is a geometric object in algebraic manner using various forms
+of equations. This is a time to recollect; what are the forms of equations that we have
+studied and understand some common properties commonalities in that equation of line and
+give a general equation of line which will be helpful for further analysis. So, let us
+see what are the different forms of line; equations of line that we have studied. So, in particular we had two forms one is
+two point form another when its slope point form. So, first I will list the slope point
+form a specialization or specialized version of this is slope intercept form where instead
+of a point you have been given x intercept or a y-intercept. Then we have also studied
+two point form given two points how to uniquely determine a line and a specialized version
+of that is nothing but intercept form. So we can quickly review these forms like
+slope point form we have a point x naught y naught which is given to us and a slope
+m that is given to us. So, we come up with an equation when we give the representation
+of this line algebraic representation of this line with slope y with slope m and point x
+naught y naught we will come up with a representation as y minus y naught is equal to m times x
+minus x naught when you come to slope intercept form suppose the x intercept is given to me
+if I have been given an x intercept then the y coordinate of that point will be 0. So let us say x intercept is d in that case
+my equation from slope point form as slope intercept form is a specialized version of
+slope in point form my equation will become y minus 0 is equal to m times if the intercept
+is at d, d. So, y is equal to m times x – d, in a similar manner so the y intercept is
+given to me and that intercept is at c then my y naught will be replaced by c and x naught
+will be replaced by 0 therefore I will come up with
+an equation y is equal to m x plus c that is what is listed here y is equal to mx plus
+c given a y-intercept and given an x intercept the equation has a form y is equal to m times
+x – d. Let us come to two point form we have also
+seen during the course that this two point form is closely related to slope point form.
+We also know that given any two points on a line we can determine the slope of a line
+so in this particular expression m will be replaced by the ratio of the change in y upon
+change in x. Therefore the two point form two point form will be just replica of this
+instead of m you will have the difference between y-axis difference between the coordinates
+of y-axis and difference between the coordinates of x-axis that will be given in this form. Now remember here the points given are not
+x naught y naught so the points given are x1 y1 and x2 y2 therefore x naught is replaced
+by x 1 and y naught is replaced by y1 and this thing is nothing but a replacement of
+m that is how these two forms are also closely related. In an intercept form you will get
+two intercepts x intercept let us say x intercept is a and y intercept is b then how will these
+forms change? If x intercept is a that means I have a point
+a comma 0 so my x1 y1 will be nothing but x1 is equal to a y1 is equal to 0 and y2 minus
+y1 will be b upon x 2 minus x 1 will be minus a so b upon minus a is equal to b upon minus
+a into x minus a is equal to y and if you simplify that you will come up with a very
+simple expression of the form x by a plus y by b. So, here there is a no-brainer nothing
+to remember below x you write x-intercept below y you write y-intercept and equate it
+with 1. Now if you look at all these forms there is
+one common feature you have y what are the variables in this because given a point x
+naught let us take the slope point form given a point x naught y naught this x naught and
+y naught is fixed. The slope of a line is fixed. So, now what we are identifying is
+we are identifying in a condition in the form of x, y what these coordinates should satisfy.
+So, the variables are x and y. If you look at all these forms the same the
+same feature is visible, the variables are x and y and I have an expression of the form
+some constant times y some constant times x and added with another constant. Let us
+take this feature for example y minus y naught is equal to mx minus x naught now I want to
+differentiate between variables and constant. So, I can simply write this as y minus m times
+x is equal to y naught minus m x naught, y naught minus m x naught will be the constant
+associated with this particular equation and y and the and the variable one variable y
+is associated with real coefficient 1 and variable x is associated with real coefficient
+minus m. So in particular I can have a general form
+of the equation and similar story is true for all this. For example if you come here
+I will have with x there is a variable associated 1 by 1 by a with y there is a with variable
+x 1 by a is a real coefficient that is associated with variable y 1 by b that is a real coefficient
+that is associated and the constant is C. So, I can discuss same things about all these
+features but one thing is common that I can have a general form of equation which will
+be of the form Ax plus By plus C equal to 0. Now let us identify this particular general
+form with our various expressions like slope point form the way I discussed the slope point
+form we already know. In this case we have assumed that b is equal to 1 but I can as
+well multiply by a constant term throughout the equation and we will have the same equation.
+So, assuming this holds true let us discuss about this this particular expression. So,
+in this case you can easily see if I relate this equation with this equation that is you
+rewrite this as minus m x minus y is minus y plus y naught minus m x naught is equal
+to 0. In that case you can have this expression
+which will give you m the value of m will be given when you compare with respect to
+this expression as minus A by B and value of y naught minus m x naught now remember
+this is a constant term because all these are constants of the line. So, y naught minus
+m x naught is equal to minus C by B. If you are able to understand this then you can easily
+understand the slope intercept form. Because in the slope-intercept form what we have is
+if you take this form which is y is equal to mx plus c you have y-intercept which is
+c therefore your y naught will be replaced by c and x naught will be replaced by 0 so
+if you look at this expression m will still remain minus A by B when I am identifying
+this equation m will still remain by minus A by B y naught is identified with C minus
+minus A by B x naught is 0 so this becomes irrelevant so y naught is c so c is equal
+to minus capital C by B. In a similar manner you can do for x-intercept and you will get
+these expressions. So m as I as I mentioned minus c by minus
+A by B c is minus C by B and d is minus C by A for getting d you just put x naught is
+equal to d and y naught is equal to 0 you will get this expression. So, same exercise
+can be done for two point form and intercept form remember this m will be replaced by a
+ratio of these two numbers ratio of these two differences. So, m m is replaced by a
+ratio of these two differences there is no x naught y naught there will be x 1 y 1 therefore
+you will have an expression of this form. But remember this minus C by B is common everywhere
+the slope is minus A by B everywhere so essentially, we have got one simple general equation. Similar
+things you can do for x by A plus y by B equal to 1 that is intercept form and you will get
+a to be equal to minus C by A, b to be equal to minus C by B. So, what we have seen here
+is an exact matching one-to-one correspondence of a general equation with respect to this
+equation. Now why should I consider general equation?
+Remember when we figured out this representation our assumption was these are non vertical
+lines. For vertical lines our slope do not exist right but in this case if you; and those
+cases, those lines are where the slope do not exist those lines are vertical lines.
+They are of the form x is equal to x is equal to some some constant right. If you look at
+this equation which is a general form of this equation you just put b to be equal to 0 you
+will get A x plus C is equal to 0 that means x is equal to some constant x is equal to
+minus C by A you will get that is what our intercept form also reveals. So all these lines are actually vertical lines,
+so this general equation is capable of handling vertical lines also, horizontal lines are
+anyway handled here because if you put m is equal to 0 the horizontal line is handled.
+Over as well while we were deriving these forms we were always assuming non-vertical
+lines. So, that non-vertical lines also justified non-vertical lines are covered as well as
+vertical lines are covered therefore this equation is a general form of equation of
+a line. Also in your earlier classes you might have
+studied this as a polynomial in without this equal to 0 Ax plus By plus C is a polynomial
+in two variables and it is a linear polynomial in two variables. Therefore you will hear
+a term called linear equation in two variables. So, in particular if this two this has to
+represent a form of line equation of line general form of a equation of line then A
+and B cannot be simultaneously equal to 0. If A and B are simultaneously equal to 0 then
+I am actually equating constant with a 0 which is invalid therefore the assumption will always
+be A and B cannot be simultaneously equal to 0. Though individually they can be equal
+to 0 for example you can put A is equal to 0 then you will get y is equal to some constant
+which is a line parallel to x axis. You can put B is equal to 0 then you will get a line
+x is equal to constant, x is equal to constant is parallel to y axis. So now we will bring up a definition that
+any equation of the form Ax plus B y plus C is equal to 0 where A and B are not equal
+to 0 simultaneously individually they can be 0 or they can be nonzero as well is called
+general linear equation because we are handling a linear linear polynomial which is equated
+to 0 so it is an equation, general linear equation or general equation of a line. So,
+what we are summarizing here is a polynomial in two variables or and general linear equation
+in two variables gives you line. So this is the identification of a geometric
+object called straight line with an algebraic representation of general linear equation.
+So, this will give us both the strength in our analysis because now you do not have to
+discuss about the line. But you can as well discuss about its algebraic representation
+or you can start with an algebraic representation of a line and then discuss about the geometric
+properties of the line. How let us see in the next slide. So, here is an example, so the example says
+the example gives you a question that the equation of a line is 3x minus 4y plus 12
+is equal to 0. Now I do not know how this line behaves now I want to see how this linear
+equation represents a line. So, when I talk about a line what is what is the natural question
+we will talk about what the what are the two points that uniquely determine this line or
+you can ask what is the slope of a line and give me one point on a line because we have
+slope-intercept form or we have two point form any of them should be usable. So in order to discuss about the geometric
+aspects we can ask a question that find the slope or x intercept or y intercept of a line.
+So, how will you find this the job is pretty simple let us go back and revisit the previous
+slide which will make the job very simple. Suppose I want to determine the x-intercept
+and y-intercept then I have this intercept form right which says that A is the x-intercept
+and B is the y-intercept. Now you I have been given an equation in this
+form which is Ax plus B y plus C is equal to 0 so I can image lately consider this equation
+and consider the values of A and B which is minus C by A and B is equal to minus C by
+B. So, let us go and do the same thing on the on the our; now our problem so we have
+identified Ax plus By plus C equal to 0. So, what is A, A is 3, B is minus4, C is positive
+12 right. So, what should be my x intercept A as you have seen in the previous slide is
+minus C by A. So what is C? 12 upon A which is 3 so my A
+is 4, let me go and once again check A is minus C by A so that is 12 by 3 which is 4
+so, minus C by A, 12 by 3 which is 4 and a minus sign associated with it so a minus4.
+In a similar manner you can talk about y intercept which is 12 by minus 4 so minus 3 but a minus
+sign because it is minus C by B so it will be 3. So, now we can readily answer the question
+what is on a x-intercept and y-intercept. Now the question comes what is the slope of
+a line. So, for slope of a line you can use the slope intercept form y is equal to mx
+plus c. So, identify this equation in the form of y is equal to mx plus c so if you
+look at this equation y if I want to make this y is equal in the form of y is equal
+to mx plus c I should push this 4y to the right hand side that gives me y is equal to
+3 by 4 plus 12 by 4 which is 3. So, my m should be 3 by 4 this is the answer. So, slope intercept
+form you have y is equal to 3 by 4 x plus 3 so the slope is naturally 3 by 4 this is
+this easy is our calculation. Now we have identified an algebraic object
+as a geometric object. Now let us let us see what we can do further and we can we can actually
+verify this graphically you know although it may be correct it is always better to verify
+it graphically. So, slope is 3 by 4 x intercepts should be minus 4 and y intercept should be
+3 if this line it said; if you you want to satisfy the equation of this line this should
+happen right. So this is how we have drawn so the x-intercept
+is minus 4, y intercept is 3 and the line passes through this. Now you pick for verification
+purposes you can pick any point on this line and you can put the values of the coordinates
+into the equation of a line and verify that it will; put it will give you the value 0
+that will be the identification that your answer is correct.

@@ -157,17 +157,23 @@ from application.fs import FileManager
 
 python = FileManager('sub')
 aisum = FileManager('aisum')
+
 aisum.create_directory()
+
+fsub = python.files_in_dir()
+fai = aisum.files_in_dir()
 
 print()
 
-for i in python.files_in_dir():
+result = [i for i in fsub if i not in fai]
+
+for i in result:
     fn = i
     cont = python.file_to_text(fn)
     res = ink.summarize({
         "prompt" : "",
         "content" : cont
     })
-    print()
+    print(res['summary'][:20])
     aisum.text_to_file(fn, res['summary'])
     

@@ -1,0 +1,6 @@
+This content discusses the relationship between the slope of a line and its geometrical properties, particularly regarding parallel and perpendicular lines. It explains that:
+1. **Slope and Lines:** Knowing the slope of a line does not uniquely determine the line because there can be many lines (infinitely many) with the same slope that are parallel to each other.
+2. **Parallel Lines:** Two non-vertical lines are parallel if their slopes are equal. If the slopes are equal, the lines have the same inclination.
+3. **Perpendicular Lines:** Two non-vertical lines are perpendicular if the product of their slopes equals -1. This means if one line has a slope of m1, the other line must have a slope of m2 such that m1 * m2 = -1.
+4. **Intersection of Lines:** For two intersecting lines that are neither parallel nor perpendicular, the angle between them can be calculated using their slopes. The tangent of the angle of intersection can be expressed in terms of the slopes.
+5. **Collinearity:** If three points are collinear, the slopes between them must be equal, indicating they lie on the same line.

@@ -1,0 +1,9 @@
+In the first week of Mathematics for Data Science, we learn about numbers, specifically natural numbers and integers. Natural numbers start from 0 and include 0, 1, 2, 3, etc., while integers include both positive and negative whole numbers (like -1, -2, ..., 0, 1, 2, ...). 
+
+We can perform basic operations on natural numbers: addition, subtraction, multiplication, and division. However, subtraction can lead to negative results, so we introduce negative numbers to create integers. 
+
+Multiplication can be seen as repeated addition (e.g., 7 times 4 means adding 7 four times), and division can be thought of as repeated subtraction (e.g., dividing 20 mangoes among 5 friends means subtracting 5 until we reach zero). 
+
+Factors are numbers that divide another number evenly. A prime number is a number that has only two factors: 1 and itself. We can find all prime numbers up to a certain number using the Sieve of Eratosthenes method, where we cross out multiples of primes. 
+
+Lastly, every integer can be uniquely factored into prime numbers, which is important for understanding how numbers relate to each other.

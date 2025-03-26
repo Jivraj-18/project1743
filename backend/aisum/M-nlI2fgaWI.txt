@@ -1,0 +1,7 @@
+A function is a rule that transforms an input (x) into an output (like x squared). The input set is called the domain, and the possible output set is called the codomain. However, not all values in the codomain may be reached; the actual outputs form the range. For example, the square function's range is all non-negative real numbers. Functions can be represented using notation like f: X to Y. A function must have a unique output for each input and be defined for every input in its domain. Properties of functions include:
+
+1. **Injective (one-to-one)**: Different inputs must produce different outputs.
+2. **Surjective (onto)**: Every possible output in the codomain must correspond to an input in the domain.
+3. **Bijective**: A function that is both injective and surjective, meaning there is a one-to-one correspondence between the domain and codomain.
+
+Understanding these properties helps in counting elements in sets, especially infinite sets. A bijection allows us to compare sizes of sets, proving they have the same number of elements. In summary, a function maps inputs to outputs, and we need to specify its domain, codomain, and range to understand its behavior.

@@ -1,0 +1,6 @@
+This content explains how to find the coordinates of a point P that divides a line segment AB in a given ratio (m:n). First, we identify the coordinates of points A and B as (x1, y1) and (x2, y2). Using geometry, we create triangles to show that the triangles formed are similar, which allows us to set up ratios of their sides. We derive that the ratios of distances from point P to points A and B, and from points Q and R (which are projections of P on the coordinate axes), can be expressed in terms of m and n. The final formulas we arrive at are:
+
+1. x = (m*x2 + n*x1) / (m + n) 
+2. y = (m*y2 + n*y1) / (m + n) 
+
+This is known as the section formula. Additionally, if you know the coordinates of point P, you can use this formula to find out the ratio in which it divides the line segment AB.

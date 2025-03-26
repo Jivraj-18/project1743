@@ -1,0 +1,12 @@
+In this example, we learn about the equations of lines and how to determine if they are parallel or perpendicular. The general form of a line is given as \(a_1 x + b_1 y + c_1 = 0\) and \(a_2 x + b_2 y + c_2 = 0\), where \(b_1\) and \(b_2\) are not equal to zero, meaning the lines are not vertical. 
+
+1. **Parallel Lines:** Two lines are parallel if \(a_1 b_2 = a_2 b_1\). This means their slopes are equal. 
+2. **Perpendicular Lines:** Two lines are perpendicular if \(a_1 a_2 + b_1 b_2 = 0\). This means the product of their slopes equals -1. 
+
+To find the slopes of the lines, we manipulate the equations to the slope-intercept form \(y = mx + c\) where \(m\) is the slope. By dividing the equation by \(b_1\) for the first line, we find \(m_1 = -\frac{a_1}{b_1}\) and similarly for the second line \(m_2 = -\frac{a_2}{b_2}\). 
+
+In summary, for non-vertical lines, to check if they are:
+- **Parallel:** Check if \(a_1 b_2 = a_2 b_1\)
+- **Perpendicular:** Check if \(a_1 a_2 + b_1 b_2 = 0\) 
+
+This gives a simple way to determine the relationship between two lines using their general equations.

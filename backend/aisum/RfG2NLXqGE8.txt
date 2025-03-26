@@ -1,0 +1,9 @@
+Today we learned about coordinate geometry, focusing on axes, points, and lines. We discussed the Rectangular Coordinate System, which helps us locate points on a plane. A point can be described by its coordinates, which are given as (x, y). The horizontal line is called the X-axis and the vertical line is the Y-axis, intersecting at the origin (0,0). 
+
+We also looked at how to locate points, for example, (3, 4) means moving 3 units right (X-axis) and 4 units up (Y-axis). There are four quadrants in the coordinate plane:
+1. Quadrant I: Both coordinates are positive (e.g., (3, 4)).
+2. Quadrant II: X is negative, Y is positive (e.g., (-3, 4)).
+3. Quadrant III: Both coordinates are negative (e.g., (-3, -4)).
+4. Quadrant IV: X is positive, Y is negative (e.g., (3, -4)). 
+
+Points on the axes, like (5, 0) or (0, 5), do not belong to any quadrant. Understanding these quadrants helps us plot points more effectively on a graph.

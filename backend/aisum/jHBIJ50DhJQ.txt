@@ -1,0 +1,7 @@
+In this lecture, we learned about numbers, focusing on natural numbers, integers, and then rational numbers. Rational numbers can be expressed as fractions (p/q), where p and q are integers. For example, 19 divided by 5 is represented as the fraction 3 and 4/5. Rational numbers are represented by the symbol Q, which has double lines to indicate it is special. 
+
+Rational numbers can be written in different forms. For instance, 3/5 can also be written as 6/10 or 30/50. This flexibility can make it tricky to compare them directly, especially when their denominators differ. To compare fractions, we need to convert them to have the same denominator by finding a common multiple.
+
+We also discussed how to write rational numbers in reduced form, which means there are no common factors between the numerator and the denominator. For example, 18/60 can be reduced to 3/10 by finding the greatest common divisor (gcd), which is 6 in this case.
+
+A key point is that while integers have a next and previous number (like 22 and 23), rational numbers do not. Between any two rational numbers, you can always find another one by averaging them, making rational numbers dense. This means there are no gaps between them, unlike integers, which are discrete and have clear gaps between each number.

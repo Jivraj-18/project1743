@@ -1,0 +1,10 @@
+In this lesson, we explored different ways to describe a line using algebraic equations. We discussed forms like slope-point form, slope-intercept form, two-point form, and intercept form. 
+
+1. **Slope-Point Form:** Given a point (x₀, y₀) and slope m, the equation is: y - y₀ = m(x - x₀).
+2. **Slope-Intercept Form:** If we know the y-intercept (c), the equation becomes: y = mx + c.
+3. **Intercept Form:** If we have the x-intercept (a) and y-intercept (b), it can be written as: x/a + y/b = 1.
+4. **Two-Point Form:** Given two points (x₁, y₁) and (x₂, y₂), we can find the slope (m) as (y₂ - y₁)/(x₂ - x₁) and derive the line equation.
+
+All these forms can be expressed in a general linear equation format: Ax + By + C = 0, which captures both vertical and horizontal lines. This general form is significant because it helps us analyze lines in a consistent way.
+
+For example, if we have the equation 3x - 4y + 12 = 0, we can find the x-intercept (4) and the y-intercept (-3), and also determine the slope (3/4) by rearranging it into the slope-intercept form. Finally, we can graph the line to check our results.

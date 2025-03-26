@@ -34,8 +34,8 @@ engine = create_engine(DATABASE_URL)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-Content.__table__.drop(engine)
-Content.__table__.create(engine)
+# Content.__table__.drop(engine)
+# Content.__table__.create(engine)
 
 def extract_video_id(url):
     match = re.search(r'v=([a-zA-Z0-9_-]+)', url)
@@ -198,7 +198,151 @@ dat = [
 	}
 ]
 
-
+# dat = [{
+# 	"course_id": 1,
+# 	"content_type": "Week 1",
+# 	"content_name": "L1.1: Natural Numbers and their operations",
+# 	"url": "https://www.youtube.com/watch?v=WEC6jPWvoj8"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 1",
+# 	"content_name": "L1.2: Rational Numbers",
+# 	"url": "https://www.youtube.com/watch?v=jHBIJ50DhJQ"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 1",
+# 	"content_name": "L1.3: Real and Complex Numbers",
+# 	"url": "https://www.youtube.com/watch?v=hz7cuJj17wU"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 1",
+# 	"content_name": "L1.4: Set Theory",
+# 	"url": "https://www.youtube.com/watch?v=8z04uTycZpE"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 1",
+# 	"content_name": "L1.5: Construction of Subsets and set operations",
+# 	"url": "https://www.youtube.com/watch?v=Ue3y-OE_2lE"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 1",
+# 	"content_name": "L1.6: Sets: Examples",
+# 	"url": "https://www.youtube.com/watch?v=bW5O7a1VX4w"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 1",
+# 	"content_name": "L1.7: Examples of Set Operations and Counting Problems",
+# 	"url": "https://www.youtube.com/watch?v=NwYHojyw3SU"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 1",
+# 	"content_name": "L1.8: Relations",
+# 	"url": "https://www.youtube.com/watch?v=_bNfC5yW6bk"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 1",
+# 	"content_name": "L1.9: Functions",
+# 	"url": "https://www.youtube.com/watch?v=M-nlI2fgaWI"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 1",
+# 	"content_name": "L1.10: Relations: examples",
+# 	"url": "https://www.youtube.com/watch?v=6CyagSq3fWA"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 1",
+# 	"content_name": "L1.11:Function: examples",
+# 	"url": "https://www.youtube.com/watch?v=6YrUx0bAnuQ"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 2",
+# 	"content_name": "L2.1: Rectangular Coordinate system",
+# 	"url": "https://www.youtube.com/watch?v=RfG2NLXqGE8"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 2",
+# 	"content_name": "L2.2: Distance formula",
+# 	"url": "https://www.youtube.com/watch?v=aDhyAkXiDOY"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 2",
+# 	"content_name": "L2.3: Section formula",
+# 	"url": "https://www.youtube.com/watch?v=B5yv8zPrkek"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 2",
+# 	"content_name": "L2.4: Area of triangle",
+# 	"url": "https://www.youtube.com/watch?v=x62fodF7ezk"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 2",
+# 	"content_name": "L2.5: Slope of a line",
+# 	"url": "https://www.youtube.com/watch?v=V-b3BL8DAvU"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 2",
+# 	"content_name": "L2.6: Parallel and perpendicular lines",
+# 	"url": "https://www.youtube.com/watch?v=CXhBGVfmtBg"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 2",
+# 	"content_name": "L2.7: Representation of a Line-1",
+# 	"url": "https://www.youtube.com/watch?v=fKUK8xeuWNo"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 2",
+# 	"content_name": "L2.8: Representation of a Line-2",
+# 	"url": "https://www.youtube.com/watch?v=zM0q4y-y4so"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 2",
+# 	"content_name": "L2.9: General equation of line",
+# 	"url": "https://www.youtube.com/watch?v=_3Iidm8NnbM"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 2",
+# 	"content_name": "L2.10: Equation of parallel and perpendicular lines in general form",
+# 	"url": "https://www.youtube.com/watch?v=gJuJtTYmbSs"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 2",
+# 	"content_name": "L2.11: Equation of a perpendicular line passing through a point",
+# 	"url": "https://www.youtube.com/watch?v=CjeHgCXhi4k"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 2",
+# 	"content_name": "L2.12: Distance of a line from a given point",
+# 	"url": "https://www.youtube.com/watch?v=tYSZ4L0X3kY"
+# },
+# {
+# 	"course_id": 1,
+# 	"content_type": "Week 2",
+# 	"content_name": "L2.13: Straight line fit",
+# 	"url": "https://www.youtube.com/watch?v=xdZHsFuyBZM"
+# }
+# ]
 
 
 course_name="Python"

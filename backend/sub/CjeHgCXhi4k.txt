@@ -1,0 +1,25 @@
+So, now you have been presented with a equation
+of line you are with an equation of line and a point and the question is you find the equation
+of a line perpendicular to the line x minus 2 y plus 3 is equal to 0 and passing through
+the point minus 1, 2. So, in this case let us identify the equation
+what are the general form of the equation that is Ax plus B y plus C equal to 0 and
+the you can easily see that A is equal to 1, B is equal to minus 2, C is equal to 3. Therefore the slope of the given line the
+line that is given to you will be minus A by B which is minus of 1 upon minus of 2 that
+will be 1/2. So, the slope of the given line m1 is equal
+to half, now if at all a line is perpendicular to it then you already know that the product
+of the slopes is minus 1 so the if the product of the slopes is minus 1 then m 2 m 1 into
+m 2 is equal to minus 1 that is m 2 is equal to minus 1 upon m 1 so minus 1 upon m 1 m
+1 is 1/2 which will give me m 2 to be equal to minus 2. So now the problem reduces to the slope of
+a given line is minus 2 and it passes through point minus 1, 2 and I want to find the equation
+of a line that is passing through point minus 1, 2 and hat slope two minus 2. So, use the slope point form y minus y naught
+is equal to m times x minus x naught, y naught is 2 so so you can easily see y minus 2 is
+equal to minus 2 times x plus 1 x minus minus 1 so x plus 1, rearrange the terms so this
+2 will get cancelled constant therefore I will get the equation of a line to be y is
+equal to minus 2x or in a general form you can write this as minus 2x plus y is equal
+to 0 ok. So let us let us try to figure out whether
+it is perpendicular the line; which we have actually figured or found is perpendicular
+or not. So, the orange line is the line for which
+the equation is given x minus 2y plus 3 is equal to 0 the point minus 1, 2 is displayed
+in the graph and the line passing through it is also displayed and you can clearly see
+the angle that is made is 90 degrees therefore the lines are perpendicular and our answer
+is correct. So, our verification test has passed.

@@ -1,0 +1,10 @@
+To find the area of a triangle formed by three non-collinear points in a coordinate system, follow these steps:
+
+1. Identify the coordinates of the triangle's vertices as (x1, y1), (x2, y2), and (x3, y3).
+2. Visualize the triangle and drop perpendiculars to the x-axis to create trapeziums around the triangle.
+3. The largest trapezium (ADFC) helps to calculate the area of the triangle by subtracting the areas of two smaller trapeziums (ADEB and BEFC).
+4. The area of a trapezium is calculated as:
+   Area = 1/2 * (sum of parallel sides) * height.
+5. For trapezium ADFC, the parallel sides are lengths AD and CF, and the height is the distance DF.
+6. Calculate the areas of the trapeziums and subtract to find the area of triangle ABC.
+7. The final formula for the area of the triangle can be simplified and should use absolute values to ensure a positive area. Ensure the vertices are considered in an anticlockwise direction for the formula to be valid.

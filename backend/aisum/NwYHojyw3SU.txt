@@ -1,0 +1,10 @@
+This content explains basic operations on sets using Venn diagrams: 
+
+1. **Union**: Combines two sets and removes duplicates, showing all unique elements from both sets.
+2. **Intersection**: Identifies common elements between two sets.
+3. **Set Difference**: Shows elements that are in one set but not in the other.
+4. **Complement**: Refers to elements not in a specific set, relative to a larger universal set.
+
+The text then illustrates these concepts with examples involving students taking physics and biology, using Venn diagrams to visualize the relationships between different groups of students. 
+
+In summary, Venn diagrams help solve counting problems related to sets, showing how many students are in each category (taking both subjects, only one subject, or neither). The importance of defining the universe when discussing complements is also highlighted.

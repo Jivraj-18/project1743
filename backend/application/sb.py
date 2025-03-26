@@ -29,6 +29,8 @@ def makeS (s, t):
 
     elif t == "sumup":
 
+        
+
         isweek = s.get("week", False)
         islec = s.get("lecture", False)
         sumup = ""
@@ -47,7 +49,7 @@ def makeS (s, t):
         else:
             sumup = "Do it Accoding to Query"
 
-        b = f"Content to Summerize : {sumup}"
+        b = sumup
 
     elif t == "chat":
         b = "This is the conversation which is going between you and the USER. Can you continue it?\n\n"

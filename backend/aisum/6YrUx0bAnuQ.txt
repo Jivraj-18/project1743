@@ -1,0 +1,19 @@
+A function is a rule that connects inputs to outputs. For example, a function named g takes a number x and gives x squared as an output. Functions have three main parts: 
+1. **Domain** - the set of all possible inputs. 
+2. **Codomain** - the set of all possible outputs. 
+3. **Range** - the actual outputs produced by the function. 
+
+For example, the function g(x) = x² has a domain and codomain of all real numbers, but its range is only non-negative numbers (0 and above). 
+
+Functions can also map non-numerical inputs, like mapping a person to their mother. 
+
+We often study the range of outputs from functions, such as:
+- **Quadratic functions** (like g(x) = x²) always yield positive outputs.
+- **Cubic functions** can produce both very large positive and negative outputs.
+- **Trigonometric functions** like sine oscillate between fixed values (e.g., between -1 and 1).
+
+We also look for local minimum and maximum values, which are points where the function either reaches its lowest or highest value in a nearby area. For instance, g(x) = x² has a minimum at 0, while cubic functions can have multiple local maxima and minima.
+
+Another key aspect is the growth rate of functions. For example, if we compare g(x) = x² with another function like h(x) = x³, h grows faster than g as x increases. This is important in real-life applications, such as comparing the growth of job opportunities in data science with the number of graduates in that field.
+
+In summary, we study functions focusing on their properties like range, local extrema, and growth rates.

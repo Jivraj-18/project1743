@@ -1,0 +1,5 @@
+In this content, we explore how to measure the distance between points and lines in a mathematical context. Initially, we discuss the distance from a single point to a line and then extend this concept to a set of points, using a physics experiment involving Ohm's Law (V = IR). We relate voltage (V) and current (I) to the equation of a straight line (y = mx + c), where we want to find the resistance (m). 
+
+We analyze two lines: one representing y = 2x and another y = x, to determine which line fits our experimental data better. By calculating the sum of squared differences between the actual voltage readings and the values predicted by each line, we can conclude that y = x is a better fit based on the smaller difference. 
+
+To generalize this, when fitting a line to a set of points, we define a Sum Squared Error (SSE) formula that helps in finding the best line by minimizing the errors. This leads to finding the optimal values for the slope (m) and intercept (c) of the line, which will be explored further in future discussions.

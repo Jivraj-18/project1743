@@ -77,7 +77,7 @@ class INK:
                 },
                 {
                     "role": "user",
-                    "content": f"Content: {s['content']}"
+                    "content": f"Content: Content to Summerize : {s['content']}"
                 }
             ],
             "temperature": 0.7,

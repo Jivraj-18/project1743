@@ -1,0 +1,13 @@
+To find the equation of a line that is perpendicular to another line and passes through a specific point, follow these steps:
+
+1. Identify the given line's equation: x - 2y + 3 = 0. In this form, A = 1, B = -2, and C = 3.
+2. Calculate the slope (m1) of the given line using the formula: m1 = -A/B. Here, m1 = -1/-2 = 1/2.
+3. For a line to be perpendicular, the slopes must multiply to -1. If m1 = 1/2, then the perpendicular slope (m2) is -1/m1 = -2.
+4. Now, you need to find the equation of a line with slope -2 that passes through the point (-1, 2). 
+5. Use the point-slope form of the line equation: y - y₀ = m(x - x₀). Substitute y₀ = 2, m = -2, and x₀ = -1:
+   y - 2 = -2(x + 1).
+6. Rearranging gives you the equation of the line: y = -2x.
+7. In general form, this is -2x + y = 0.
+8. Finally, verify that the lines are perpendicular by checking the angle between them on a graph, confirming they meet at a right angle (90 degrees). 
+
+Thus, the final answer is the equation of the perpendicular line: -2x + y = 0.

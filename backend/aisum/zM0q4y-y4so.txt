@@ -1,0 +1,9 @@
+This content explains how to find the equation of a line using different forms: slope-intercept form, point-slope form, and intercept form. 
+
+1. **Slope-Intercept Form**: The equation is written as y = mx + c, where m is the slope and c is the y-intercept. For example, if the slope is 1/2 and the y-intercept is -3/2, the equation is y = 1/2x - 3/2. 
+
+2. **Finding X-Intercept**: The x-intercept is where the line crosses the x-axis, and you can find it using the same slope. If you have the x-intercept, you can write the equation as y = mx - md, where d is the x-intercept.
+
+3. **Intercept Form**: If you know the x and y intercepts, you can use the formula (x/a) + (y/b) = 1, where a is the x-intercept and b is the y-intercept. For example, if the x-intercept is -3 and the y-intercept is 3, the equation becomes x/-3 + y/3 = 1, which simplifies to y = x + 3. 
+
+This makes calculating the equations of lines much simpler!

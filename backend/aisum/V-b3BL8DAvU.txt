@@ -1,0 +1,9 @@
+In this content, we learn about finding the slope of a line using two points on a coordinate plane. The slope represents how steep a line is, calculated as the ratio of the change in the vertical direction (rise) to the change in the horizontal direction (run). This relationship can be visualized by forming a right triangle between the two points. The slope (m) can also be related to an angle (theta) formed with the x-axis, where m = tan(theta). 
+
+Key points to remember:
+1. The slope is defined as the change in y divided by the change in x (m = (y2 - y1) / (x2 - x1)). 
+2. If the line is horizontal, the slope is 0 (angle = 0°). 
+3. If the line is vertical, the slope is undefined (angle = 90°). 
+4. The angle theta can range from 0° to 180°, and the slope can be negative, indicating the line is descending. 
+
+Overall, the slope of a line gives important information about its direction and steepness.

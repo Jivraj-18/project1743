@@ -1,0 +1,91 @@
+So, we started with the natural numbers and
+the integers and then, we moved on to the rational numbers which are defined as p by
+q; where p and q are both integers. So, we decided that the rational numbers are
+dense right and that means that on this number line between any two rationals, you can find
+a rational. So, if I want to now talk about this number
+line, then I know that if I take any two positions, then I will find a rational between them and
+I will find a rational between them and so on. So, it makes sense to ask this question which
+is that if I take any two points and the rational between them any two points, then is this
+entire number line composed only of rational numbers. Of course, some of those rational numbers
+are integers. So, an integer is a rational number because
+I can write 7. For instance, as 7 by 1 right. So, this is of the form p by q. So, any rational number which in reduced form
+as denominator 1 is an integer. So, an integer is a special case of a rational
+number. So, do all the rational numbers fill up this
+number line? That is the question .
+So, it turns out this is not the case. So, remember that a square of a number is
+the number multiplied by itself. So, if I take a number m and multiply it by
+itself, I get m squared which is m times m and if I take this operation and turn it around,
+then the square root of a number is that number r such that r times r is equal to m right. So, I want to find out which number, I have
+to square in order to get m and that is called the square root. So, if we take the so called perfect squares,
+like 1, 4, 9, 16, 25 and so on their square roots are integers. So, 1 squared is 1. So, the square root of 1 is 1; 2 squared is
+4, so the square root of 4 is 2; 5 squared is 25, so square root of 5 is 25 is 5; 16
+squared is 256, so square root of 256 is 16 and so on. So, some integers are clearly squares of other
+integers and so, you can get the square root and find an integer. Now, what happens if something is not a square
+right. So, supposing I take a number which is not
+a square like 10 and I take its square root, I know that the square root is not an integer,
+its somewhere between 3 and 4 because 3 squared is 9 and 4 squared is 16. Question is, is it a rational number or not? So, what happens to the square roots of integers
+that are not perfect squares. So, the smallest such number which is not
+a perfect square because 1 remember is a perfect square, 1 times 1 is 1. The smallest such number that is not a perfect
+square is actually 2 and it is one of the very old results that the square root of 2
+cannot be written as p by q. This was certainly known to the ancient Greeks,
+in fact, to Pythagoras and one way to do this is to see that you can actually draw a line
+of; so, this is not an unreal number in that sense right. So, you can actually draw a line of this length
+because if you take a square, whose sides are 1 right. So, this is 1, then if you remember your Pythagoras
+theorem; then, the hypotenuse of this triangle is going to be square root of 1 plus 1. 1 squared plus 1 squared, technically which
+is square root of 2. So, I can actually physically draw a line
+whose length is square root of 2. So, this is a very real quantity. On the other hand, for reasons that we will
+not described here, but there will be a separate lecture explaining this for if you are interested. Square root of 2 cannot be written as a rational
+number p by q. So, here is a number which is a very measurable
+quantity, I can actually draw this quantity as a length. At the same time, it does not fit into this
+number line of rational numbers which seems to cover all the rational numbers, all the
+numbers because they are dense. So, square root of 2, since it is not a rational
+number right and yet it exists is called an irrational number and these numbers which
+constitute all the rational numbers and the real irrational numbers together are called
+the real numbers. So, the real numbers are denoted by this double
+line R. So, we had N for the natural numbers, Z for the integers, Q for the rational numbers
+and now, we have the real numbers R . So, the real numbers extend the rational numbers
+by these so called irrational numbers which are very much on the number line, but which
+cannot be written on the form p by q. Now, it is not difficult to argue that like
+the rationals, the real numbers are dense for the very same reason. Because if you have two real numbers r and
+r prime such that r is smaller than r prime, then you can just take their average r plus
+r prime divided by 2. This must be a number which is bigger than
+r and it is smaller than r prime and therefore, it must lie between them. So, between any 2 real numbers you will find
+another real number. So, the real numbers are also dense. So, there are some irrational numbers which
+we use a lot in mathematics and which you have probably come across; one of them is
+this famous number pi which comes when we are talking about circles. Because it is the ratio of the circumference
+to the diameter ok and this is an invariant. Pi is always the diameter, the circumference
+divided by diameter for any circle is pi ok. So, pi is an irrational number. We cannot write it in the form p by q and
+it has this, if you write it in this decimal form, it has this infinite decimal expansion. Another number which is very popular as an
+irrational number is this number e which is used for natural logarithms. So, it is 2.7182818 and so on right. So, there are a lot of rational numbers. So, square root of 2 as we have seen as a
+rational number. It will turn out that square root of anything,
+square root of 3 is also an irrational number, square root of 6 is also an irrational number. Anything which is not a perfect square, its
+square root is actually an irrational number. But many of these numbers are not very useful
+to us, but pi and e are certainly very useful irrational numbers. So, now, we have seen that we can find more
+numbers on the line than just the rationals and these are the real numbers. So, do we stop here? Well, let us look at the square root operation
+which we use in order to claim that there are irrational numbers. So, what happens if we now take the square
+root of a negative number like minus 1? So, remember that we had a sign rule for multiplication. The sign rule for multiplication said that
+if I multiply any two numbers, then if the two signs are the same that is their two negative
+signs or two positive signs, I will get a positive sign in the answer. Only if the two signs are different, if I
+have one minus sign and one plus sign, will I get a negative answer ? So, if I want to
+multiply two numbers and get a minus 1, one of them must be negative and one must not
+be negative; but by definition, a square root is a number which is multiplied by itself,
+the same number has to be multiplied by itself. So, it will have the same sign. So, any square root which multiplies by itself
+must give me a positive number. So, if I take a negative number, there is
+no way to find a square root for it. So, if we want to find square roots for negative
+numbers, we have to create yet another class of numbers called complex numbers. So, complex numbers extend the real numbers,
+just like real numbers extend the rational numbers and rational numbers extend the integers
+and so on. But the good news for you is that we do not
+have to look at complex numbers for this course. So, to summarize, a real numbers extend the
+rational numbers by adding the so called irrational numbers which cannot be represented of the
+form p by q and a typical example of an irrational number is the square root of an integer that
+is not a perfect square. So, square root of 2 for example is not a
+rational number and this is also of the case was square root of 3, square root of 5, square
+root of 6 and so on. So, except for the perfect squares, none of
+the square roots are actually rational numbers. Now, just like we said that the rational numbers
+are dense because the average of any two rational numbers is a rational number. Similarly, the real numbers are dense because
+the average of any two real numbers is a real number. So, we have a progression in terms of numbers. So, every natural number that we started with
+is also an integer because the integers extend the natural numbers with negative quantities. Now, every integer is also a rational number
+because we can think of every integer as a ratio p by q; where, the denominator is 1. And finally, every rational number is a real
+number because we said that the real numbers include all the rational numbers plus all
+the irrational numbers. And finally, we said that there are even things
+beyond rational numbers like complex numbers, but we will not discuss them.
