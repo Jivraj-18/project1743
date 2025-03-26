@@ -127,7 +127,7 @@ const router = createRouter({
         {
           path: '',
           name: 'student_course_about',
-          component: () => import('@/components/student/About.vue'), // Default component
+          component: () => import('@/components/student/About.vue'), // done
         },
         {
           path: 'practice_with_ai', // siddhant will do this
