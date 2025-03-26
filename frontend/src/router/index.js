@@ -47,7 +47,7 @@ const router = createRouter({
       props: true,
     },
     {
-      path: '/student/courses', // there is some issues
+      path: '/student/courses', // done
       name: 'student-courses',
       component: Student_Courses,
       props: true,
@@ -137,24 +137,24 @@ const router = createRouter({
         {
           path: 'bookmarked_questions',
           name: 'bookmarked_questions',
-          component: () => import('@/components/student/Bookmark_Questions.vue'),
+          component: () => import('@/components/student/Bookmark_Questions.vue'), // pendings
         },
         {
           path: 'week/:week_id',
           name: 'student_week',
           children: [
             {
-              path: 'lecture/:lecture_id',
+              path: 'lecture/:lecture_id', // done
               name: 'student_lecture',
               component: () => import('@/components/Lecture.vue'),
             },
             {
-              path: 'graded_assignments/:assignment_id',
+              path: 'graded_assignments/:assignment_id', // done
               name: 'student_graded_assignment',
               component: () => import('@/components/student/StudentAssignment.vue'),
             },
             {
-              path: 'practice_assignments/:assignment_id',
+              path: 'practice_assignments/:assignment_id', // done
               name: 'student_practice_assignment',
               component: () => import('@/components/student/StudentAssignment.vue'),
             },
@@ -164,12 +164,12 @@ const router = createRouter({
               component: () => import('@/components/ConceptsSummary.vue'),
             },
             {
-              path: 'practice_programming/:programming_assignment_id',
+              path: 'practice_programming/:programming_assignment_id', // done
               name: 'student_practice_programming_assignment',
               component: () => import('@/components/student/StudentProgrammingAssignment.vue'),
             },
             {
-              path: 'graded_programming/:programming_assignment_id',
+              path: 'graded_programming/:programming_assignment_id', // done
               name: 'student_graded_programming_assignment',
               component: () => import('@/components/student/StudentProgrammingAssignment.vue'),
             },

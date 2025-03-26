@@ -1,298 +1,432 @@
 <template>
-  <!-- Renders only if we have an assignment -->
-  <div
-    v-if="assignment"
-    class="assignment-page"
-    :class="{ 'content-expanded': isSidebarCollapsed }"
-  >
-    <!-- A header that will not scroll within this component -->
-    <div class="assignment-header">
-      <h4>{{ assignment.title }}</h4>
-      <p>
-        <small>Due: {{ assignment.due_date }}</small
-        ><br />
-        <small>Last Submitted: {{ assignment.last_submitted_date }}</small>
-      </p>
+  <div>
+    <h2>Programming Assignment</h2>
+
+    <div class="question-box">
+      <p>{{ questionText }}</p>
+
+      <div v-if="showHint" class="hint-box">
+        <p><strong>Hint:</strong> {{ currentQuestion?.hints }}</p>
+      </div>
+      <button @click="toggleHint" class="hint-btn">{{ showHint ? 'Hide Hint' : 'Show Hint' }}</button>
     </div>
 
-    <!-- Main content area: row with two columns -->
-    <div class="row columns-container">
-      <!-- Left Column -->
-      <div class="col-md-6 left-column">
-        <div class="column-content">
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
-              <button
-                class="nav-link active"
-                data-bs-toggle="tab"
-                data-bs-target="#question-pane"
-                type="button"
-                role="tab"
-              >
-                Question
-              </button>
-            </li>
-            <li class="nav-item">
-              <button
-                class="nav-link"
-                data-bs-toggle="tab"
-                data-bs-target="#public-pane"
-                type="button"
-                role="tab"
-              >
-                Public Test
-              </button>
-            </li>
-            <li class="nav-item">
-              <button
-                class="nav-link"
-                data-bs-toggle="tab"
-                data-bs-target="#private-pane"
-                type="button"
-                role="tab"
-              >
-                Private Test
-              </button>
-            </li>
-          </ul>
+    <div id="onecompiler-embed">
+      <iframe id="oc-editor" :src="editorUrl" width="100%" height="450px" frameborder="0" style="border-radius: 4px"
+        @load="onIframeLoad"></iframe>
+    </div>
 
-          <!-- Tab content (clipped if too large, no scrolling) -->
-          <div class="tab-content no-scroll">
-            <!-- Question Tab -->
-            <div class="tab-pane fade show active" id="question-pane" role="tabpanel">
-              <p class="mt-2">{{ assignment.question_text }}</p>
-            </div>
-            <!-- Public Test Tab -->
-            <div class="tab-pane fade" id="public-pane" role="tabpanel">
-              <table class="table table-bordered table-test-cases mt-2">
-                <thead>
-                  <tr>
-                    <th>Input</th>
-                    <th>Expected</th>
-                    <th>Actual</th>
-                    <th>Result</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(test, idx) in assignment.public_test_cases" :key="idx">
-                    <td>{{ test.input }}</td>
-                    <td>{{ test.expected_output }}</td>
-                    <td>-</td>
-                    <td><i class="bi-question-circle-fill"></i></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- Private Test Tab -->
-            <div class="tab-pane fade" id="private-pane" role="tabpanel">
-              <table class="table table-bordered table-test-cases mt-2">
-                <thead>
-                  <tr>
-                    <th>Input</th>
-                    <th>Expected</th>
-                    <th>Actual</th>
-                    <th>Result</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(test, idx) in assignment.private_test_cases" :key="idx">
-                    <td>{{ test.input }}</td>
-                    <td>{{ test.expected_output }}</td>
-                    <td>-</td>
-                    <td><i class="bi-question-circle-fill"></i></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Column -->
-      <div class="col-md-6 right-column">
-        <div class="column-content">
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
-              <button
-                class="nav-link active"
-                data-bs-toggle="tab"
-                data-bs-target="#code-pane"
-                type="button"
-                role="tab"
-              >
-                Your Code
-              </button>
-            </li>
-            <li class="nav-item">
-              <button
-                class="nav-link"
-                data-bs-toggle="tab"
-                data-bs-target="#ai-pane"
-                type="button"
-                role="tab"
-              >
-                AI Help
-              </button>
-            </li>
-            <li class="nav-item">
-              <button
-                class="nav-link"
-                data-bs-toggle="tab"
-                data-bs-target="#solution-pane"
-                type="button"
-                role="tab"
-              >
-                Solution
-              </button>
-            </li>
-          </ul>
-
-          <!-- Tab content (clipped if too large, no scrolling) -->
-          <div class="tab-content no-scroll">
-            <!-- Code Tab -->
-            <div class="tab-pane fade show active" id="code-pane" role="tabpanel">
-              <h5 class="mt-2">OneCompiler Embedded Editor</h5>
-              <div id="onecompiler-embed">
-                <iframe
-                  src="https://onecompiler.com/embed/python?hideLanguageSelection=true&hideTitle=true&code=print('Hello World')"
-                  width="100%"
-                  height="400px"
-                  frameborder="0"
-                  style="border-radius: 4px"
-                ></iframe>
-              </div>
-            </div>
-            <!-- AI Help Tab -->
-            <div class="tab-pane fade" id="ai-pane" role="tabpanel">
-              <p class="mt-2"><strong>AI Chat / Help Section</strong></p>
-              <textarea class="form-control" rows="3" placeholder="Ask the AI..."></textarea>
-              <button class="btn btn-secondary mt-1">Send</button>
-            </div>
-            <!-- Solution Tab -->
-            <div class="tab-pane fade" id="solution-pane" role="tabpanel">
-              <p class="mt-2"><strong>Official Solution:</strong></p>
-              <pre class="bg-light p-2 rounded">{{ assignment.solution }}</pre>
-            </div>
-          </div>
-        </div>
+    <div class="test-cases-section">
+      <h3>Test Cases</h3>
+      <div v-for="(testCase, index) in testCases" :key="index" class="test-case">
+        <div><strong>Input:</strong> {{ testCase.input }}</div>
+        <div><strong>Expected Output:</strong> {{ testCase.expected_output }}</div>
       </div>
     </div>
-  </div>
 
-  <!-- Fallback if assignment is not found -->
-  <div v-else class="p-3">
-    <h5>Assignment not found!</h5>
-    <p>Please check your URL or contact support.</p>
+    <button @click="sendCode" class="btn">Reset Code</button>
+    <button @click="runCode" class="btn primary">Run Code</button>
+    <button @click="submitCode" class="btn success">Submit Solution</button>
+
+    <!-- Execution Output Section -->
+    <div class="execution-output" v-if="currentOutput">
+      <h3>Execution Output</h3>
+      <pre>{{ currentOutput }}</pre>
+    </div>
+
+    <div v-if="testResults.length" class="test-results">
+      <h3>Test Results</h3>
+      <ul>
+        <li v-for="(result, index) in testResults" :key="index" :class="{ pass: result.passed, fail: !result.passed }">
+          <strong>Input:</strong> {{ result.input }} |
+          <strong>Expected:</strong> {{ result.expected }} |
+          <strong>Actual:</strong> {{ result.actual }} |
+          <strong>Status:</strong> {{ result.passed ? '✅ Pass' : '❌ Fail' }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-import assignmentsData from '@/assets/programmingassignment.json'
-
 export default {
-  name: 'StudentProgrammingAssignment',
-  props: {
-    // If you have a collapsible sidebar
-    isSidebarCollapsed: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup() {
-    const route = useRoute()
-    const courseId = computed(() => route.params.id)
-    const weekId = computed(() => route.params.week_id)
-    const assignmentId = computed(() => route.params.programming_assignment_id)
-
-    // Example logic to find the correct assignment
-    const assignment = computed(() => {
-      if (courseId.value !== assignmentsData.id) return null
-      const week = assignmentsData.weeks.find((w) => w.id === weekId.value)
-      if (!week) return null
-
-      if (route.path.includes('practice_programming')) {
-        return week.pp_assignments.find((a) => a.ppa_id === assignmentId.value) || null
-      } else if (route.path.includes('graded_programming')) {
-        return week.grp_assignments.find((a) => a.grpa_id === assignmentId.value) || null
-      }
-      return null
-    })
-
+  data() {
     return {
-      assignment,
-      courseId,
-      weekId,
-      assignmentId,
-    }
+      editorUrl: "https://onecompiler.com/embed/javascript?listenToEvents=true&codeChangeEvent=true",
+      questionText: "Loading question...",
+      defaultCode: "",
+      studentCode: null,
+      iframeLoaded: false,
+      currentQuestion: null,
+      testCases: [],
+      showHint: false,
+      testResults: [],
+      currentTestIndex: -1,  // Track which test case is currently running
+      isTestRunning: false,  // Flag to indicate if a test is running
+      currentOutput: null,   // Store the current execution output
+      waitingForCodeResponse: false, // Track if we're waiting for a response from OneCompiler
+    };
   },
-}
+  mounted() {
+    this.fetchAssignmentData();
+    window.addEventListener('message', this.handleIframeMessage);
+  },
+  beforeUnmount() {
+    window.removeEventListener('message', this.handleIframeMessage);
+  },
+  methods: {
+    fetchAssignmentData() {
+      const assignmentId = this.$route.params.programming_assignment_id;
+      
+      // Get student ID from localStorage
+      const userData = JSON.parse(localStorage.getItem('userdata'));
+      const studentId = userData.student_id;
+
+      fetch(`http://localhost:5000/api/assignments/${assignmentId}/${studentId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.questions?.length > 0) {
+            this.currentQuestion = data.questions.find(q => q.question_type === 'Programming');
+            if (this.currentQuestion) {
+              this.questionText = this.currentQuestion.question;
+              this.defaultCode = this.currentQuestion.question;
+              
+              try {
+                this.testCases = JSON.parse(this.currentQuestion.correct_options);
+              } catch (e) {
+                console.error("Error parsing test cases:", e);
+              }
+              
+              // Check if there's a submission with code
+              if (data.submission && data.submission.code) {
+                this.studentCode = data.submission.code;
+                console.log("Found student's submitted code:", this.studentCode);
+              }
+              
+              // If iframe is loaded, populate with student code if available, otherwise use default code
+              if (this.iframeLoaded) {
+                this.sendCode();
+              }
+            }
+          }
+        }).catch(error => {
+          console.error("Error fetching assignment data:", error);
+        });
+    },
+    onIframeLoad() {
+      this.iframeLoaded = true;
+      if (this.studentCode || this.defaultCode) {
+        this.sendCode();
+      }
+    },
+    sendCode() {
+      const iFrame = document.getElementById("oc-editor");
+      if (iFrame?.contentWindow) {
+        // Use student's code if available, otherwise use default code
+        const codeToSend = this.studentCode || this.defaultCode;
+        
+        iFrame.contentWindow.postMessage({
+          eventType: "populateCode",
+          language: "javascript",
+          files: [{ name: "solution.js", content: codeToSend }]
+        }, "*");
+      }
+    },
+    runCode() {
+      this.testResults = [];
+      this.currentTestIndex = 0;
+      
+      if (this.testCases.length > 0) {
+        this.runNextTestCase();
+      }
+    },
+    runNextTestCase() {
+      if (this.currentTestIndex >= this.testCases.length) {
+        // All tests completed
+        this.isTestRunning = false;
+        this.currentTestIndex = -1;
+        return;
+      }
+      
+      const testCase = this.testCases[this.currentTestIndex];
+      this.isTestRunning = true;
+      
+      const iFrame = document.getElementById("oc-editor");
+      if (iFrame?.contentWindow) {
+        // Send the test input to the editor
+        iFrame.contentWindow.postMessage({
+          eventType: "populateStdin",
+          stdin: testCase.input.toString()
+        }, "*");
+        
+        // Wait a moment to ensure input is set, then trigger the run
+        setTimeout(() => {
+          iFrame.contentWindow.postMessage({ eventType: "triggerRun" }, "*");
+        }, 100);
+      }
+    },
+    handleIframeMessage(event) {
+      // Handle run complete event
+      if (event.data?.action === 'runComplete') {
+        if (this.isTestRunning && this.currentTestIndex >= 0) {
+          // Get output from the new data structure
+          const output = event.data.result?.output;
+          this.currentOutput = output; // Store the raw execution output
+          
+          // Process the test case result
+          this.processTestResult(output);
+        }
+      }
+      
+      // Handle get code response event
+      if (event.data?.action === 'getCodeResponse') {
+        this.waitingForCodeResponse = false;
+        const code = event.data.files?.[0]?.content;
+        if (code) {
+          console.log("Received code from OneCompiler, submitting solution");
+          this.submitSolution(code);
+        } else {
+          console.error("Received getCodeResponse but no code content");
+          this.submitCodeAlternative();
+        }
+      }
+    },
+    processTestResult(output) {
+      if (this.currentTestIndex >= 0 && this.currentTestIndex < this.testCases.length) {
+        const testCase = this.testCases[this.currentTestIndex];
+        const actualOutput = output ? output.trim() : '';
+        const expected = testCase.expected_output.trim();
+        const passed = actualOutput === expected;
+        
+        // Store the result
+        this.testResults.push({
+          input: testCase.input,
+          expected: expected,
+          actual: actualOutput || '(no output)',
+          passed
+        });
+        
+        // Move to next test case after a short delay
+        this.currentTestIndex++;
+        setTimeout(() => {
+          this.runNextTestCase();
+        }, 500);
+      }
+    },
+    toggleHint() {
+      this.showHint = !this.showHint;
+    },
+    submitCode() {
+      // First try to get the code from OneCompiler using their API
+      const iFrame = document.getElementById("oc-editor");
+      
+      // Add a safety check to make sure we'll get a response
+      this.waitingForCodeResponse = true;
+      
+      if (iFrame?.contentWindow) {
+        try {
+          // Request code from OneCompiler
+          iFrame.contentWindow.postMessage({ eventType: "getCode" }, "*");
+          console.log("Requested code from OneCompiler");
+          
+          // Set a timeout in case we don't get a response
+          setTimeout(() => {
+            if (this.waitingForCodeResponse) {
+              // If we're still waiting after 2 seconds, try the alternative approach
+              console.log("No response from OneCompiler, trying alternative method");
+              this.submitCodeAlternative();
+              this.waitingForCodeResponse = false;
+            }
+          }, 2000);
+        } catch (error) {
+          console.error("Error requesting code from OneCompiler:", error);
+          this.submitCodeAlternative();
+        }
+      } else {
+        console.error("Cannot access OneCompiler iframe");
+        this.submitCodeAlternative();
+      }
+    },
+    submitCodeAlternative() {
+      // In case we can't get the code from OneCompiler event handling,
+      // use the most recent code we have
+      const code = this.studentCode || this.defaultCode;
+      if (code) {
+        this.submitSolution(code);
+      } else {
+        alert("Unable to retrieve your code. Please try again or copy your code manually.");
+      }
+    },
+    submitSolution(code) {
+      const assignmentId = this.$route.params.programming_assignment_id;
+      const userData = JSON.parse(localStorage.getItem('userdata'));
+      const studentId = userData.student_id;
+      
+      // Create a placeholder answer for the API format
+      const questionId = this.currentQuestion.question_id;
+      const studentAnswers = {};
+      studentAnswers[questionId] = "submission"; // Placeholder value
+      
+      // Add debugging to see what we're sending
+      console.log("Submitting solution with data:", {
+        student_id: studentId,
+        assignment_id: assignmentId,
+        student_answers: studentAnswers,
+        code: code.substring(0, 50) + "..." // Log just part of code for brevity
+      });
+      
+      // Submit the code to the backend
+      fetch('http://localhost:5000/api/assignments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          student_id: studentId,
+          assignment_id: assignmentId,
+          student_answers: studentAnswers,
+          code: code
+        })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        alert("Solution submitted successfully!");
+        console.log("Submission response:", data);
+        
+        // Store the submitted code locally to reflect the changes
+        this.studentCode = code;
+        
+        // Run tests to show results visually
+        this.runCode();
+      })
+      .catch(error => {
+        alert(`Error submitting solution: ${error.message}`);
+        console.error("Error:", error);
+      });
+    }
+  }
+};
 </script>
 
 <style scoped>
-/* 
-  1) The component is given a fixed height (e.g., 600px).
-  2) Overflow is hidden so it won't scroll.
-  3) The rest of the page can still scroll if there's more content outside this component.
-*/
-html,
-body {
+.test-results {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.test-results ul {
+  list-style: none;
+  padding: 0;
+}
+
+.test-results li {
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+}
+
+.pass {
+  background: #d4edda;
+  color: #155724;
+}
+
+.fail {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Added styles for execution output display */
+.execution-output {
+  margin-top: 20px;
+  padding: 10px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+}
+
+.execution-output pre {
+  white-space: pre-wrap;
+  font-family: monospace;
   margin: 0;
-  height: 100%;
-  overflow: hidden;
-}
-.assignment-page {
-  height: 600px; /* or any fixed height you want for this component */
-  overflow: hidden; /* no scrolling within the component */
-  margin-left: 280px; /* expanded sidebar width, if you have a sidebar */
-  width: calc(100% - 280px);
-  transition:
-    margin-left 0.3s ease-in-out,
-    width 0.3s ease-in-out;
+  padding: 10px;
+  background: #f1f1f1;
+  border-radius: 3px;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
-.assignment-page.content-expanded {
-  margin-left: 60px;
-  width: calc(100% - 60px);
+.question-box {
+  border: 1px solid #4a90e2;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: #f5f9ff;
+  position: relative;
 }
 
-/* Header styling */
-.assignment-header {
-  background-color: #d1d5db;
-  padding: 0.5rem;
+.hint-box {
+  background-color: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 10px;
+  margin-top: 15px;
+}
+
+.hint-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
   border-radius: 4px;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
+  cursor: pointer;
 }
 
-/* Just basic row/column styling if using Bootstrap classes */
-.columns-container {
-  margin: 0;
-}
-
-/* We add a class "no-scroll" to the tab-content to ensure no overflow */
-.tab-content.no-scroll {
-  height: 400px; /* or another fixed height inside the component */
-  overflow: hidden !important; /* no scrolling in the tab content */
+.test-cases-section {
+  margin-bottom: 20px;
+  padding: 10px;
   background-color: #f8f9fa;
-  border-radius: 4px;
-  padding: 0.5rem;
-  font-size: 0.85rem;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
 }
 
-/* Table styling */
-.table-test-cases td {
-  vertical-align: middle;
-  font-size: 0.8rem;
+.test-case {
+  padding: 8px;
+  margin-bottom: 5px;
+  background-color: white;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
 }
 
-/* Example for the embedded editor container */
-#onecompiler-embed {
-  width: 100%;
-  height: 400px;
-  border: 1px solid #ccc;
+.btn {
+  margin-right: 10px;
+  padding: 8px 12px;
+  border: none;
   border-radius: 4px;
-  overflow: hidden;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn.success {
+  background-color: #28a745;
+  color: white;
 }
 </style>
