@@ -1,4 +1,5 @@
-const SINELAB = "https://vigilant-computing-machine-x449gvr5qp7h6vqp-5000.app.github.dev/api/ai"
+// const SINELAB = "https://vigilant-computing-machine-x449gvr5qp7h6vqp-5000.app.github.dev/api/ai"
+const SINELAB = "http://localhost:5000/api/ai"
 
 
 async function scrab(s) {
@@ -31,7 +32,7 @@ async function chat(s) {
     s = s
 
     var res = await scrab({
-        type: "chat",     
+        type: "chat",
         prompt: s.prompt,
         background: {
             "week": "Week 1",
@@ -88,14 +89,15 @@ async function gen(s) {
 
 async function sumup(s) {
 
-    b2 = JSON.stringify({
+    var b = {
         type: "sumup",     
-        prompt: "",
+        prompt: s.prompt ? s.prompt : "",
         background: {
-            "week" : "Week 1",
-            "lecture" : "Lecture 1.1"
+            // "week" : "Week 1",
+            "lecture" : s.lecture,
+            "pre" : s.pre ? true : false
         }
-    })
+    }
 
     return new Promise((f,r) => {
         fetch(SINELAB, {
@@ -103,17 +105,12 @@ async function sumup(s) {
             headers: {
                 "Content-Type": "application/json" 
             },
-            body: JSON.stringify({
-                type: "sumup",     
-                prompt: "",
-                background: {
-                    "week" : "Week 1",
-                }
-            })
+            body: JSON.stringify(b)
         })
         .then(response => response.json())  // Parse JSON response
         .then(data => {
             console.log('Success:', data);
+            f(JSON.parse(data.res))
         })
         .catch(error => {
             console.error('Error:', error);

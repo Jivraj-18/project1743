@@ -27,7 +27,8 @@
               :key="index"
               :class="['message-bubble', { 'message-user': msg.sender === 'user' }]"
             >
-              <strong>{{ msg.sender === 'bot' ? 'Kai:' : 'You:' }}</strong> {{ msg.text }}
+              <strong>{{ msg.sender === 'bot' ? 'Kai:' : 'You:' }}</strong> 
+              <span v-html="msg.text"></span> <!-- Render the parsed HTML here -->
             </div>
           </div>
           <!-- Chat Input Box -->
@@ -57,7 +58,7 @@ import { useRoute } from 'vue-router'
 
 
 import {sb} from "./sb.js"
-
+import * as marked from 'marked';
 
 export default {
   name: 'Chatbot',
@@ -87,7 +88,7 @@ export default {
         const conversation = messages.value.map(message => [message.sender, message.text]);
 
         var msg = await sb.chat( {prompt, conversation} )
-        messages.value.push({ sender: 'bot', text: msg })
+        messages.value.push({ sender: 'bot', text: marked.parse(msg) })
         nextTick(() => { scrollToBottom() })
 
 

@@ -1,8 +1,8 @@
 <template>
   <div :class="['content', { 'content-expanded': isSidebarCollapsed }]">
     <div class="content-inner">
-      <h1 v-if="courseId === '1'">Welcome to Python Course</h1>
-      <h1 v-else-if="courseId === '2'">Welcome to Math-1 Course</h1>
+      <h1 v-if="courseId === '2'">Welcome to Python Course</h1>
+      <h1 v-else-if="courseId === '1'">Welcome to Math-1 Course</h1>
       <h1 v-else>Welcome to the Course</h1>
 
       <p v-if="courseId === '1'">

@@ -39,15 +39,20 @@
 
         <!-- AI SUMMARY -->
         <div class="ai-summary-box">
-          <h5 class="mb-2">AI SUMMARY</h5>
-          <p>{{ videoData.transcript_url }}</p>
-        </div>
+    <h5 class="mb-2">AI SUMMARY</h5>
+    <!-- Display the AI summary directly as HTML -->
+    <p v-html="videoData.aisum"></p> <!-- Automatically renders the formatted content -->
+  </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+import {sb} from "./sb.js"
+import * as marked from 'marked';
+
 export default {
   props: {
     isSidebarCollapsed: Boolean,
@@ -60,10 +65,20 @@ export default {
         url: '',
         description: '',
         transcript_url: '',
+        aisum : '',
       },
     }
   },
+
   methods: {
+
+    async fetchTranscript(){
+        var msg = await sb.sumup( {
+            "pre" : true,
+            "lecture" : this.videoData.title
+        } )
+        this.videoData.aisum = marked.parse(msg);
+    },
 
     getEmbedUrl(url) {
     if (!url) return '';
@@ -205,7 +220,7 @@ export default {
     /**
      * Fetches video data based on route parameters.
      */
-    fetchVideoData() {
+    async fetchVideoData() {
       const courseId = this.$route.params.id
       console.log(courseId)
       const weekId = this.$route.params.week_id
@@ -215,7 +230,10 @@ export default {
       this.videoData = this.getDummyVideoData(courseId, weekId, videoId)
       // get data from l variable of localsto
       this.videoData = JSON.parse(localStorage.getItem('lectureData'))
-console.log(this.videoData)
+
+      this.fetchTranscript();
+
+console.log("RRR", this.videoData)
       //   videoData: {
       //   title: '',
       //   poster: '',
@@ -226,7 +244,7 @@ console.log(this.videoData)
     },
   },
   created() {
-    this.fetchVideoData()
+    this.fetchVideoData();
   },
   watch: {
     // Corrected watchers to match actual route param names

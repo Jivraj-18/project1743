@@ -306,6 +306,8 @@
 import { useRoute } from 'vue-router'
 import assignments from '@/assets/assignments.json'
 
+import {sb} from "../sb.js"
+
 export default {
   props: {
     isSidebarCollapsed: Boolean,
@@ -374,15 +376,20 @@ export default {
       return this.assignmentData.lastSubmitted || ''
     },
     currentQuestionData() {
+      // Accessing questions from the generated data
       return this.assignmentData.questions
-        ? this.assignmentData.questions[this.currentQuestion - 1] || {}
+        ? this.assignmentData.questions.find(q => q.questionId === this.currentQuestion) || {}
         : {}
     },
     currentQuestionText() {
-      return this.currentQuestionData.questionText || ''
+      return this.currentQuestionData.question || ''
     },
     options() {
-      return this.currentQuestionData.options || []
+      const options = this.currentQuestionData.options || {};
+      return Object.entries(options).map(([key, value]) => ({
+        id: key,
+        text: value
+      }));
     },
     stat() {
       return this.assignmentData.stat || {}
@@ -419,8 +426,23 @@ export default {
         this.numberOfQuestions -= 1
       }
     },
-    createAssignment() {
-      // Switch to editor view (Template 2)
+    async createAssignment() {
+
+      console.log({
+          N : this.numberOfQuestions,
+          week : this.selectedWeek
+      })
+
+      var ques = await sb.gen( {
+          N : this.numberOfQuestions,
+          week : this.selectedWeek
+      } )
+      alert(ques)
+
+      this.assignmentData.questions = ques;
+
+      console.log(this.assignmentData.questions)
+
       this.step = 'editor'
     },
     goBack() {
@@ -446,9 +468,9 @@ export default {
     },
     editQuestion() {
       this.editForm = {
-        questionText: this.currentQuestionData.questionText,
-        options: JSON.parse(JSON.stringify(this.currentQuestionData.options)),
-        correctAnswer: this.currentQuestionData.correctAnswer,
+        questionText: this.currentQuestionText,
+        options: this.options,
+        correctAnswer: this.currentQuestionData.answer,
       }
       const modal = new bootstrap.Modal(document.getElementById('editQuestionModal'))
       modal.show()
