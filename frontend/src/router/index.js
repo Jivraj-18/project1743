@@ -190,13 +190,13 @@ const router = createRouter({
       props: true,
     },
     {
-      path: '/ta/courses',
+      path: '/ta/courses', // done
       name: 'ta-courses',
       component: Student_Courses,
       props: true,
     },
     {
-      path: '/ta/course/:id',
+      path: '/ta/course/:id', // done
       name: 'ta_course',
       component: () => import('@/views/Student/Course.vue'),
       props: true,
