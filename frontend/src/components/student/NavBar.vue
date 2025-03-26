@@ -47,13 +47,18 @@
               My Courses
               <i class="bi bi-chevron-down"></i>
             </router-link>
+            <!-- Dropdown menu populated with courses -->
             <ul class="dropdown-menu" aria-labelledby="myCoursesDropdown">
-              <li>
-                <router-link class="dropdown-item" to="/student/course/1"> Course 1 </router-link>
+              <li v-for="course in courses" :key="course.id">
+                <router-link
+                  class="dropdown-item"
+                  :class="{ active: $route.path.startsWith('/student/course/' + course.id) }"
+                  :to="'/student/course/' + course.id"
+                  >{{ course.name }}</router-link
+                >
               </li>
-              <li>
-                <router-link class="dropdown-item" to="/student/course/2"> Course 2 </router-link>
-              </li>
+
+              
             </ul>
           </li>
           <li class="nav-item">
@@ -101,10 +106,13 @@
 <script>
 export default {
   name: 'NavbarComponent',
-  // write a method that sends request using fetch api to logout of application and also remove the token from local storage
+  data() {
+    return {
+      courses: [],
+    };
+  },
   methods: {
     logout() {
-      // Send a request to the backend to log out
       fetch('http://localhost:5000/api/logout', {
         method: 'GET',
         headers: {
@@ -114,9 +122,7 @@ export default {
       })
         .then((response) => {
           if (response.ok) {
-            // Remove token from local storage
             localStorage.removeItem('token');
-            // Redirect to login page
             this.$router.push('/login');
           } else {
             console.error('Logout failed');
@@ -126,8 +132,44 @@ export default {
           console.error('Error during logout:', error);
         });
     },
-  },
+    fetchCourses(studentId) {
+  fetch(`http://localhost:5000/api/mycourses/${studentId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (Array.isArray(data)) {  // Ensure the response is an array
+        this.courses = data.map(course => ({
+          id: course.course_id, // Extract course_id
+          name: course.course_name // Extract course_name
+        }));
+      } else {
+        console.error('Unexpected API response format:', data);
+        this.courses = [];
+      }
+    })
+    .catch((error) => {
+      console.error('Error fetching courses:', error);
+    });
 }
+,
+  },
+  mounted() {
+    const userData = JSON.parse(localStorage.getItem('userdata') || '{}');
+    const studentId = userData.student_id;
+
+    console.log('Student ID:', studentId);
+    if (studentId) {
+      this.fetchCourses(studentId);
+    }
+    
+  },
+};
+
 
 </script>
 

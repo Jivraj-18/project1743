@@ -177,45 +177,145 @@ class Tasks(Resource):
     
 # to get courses for a student
 class MyCourses(Resource):
+    ## implement fetching courses for a student in following format
+    """
+   {
+        //   id: '1',
+        //   title: 'Python',
+        //   weeks: [
+        //     {
+        //       id: '1',
+        //       title: 'Week 1',
+        //       lectures: [
+        //         { lec_id: 'lecture-1', title: 'L1.1 - Introduction', type: 'lecture' },
+        //         { lec_id: 'lecture-2', title: 'L1.2 - Basics', type: 'lecture' },
+        //       ],
+        //       g_assignments: [
+        //         { ga_id: '1', title: 'Graded Assignment 1', type: 'graded-assignment' },
+        //       ],
+        //       grp_assignments: [
+        //         {
+        //           grpa_id: '1',
+        //           title: 'Graded Programming Assignment 1',
+        //           type: 'graded-programming-assignment',
+        //         },
+        //       ],
+        //       p_assignments: [
+        //         { pa_id: '1', title: 'Practice Assignment 1', type: 'practice-assignment' },
+        //       ],
+        //       pp_assignments: [
+        //         {
+        //           ppa_id: '1',
+        //           title: 'Practice Programming Assignment 1',
+        //           type: 'practice-programming-assignment',
+        //         },
+        //         {
+        //           ppa_id: '2',
+        //           title: 'Practice Programming Assignment 2',
+        //           type: 'practice-programming-assignment',
+        //         },
+        //       ],
+        //       concept_summary: {
+        //         cs_id: 'cs1',
+        //         title: 'Concept Summary 1',
+        //         type: 'concept-summary',
+        //       },
+        //     },
+        //     {
+        //       id: '2',
+        //       title: 'Week 2',
+        //       lectures: [
+        //         { lec_id: 'lecture-3', title: 'L2.1 - Advanced Concepts', type: 'lecture' },
+        //         { lec_id: 'lecture-4', title: 'L2.2 - Hands-on', type: 'lecture' },
+        //       ],
+        //       g_assignments: [
+        //         { ga_id: '2', title: 'Graded Assignment 2', type: 'graded-assignment' },
+        //       ],
+        //       grp_assignments: [
+        //         {
+        //           grpa_id: '3',
+        //           title: 'Graded Programming Assignment 3',
+        //           type: 'graded-programming-assignment',
+        //         },
+        //       ],
+        //       p_assignments: [
+        //         { pa_id: '2', title: 'Practice Assignment 2', type: 'practice-assignment' },
+        //       ],
+        //       pp_assignments: [
+        //         {
+        //           ppa_id: '4',
+        //           title: 'Practice Programming Assignment 4',
+        //           type: 'practice-programming-assignment',
+        //         },
+        //       ],
+        //       concept_summary: {
+        //         cs_id: 'cs2',
+        //         title: 'Concept Summary 2',
+        //         type: 'concept-summary',
+        //       },
+        //     },
+        //   ],
+        // },
+        // {
+
+    """
     def get(self, student_id):
         student = db.session.get(Student, student_id)
         if not student:
             return {'message': 'Student not found'}, 404
 
-        courses = db.session.query(Course.course_name, Course.course_id) \
-            .join(CourseStudent, Course.course_id == CourseStudent.course_id) \
-            .filter(CourseStudent.student_id == student_id) \
-            .all()
-
-        course_data = {course_name: [] for course_name, _ in courses}  # Initialize empty lists for each course
-
-        # Fetch assignment submissions for the student
-        assignments = (
-            db.session.query(
-                Course.course_name,
-                Assignment.which_week,
-                Assignment.category,
-                Assignment.total_marks,
-                AssignmentStudent.marks_obtained
-            )
-            .join(Assignment, Course.course_id == Assignment.course_id)
-            .join(AssignmentStudent, Assignment.assignment_id == AssignmentStudent.assignment_id)
-            .filter(
-                AssignmentStudent.student_id == student_id  # Get only submitted assignments
-            )
-            .all()
-        )
-
-        # Populate submitted assignments
-        for course_name, which_week, category, total_marks, marks_obtained in assignments:
-            percentage = (int(marks_obtained) / total_marks) * 100 if total_marks else 0
-            assignment_name = f"Week {which_week} {category}"
-            course_data[course_name].append({
-                "assignment_name": assignment_name,
-                "percentage": round(percentage, 2)
+        courses = db.session.query(Course).join(CourseStudent).filter(CourseStudent.student_id == student_id).all()
+        course_list = []
+        for course in courses:
+            weeks = db.session.query(Assignment).filter_by(course_id=course.course_id).all()
+            week_list = []
+            for week in weeks:
+                assignments = db.session.query(Assignment).filter_by(course_id=course.course_id, which_week=week.which_week).all()
+                assignment_list = [{'assignment_id': a.assignment_id, 'category': a.category, 'which_week': a.which_week, 'total_marks': a.total_marks} for a in assignments]
+                #  content doesn't have which_week but have content type in following format "Week 1"
+                contents = db.session.query(Content).filter_by(course_id=course.course_id, content_type=week.category).all()
+                # contents = db.session.query(Content).filter_by(course_id=course.course_id, which_week=week.which_week).all()
+                content_list = [{'content_id': c.content_id, 'content_type': c.content_type, 'content_name': c.content_name, 'url': c.url, 'transcript_url': c.transcript_url} for c in contents]
+                week_list.append({
+                    'week_id': week.which_week,
+                    'week_title': week.category,
+                    'assignments': assignment_list,
+                    'content': content_list
+                })
+            course_list.append({
+                'course_id': course.course_id,
+                'course_name': course.course_name,
+                'course_description': course.description,
+                'weeks': week_list
             })
+        return jsonify(course_list)
 
-        return jsonify(course_data)
+    # def get(self, student_id):
+    #     student = db.session.get(Student, student_id)
+    #     if not student:
+    #         return {'message': 'Student not found'}, 404
+
+    #     courses = db.session.query(Course).join(CourseStudent).filter(CourseStudent.student_id == student_id).all()
+        
+    #     course_list = []
+    #     for course in courses:
+    #         assignments = db.session.query(Assignment).filter_by(course_id=course.course_id).all()
+    #         assignment_list = [{'assignment_id': a.assignment_id, 'category': a.category, 'which_week': a.which_week, 'total_marks': a.total_marks} for a in assignments]
+
+    #         contents = db.session.query(Content).filter_by(course_id=course.course_id).all()
+    #         content_list = [{'content_id': c.content_id, 'content_type': c.content_type, 'content_name': c.content_name, 'url': c.url, 'transcript_url': c.transcript_url} for c in contents]
+
+    #         course_list.append({
+    #             'course_id': course.course_id,
+    #             'course_name': course.course_name,
+    #             'course_description': course.description,
+    #             'assignments': assignment_list,
+    #             'content': content_list
+    #         })
+
+    #     return jsonify(course_list)
+
+    
 
 class InstructorCourses(Resource):
     @auth_required('token')  # Ensure user is authenticated
