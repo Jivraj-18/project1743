@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -7,9 +8,18 @@ from .fs import FileManager
 
 class QuerySelector:
 
-    def __init__(self):
-        self.vectorizer = TfidfVectorizer(stop_words='english')
+    def __init__(self, model_path="model.pkl"):
+        self.model_path = model_path
+        self.vectorizer = None
         self.stages = {}
+
+        if os.path.exists(self.model_path):
+            with open(self.model_path, 'rb') as f:
+                model_data = pickle.load(f)
+                self.vectorizer = model_data['vectorizer']
+                self.stages = model_data['stages']
+        else:
+            self.vectorizer = TfidfVectorizer(stop_words='english')
 
     def make_stage(self, name, data):
         """
@@ -18,11 +28,43 @@ class QuerySelector:
         """
         labels = list(data.keys())
         documents = [doc.lower() for doc in data.values()]
+        
+        # Fit and transform only once with the initial documents
         X = self.vectorizer.fit_transform(documents)
 
         self.stages[name] = {
             'labels': labels,
             'data': X
+        }
+
+    def update_stage(self, name, new_data):
+        """
+        Takes a name for the stage and a dictionary with new documents to be added,
+        updates the TF-IDF matrix and labels for the corresponding stage.
+        """
+        # Check if the stage exists
+        if name not in self.stages:
+            print(f"No such stage: {name}")
+            return
+
+        stage_data = self.stages[name]
+        existing_labels = stage_data['labels']
+        existing_data = stage_data['data']
+
+        # Get the new labels and documents
+        new_labels = list(new_data.keys())
+        new_documents = [doc.lower() for doc in new_data.values()]
+
+        # Transform the new documents using the already fitted vectorizer
+        new_X = self.vectorizer.transform(new_documents)
+
+        # Combine old and new data (vertically stacking the TF-IDF matrices)
+        combined_X = np.vstack([existing_data.toarray(), new_X.toarray()])
+
+        # Update the stage data with new labels and combined TF-IDF matrix
+        self.stages[name] = {
+            'labels': existing_labels + new_labels,
+            'data': combined_X
         }
 
     def selector(self, user_query, stage):
@@ -50,43 +92,46 @@ class QuerySelector:
 
         # Return labels with corresponding similarity scores
         result = {label: prob for label, prob in zip(labels, probabilities)}
-        return result
+        b = sorted(result.items(), key=lambda x: x[1], reverse=True)
+
+        return b
 
 
-python = FileManager('sub')
-# python.create_directory()
-# python.text_to_file('L1.txt', 'We talk about data types')
-# python.text_to_file('L2.txt', 'Lets learn about int and string')
 
+sub = FileManager('sub')
+# sub.create_directory()
+# sub.text_to_file('L1.txt', 'We talk about data types')
+# sub.text_to_file('L2.txt', 'Lets learn about int and string')
 
-# Setting Up data
+# Setting up initial data
 stageData = {}
 
 # File data
-for i in python.files_in_dir():
-    stageData[i.split(".")[0]] = python.file_to_text(f"{i}")
+for i in sub.files_in_dir():
+    stageData[i.split(".")[0]] = sub.file_to_text(f"{i}")
 
-
-
-# Manual data
-# stageData["sb"] =  """A magne motors and generators. The interaction of magnetic fields in electric devices such as transformers is conceptualized and investigated as magnetic circuits. Magnetic forces give information about the charge carriers in a material through the Hall effect. The Earth produces its own magnetic field, which shields the Earth's ozone layer from the solar wind and is important in navigation using a compass."""
-# stageData["quantum"] =  """A quantum computer is a computer that exploits quantum mechanical phenomena. ufficiently isolated can solve the same computational problems as a quantum computer, given enough time. Quantum advantage comes in the form of time complexity rather than computability, and quantum complexity theory shows that some quantum algorithms are exponentially more efficient than the best-known classical algorithms. A large-scale quantum computer could in theory solve computational problems unsolvable by a classical computer in any reasonable amount of time. This concept of extra ability has been called "quantum supremacy". While such claims have drawn significant attention to the discipline, near-term practical use cases remain limited."""
-# stageData["Hydrogen"] =  """Hydrogen is a chemical element; The more familiar electrolysis of water is uncommon because it is energy-intensive, i.e. expensive.[16][17] Its main industrial uses include fossil fuel processing, such as hydrocracking and hydrodesulfurization. Ammonia production also is a major consumer of hydrogen. Fuel cells for electricity generation from hydrogen is rapidly emerging.[18]"""
-
-# print(stageData)
+# Print stage data for confirmation
 for k, v in stageData.items():
     print(f"{k:<20} {v[:10]}")
 
-# Initialize the class
+# Initialize the QuerySelector class
 query_selector = QuerySelector()
 query_selector.make_stage("qbd", stageData)
 
-# Testing
-result = query_selector.selector("How many types of operators are in python", "qbd")
-sorted_result = sorted(result.items(), key=lambda x: x[1], reverse=True)
+# Add new files later
+new_files = {
+    "new_file1": "Content of the first new file.",
+    "new_file2": "Content of the second new file."
+}
+
+# Update the existing stage with new files without retraining the vectorizer
+query_selector.update_stage("qbd", new_files)
+
+# Test the selector with the updated stage
+result = query_selector.selector("What are the types of variables in python?", "qbd")
 
 print(f"{'Label':<20} {'Probability':<10}")
 print("-" * 35)
 
-for label, prob in sorted_result:
+for label, prob in result:
     print(f"{label:<20} {prob:.2f}")
