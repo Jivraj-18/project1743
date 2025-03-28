@@ -4,6 +4,11 @@ import json
 
 from .rag import query_selector
 
+
+sptb = [
+    # Prompts Goes Here
+]
+
 chatChecker = """
 
 The AI response should adapt to the type of user query according to the following categories:
@@ -235,7 +240,21 @@ class INK:
         s = data
         b = {}
 
-        # We Need to Use RAG here to check the Documents Involved.
+        cats = [ "Asking General Question", "Asking Question Related to Course", "Need Motivation", "Feeling Bored", "Search Content" ]
+
+        # RUN LLM To Classify
+
+        # ---- RAG Connection
+
+        result = query_selector.selector(s['prompt'], "qbd")
+
+        print(f"{'Label':<20} {'Probability':<10}")
+        print("-" * 35)
+
+        for label, prob in result:
+            print(f"{label:<20} {prob:.2f}")
+
+        # ---- RAG Connection
 
         ptp = {
             "model": "gpt-4o-mini",
@@ -275,7 +294,12 @@ class INK:
         return b
 
     def surprise_features(self, data):
+        s = data
         b = {}
         return b
+
+    # Generate Youtube Transcript
+
+
 
 ink = INK("eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjIyZjMwMDA2MDVAZHMuc3R1ZHkuaWl0bS5hYy5pbiJ9.3Obdi1LKmdOki-kPPdF_QtPlcNA-5opr6Txsv5Vccho")
